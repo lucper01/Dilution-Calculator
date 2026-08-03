@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#061f17">
+  <meta name="description" content="Calculateur local de concentration et dilution en cascade.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon-192.png">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <meta name="color-scheme" content="light">
+  <title>Calculateur de dilution</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero__inner">
+      <div>
+        <p class="eyebrow">OUTIL DE LABORATOIRE · FONCTIONNEMENT LOCAL</p>
+        <h1>Calculateur de concentration et dilution</h1>
+        <p class="hero__subtitle">
+          Préparation v/v en cascade, avec calcul automatique de chaque tube.
+        </p>
+      </div>
+      <div class="hero-actions">
+        <div class="offline-badge" aria-label="Application compatible hors ligne">
+          <span class="offline-dot"></span>
+          Compatible hors ligne
+        </div>
+        <button id="install-button" class="install-button" type="button" hidden>
+          Installer l’application
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <section class="card parameters-card" aria-labelledby="parameters-title">
+      <div class="section-heading">
+        <p class="section-kicker">Paramètres</p>
+        <div class="heading-row">
+          <h2 id="parameters-title">Définir la préparation</h2>
+          <button class="help-button" type="button"
+                  data-help-title="Paramètres de préparation"
+                  data-help="Tous les calculs sont réalisés localement sur cet appareil. Chaque modification relance entièrement le calcul et reconstruit le protocole tube par tube."
+                  aria-label="Aide sur les paramètres">?</button>
+        </div>
+        <p>Choisissez le format de concentration, le diluant et le volume final préparé à chaque étape.</p>
+      </div>
+
+      <div class="form-grid">
+        <div class="field field--full">
+          <div class="label-row">
+            <label for="mode">Format de concentration</label>
+            <button class="help-button help-button--small" type="button"
+                    data-help-title="Format de concentration"
+                    data-help="Quatre écritures sont acceptées : pourcentage, coefficient × 10^exposant, exposant seul 10^-x et fraction. Le changement de format réinitialise uniquement les champs de concentration à 10^-1."
+                    aria-label="Aide sur le format">?</button>
+          </div>
+          <select id="mode">
+            <option value="percent">Pourcentage v/v</option>
+            <option value="scientific" selected>Coefficient × 10^exposant</option>
+            <option value="power">Exposant seul : 10^-x</option>
+            <option value="fraction">Fraction : numérateur / dénominateur</option>
+          </select>
+        </div>
+
+        <div id="panel-percent" class="mode-panel field--full" hidden>
+          <div class="field">
+            <label for="percentage">Pourcentage cible (% v/v)</label>
+            <input id="percentage" inputmode="decimal" value="10" autocomplete="off">
+            <p class="field-help">Exemple : 5 correspond à 5 % v/v.</p>
+          </div>
+        </div>
+
+        <div id="panel-scientific" class="mode-panel field--full">
+          <div class="two-columns">
+            <div class="field">
+              <div class="label-row">
+                <label for="coefficient">Coefficient facultatif</label>
+                <button class="help-button help-button--small" type="button"
+                        data-help-title="Coefficient"
+                        data-help="Laissez ce champ vide lorsque la concentration est une puissance de dix simple. Par exemple, coefficient vide et exposant -1 correspondent à 10^-1."
+                        aria-label="Aide sur le coefficient">?</button>
+              </div>
+              <input id="coefficient" inputmode="decimal" value="" placeholder="1 implicite" autocomplete="off">
+            </div>
+            <div class="field">
+              <label for="scientific-exponent">Exposant de 10</label>
+              <input id="scientific-exponent" inputmode="text" value="-1" autocomplete="off">
+            </div>
+          </div>
+          <p class="field-help">Exemples acceptés : <strong>-1</strong>, <strong>10^-1</strong>, <strong>10-1</strong> ou <strong>10⁻¹</strong>.</p>
+        </div>
+
+        <div id="panel-power" class="mode-panel field--full" hidden>
+          <div class="field">
+            <label for="power-x">Valeur x dans 10^-x</label>
+            <input id="power-x" inputmode="decimal" value="1" autocomplete="off">
+            <p class="field-help">Exemple : x = 2 produit 10^-2.</p>
+          </div>
+        </div>
+
+        <div id="panel-fraction" class="mode-panel field--full" hidden>
+          <div class="two-columns">
+            <div class="field">
+              <label for="numerator">Numérateur</label>
+              <input id="numerator" inputmode="decimal" value="1" autocomplete="off">
+            </div>
+            <div class="field">
+              <label for="denominator">Dénominateur</label>
+              <input id="denominator" inputmode="decimal" value="10" autocomplete="off">
+            </div>
+          </div>
+          <p class="field-help">Exemple : 1 / 20 correspond à 5 % v/v.</p>
+        </div>
+
+        <div class="field">
+          <div class="label-row">
+            <label for="product-base">Nature du produit</label>
+            <button class="help-button help-button--small" type="button"
+                    data-help-title="Nature du produit"
+                    data-help="Cette information sert uniquement à afficher une indication générale de compatibilité. Elle ne remplace pas un test de miscibilité et de stabilité."
+                    aria-label="Aide sur la nature du produit">?</button>
+          </div>
+          <select id="product-base">
+            <option>Aqueuse / hydrosoluble</option>
+            <option>Huileuse / lipophile</option>
+            <option>Alcoolique</option>
+            <option>Arôme ou mélange complexe</option>
+            <option>Nature inconnue</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <div class="label-row">
+            <label for="diluent">Diluant / solvant</label>
+            <button class="help-button help-button--small" type="button"
+                    data-help-title="Diluant"
+                    data-help="Le diluant sélectionné est repris dans chaque instruction. Les associations proposées restent indicatives et doivent être validées expérimentalement."
+                    aria-label="Aide sur le diluant">?</button>
+          </div>
+          <select id="diluent">
+            <option>Propylène glycol</option>
+            <option>Huile minérale</option>
+            <option>Eau distillée</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <div class="label-row">
+            <label for="total-volume">Volume final par tube</label>
+            <button class="help-button help-button--small" type="button"
+                    data-help-title="Volume final par tube"
+                    data-help="Chaque étape est complétée à ce volume. Avec 10 unités, une dilution décimale utilise 1 unité de source et 9 unités de diluant."
+                    aria-label="Aide sur le volume">?</button>
+          </div>
+          <input id="total-volume" inputmode="decimal" value="10" autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label for="unit">Unité de volume</label>
+          <select id="unit">
+            <option>mL</option>
+            <option>µL</option>
+            <option>unités</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <div class="label-row">
+            <label for="precision">Précision d'affichage</label>
+            <button class="help-button help-button--small" type="button"
+                    data-help-title="Précision"
+                    data-help="La précision modifie uniquement l'affichage et l'export. Le calcul interne conserve toute la précision numérique disponible."
+                    aria-label="Aide sur la précision">?</button>
+          </div>
+          <select id="precision">
+            <option value="1">1 décimale</option>
+            <option value="2">2 décimales</option>
+            <option value="3">3 décimales</option>
+            <option value="4">4 décimales</option>
+            <option value="5">5 décimales</option>
+            <option value="6" selected>6 décimales</option>
+            <option value="7">7 décimales</option>
+            <option value="8">8 décimales</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button id="reset-button" class="button button--secondary" type="button">
+          <span aria-hidden="true">↺</span> Réinitialiser
+        </button>
+        <button id="export-button" class="button button--primary" type="button">
+          <span aria-hidden="true">⇩</span> Exporter CSV
+        </button>
+      </div>
+    </section>
+
+    <section class="card results-card" aria-labelledby="results-title">
+      <div class="section-heading">
+        <p class="section-kicker">Résultat</p>
+        <div class="heading-row">
+          <h2 id="results-title">Plan de dilution</h2>
+          <button class="help-button" type="button"
+                  data-help-title="Plan de dilution"
+                  data-help="Le protocole est reconstruit à chaque modification. Chaque carte correspond à un tube successif et précise le volume de source, le volume de diluant et la concentration obtenue."
+                  aria-label="Aide sur le résultat">?</button>
+        </div>
+        <p>Suivez les étapes dans l'ordre, en utilisant le tube précédent comme source lorsque cela est indiqué.</p>
+      </div>
+
+      <div id="refresh-status" class="refresh-status" aria-live="polite">
+        <span class="spinner" aria-hidden="true"></span>
+        Actualisation du protocole…
+      </div>
+
+      <div id="results-content" class="results-content" aria-live="polite"></div>
+
+      <div class="result-actions">
+        <button id="copy-button" class="button button--secondary" type="button">
+          <span aria-hidden="true">⧉</span> Copier
+        </button>
+        <button id="share-button" class="button button--secondary" type="button">
+          <span aria-hidden="true">↗</span> Partager
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <div id="help-overlay" class="help-overlay" hidden>
+    <section class="help-dialog" role="dialog" aria-modal="true" aria-labelledby="help-title">
+      <button id="help-close" class="help-close" type="button" aria-label="Fermer">×</button>
+      <p class="section-kicker">Aide</p>
+      <h2 id="help-title">Information</h2>
+      <p id="help-text"></p>
+      <button id="help-ok" class="button button--primary" type="button">Compris</button>
+    </section>
+  </div>
+
+  <script src="dilution-engine.js"></script>
+  <script src="app.js"></script>
+  <script src="pwa.js"></script>
+</body>
+</html>
