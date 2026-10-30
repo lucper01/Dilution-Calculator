@@ -2104,6 +2104,387 @@ body[data-workflow-status="progress"] .major-section-banner { border-color: rgba
 body[data-workflow-status="complete"] .major-section-banner { border-color: rgba(43,124,166,.45); background: linear-gradient(90deg, rgba(43,124,166,.07), transparent); }
 body[data-workflow-status="error"] .major-section-banner { border-color: rgba(185,77,77,.45); }
 
+
+
+/* --------------------------------------------------------------------------
+   Mobile-first ergonomics refresh
+   -------------------------------------------------------------------------- */
+.mobile-actions-sheet,
+.mobile-actions-backdrop,
+.mobile-optional-toggle { display: none; }
+
+@media (max-width: 760px) {
+  html { scroll-padding-top: 62px; }
+  body {
+    padding-bottom: calc(78px + env(safe-area-inset-bottom));
+    overflow-x: hidden;
+  }
+
+  /* One compact top bar only */
+  .portfolio-nav {
+    position: sticky;
+    top: 0;
+    z-index: 120;
+    box-shadow: 0 4px 16px rgba(6,31,23,.12);
+  }
+  .portfolio-nav__inner {
+    min-height: 54px;
+    padding: 6px max(9px, env(safe-area-inset-right)) 6px max(9px, env(safe-area-inset-left));
+    gap: 7px;
+  }
+  .portfolio-nav__brand { gap: 7px; min-width: 0; }
+  .portfolio-nav__brand-mark { width: 34px; height: 34px; border-radius: 11px; }
+  .portfolio-nav__brand-text {
+    max-width: 124px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: .86rem;
+  }
+  .portfolio-nav__toggle { width: 40px; height: 40px; margin-left: auto; border-radius: 12px; }
+  .portfolio-nav .top-controls { display: none !important; }
+  .portfolio-nav__links {
+    top: calc(100% + 5px);
+    left: 8px;
+    right: 8px;
+    padding: 7px;
+    border-radius: 16px;
+  }
+  .portfolio-nav__links.is-open { grid-template-columns: 1fr 1fr; gap: 5px; }
+  .portfolio-nav__link { min-height: 42px; padding: 7px 9px; font-size: .76rem; border-radius: 12px; }
+
+  /* Remove redundant vertical chrome */
+  .hero { display: none; }
+  .workflow-toolbar { display: none; }
+  .config-card .panel-heading,
+  .results-toolbar { display: none; }
+
+  /* Edge-to-edge usable content with comfortable gutters */
+  .workspace {
+    width: 100%;
+    padding: 9px 8px 18px;
+    gap: 10px;
+  }
+  body.layout-protocol .config-card { display: block; }
+  .config-actions { display: none !important; }
+  .card,
+  .config-card,
+  .results-card {
+    width: 100%;
+    min-width: 0;
+    border-radius: 18px;
+    box-shadow: 0 7px 22px rgba(6,31,23,.07);
+  }
+  .card__inner,
+  .results-card { padding: 12px; }
+  .config-actions { margin: 12px -12px -12px; padding: 10px 12px 12px; }
+
+  /* Compact portfolio section banners */
+  #parameters,
+  #verification,
+  #protocol,
+  #export,
+  .major-section { scroll-margin-top: 62px; }
+  .major-section-banner {
+    min-height: 54px;
+    margin-bottom: 10px;
+    padding: 8px 9px;
+    gap: 9px;
+    border-radius: 15px;
+  }
+  .major-section-banner__number {
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
+    font-size: .82rem;
+  }
+  .major-section-banner__title { font-size: 1.04rem; line-height: 1.1; }
+  .major-section-banner__eyebrow,
+  .major-section-banner__meta { display: none; }
+  .major-section-banner .info-button { width: 36px; height: 36px; min-width: 36px; }
+  .section-drag-handle { display: none; }
+
+  /* Parameter cards */
+  .form-section {
+    margin-bottom: 9px;
+    padding: 12px;
+    border-radius: 15px;
+  }
+  .form-section__head { margin-bottom: 10px; }
+  .form-section__title { font-size: .96rem; }
+  .field-grid { grid-template-columns: 1fr; gap: 10px; }
+  .field label { font-size: .8rem; }
+  input, select, textarea {
+    min-height: 50px;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+  textarea { min-height: 92px; }
+  .field-note { margin-top: 5px; font-size: .76rem; line-height: 1.4; }
+
+  /* Keep only one concentration-format selector on phones */
+  .mode-grid { display: none !important; }
+  .format-shortcuts-block { margin-bottom: 10px; padding: 8px; border-radius: 13px; }
+  .format-shortcuts-block__head { margin-bottom: 7px; font-size: .7rem; }
+  .format-shortcuts-block__head span:last-child { display: none; }
+  .format-shortcuts { grid-template-columns: repeat(4, minmax(0,1fr)); gap: 5px; }
+  .format-shortcut {
+    min-height: 42px;
+    padding: 6px 3px;
+    border-radius: 10px;
+    font-size: .84rem;
+    white-space: nowrap;
+  }
+  .normalized-preview { margin-top: 8px; padding: 8px 9px; font-size: .76rem; }
+
+  /* Optional information is collapsed by default on mobile */
+  .optional-fields {
+    padding: 10px;
+    border-radius: 13px;
+  }
+  .optional-fields__mobile-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .optional-fields__mobile-head .optional-fields__title { margin: 0; }
+  .mobile-optional-toggle {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 auto;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    background: var(--white);
+    color: var(--green-900);
+    font-size: 1rem;
+    font-weight: 900;
+    cursor: pointer;
+  }
+  .optional-fields.is-mobile-collapsed > :not(.optional-fields__mobile-head) { display: none !important; }
+  .optional-fields.is-mobile-collapsed .mobile-optional-toggle { transform: rotate(-90deg); }
+
+  /* Results become vertical cards, no wide tables */
+  .compact-overview { display: none; }
+  .critical-values { grid-template-columns: 1fr 1fr; gap: 7px; margin: 10px 0; }
+  .critical-value { padding: 10px; border-radius: 13px; }
+  .critical-value__label { font-size: .66rem; }
+  .critical-value__value { font-size: 1.25rem; overflow-wrap: anywhere; }
+  .metric-grid { grid-template-columns: 1fr 1fr; gap: 7px; }
+  .metric-card { padding: 10px; border-radius: 13px; }
+  .summary-main, .summary-side { padding: 12px; }
+  .coherence-panel { margin: 10px 0; padding: 11px; border-radius: 13px; }
+
+  /* Protocol tailored for thumb use */
+  .protocol-workflow { gap: 8px; margin-bottom: 10px; }
+  .protocol-progress-card { padding: 10px 11px; border-radius: 13px; }
+  .protocol-progress-card__top { gap: 7px; font-size: .8rem; }
+  .protocol-mode-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: 5px;
+  }
+  .protocol-mode-row button { min-height: 40px; padding: 5px 4px; font-size: .72rem; }
+  .protocol-layout { display: block; }
+  .protocol-minimap {
+    display: flex;
+    position: static;
+    overflow-x: auto;
+    gap: 5px;
+    margin: 0 0 8px;
+    padding: 6px;
+    border-radius: 12px;
+    scrollbar-width: none;
+  }
+  .protocol-minimap::-webkit-scrollbar { display: none; }
+  .protocol-minimap button { min-width: 42px; min-height: 38px; flex: 0 0 42px; }
+  .current-step-float {
+    top: 61px;
+    z-index: 80;
+    margin-bottom: 8px;
+    padding: 8px 10px;
+    border-radius: 12px;
+    font-size: .78rem;
+  }
+  .step-card { border-radius: 16px; }
+  .step-card::before,
+  .step-card::after { display: none; }
+  .step-card.is-expanded { margin-left: 0; margin-right: 0; transform: none; }
+  .step-card__head {
+    display: grid;
+    grid-template-columns: 44px minmax(0,1fr);
+    gap: 9px;
+    padding: 11px;
+  }
+  .step-number {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    font-size: 1rem;
+    border-radius: 12px;
+  }
+  .step-card__head h3 { font-size: 1rem; line-height: 1.2; }
+  .step-source { font-size: .76rem; }
+  .step-hierarchy { font-size: .68rem; }
+  .source-identity { max-width: 100%; font-size: .72rem; }
+  .step-actions {
+    grid-column: 1 / -1;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin: 1px 0 0;
+  }
+  .step-action { min-height: 40px; padding: 6px; font-size: .72rem; }
+  .step-card__body { padding: 10px 11px 12px; }
+  .volume-grid { grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 10px; }
+  .volume-chip { min-width: 0; padding: 9px; border-radius: 12px; }
+  .volume-chip:last-child { grid-column: 1 / -1; }
+  .volume-chip__label { font-size: .65rem; }
+  .volume-chip__value { font-size: 1rem; overflow-wrap: anywhere; }
+  .composition-card { padding: 9px; border-radius: 12px; }
+  .composition-legend { grid-template-columns: 1fr 1fr; gap: 5px; }
+  .protocol-list li { padding-left: 29px; font-size: .86rem; line-height: 1.45; }
+  .step-result { padding: 9px; font-size: .76rem; line-height: 1.42; }
+  .step-complete-label {
+    width: 100%;
+    min-height: 46px;
+    justify-content: center;
+    margin-top: 8px;
+    border: 1px solid var(--green-200);
+  }
+
+  /* Mobile bottom navigation replaces destructive reset/share buttons */
+  .mobile-action-bar {
+    z-index: 300;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    gap: 4px;
+    padding: 6px max(6px, env(safe-area-inset-right)) calc(6px + env(safe-area-inset-bottom)) max(6px, env(safe-area-inset-left));
+    border-top: 1px solid var(--line);
+    background: color-mix(in srgb,var(--white) 96%,transparent);
+    box-shadow: 0 -7px 22px rgba(6,31,23,.10);
+  }
+  .mobile-action-bar .button,
+  .mobile-nav-button {
+    min-width: 0;
+    min-height: 51px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 5px 3px;
+    border: 0;
+    border-radius: 11px;
+    background: transparent;
+    color: var(--green-900);
+    font-size: .66rem;
+    font-weight: 850;
+    line-height: 1.1;
+    cursor: pointer;
+  }
+  .mobile-action-bar .button svg { width: 18px; height: 18px; }
+  .mobile-nav-button__icon { font-size: 1.15rem; line-height: 1; }
+  .mobile-nav-button.is-active { background: var(--green-100); }
+
+  /* Bottom sheet for secondary mobile actions */
+  .mobile-actions-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1290;
+    background: rgba(3,18,12,.48);
+    backdrop-filter: blur(3px);
+  }
+  .mobile-actions-backdrop.is-open { display: block; }
+  .mobile-actions-sheet {
+    position: fixed;
+    z-index: 1300;
+    left: 8px;
+    right: 8px;
+    bottom: calc(8px + env(safe-area-inset-bottom));
+    max-height: min(78vh, 650px);
+    overflow: auto;
+    padding: 8px 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 23px;
+    background: var(--white);
+    box-shadow: 0 22px 60px rgba(3,18,12,.28);
+  }
+  .mobile-actions-sheet.is-open { display: block; }
+  .mobile-actions-sheet__handle {
+    width: 42px;
+    height: 4px;
+    margin: 2px auto 9px;
+    border-radius: 999px;
+    background: var(--green-200);
+  }
+  .mobile-actions-sheet__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .mobile-actions-sheet__head strong { color: var(--green-900); }
+  .mobile-actions-sheet__close {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--green-050);
+    color: var(--green-900);
+    font-size: 1.2rem;
+  }
+  .mobile-actions-sheet__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .mobile-sheet-action {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--green-050);
+    color: var(--green-900);
+    text-align: left;
+    font-weight: 800;
+    cursor: pointer;
+  }
+  .mobile-sheet-action--danger { grid-column: 1 / -1; color: #8b3131; background: #fff7f7; }
+  body.dark-mode .mobile-actions-sheet,
+  body.dark-mode .mobile-optional-toggle { background: #071a13; color: #f2faf5; }
+  body.dark-mode .mobile-sheet-action { background: #0c2119; color: #f2faf5; }
+  body.dark-mode .mobile-sheet-action--danger { background: #2a1515; color: #ffd8d8; }
+  body.dark-mode .mobile-action-bar { background: rgba(7,26,19,.96); }
+  body.dark-mode .mobile-nav-button,
+  body.dark-mode .mobile-action-bar .button { color: #f2faf5; }
+  body.dark-mode .mobile-nav-button.is-active { background: #174a37; }
+
+  .toast { bottom: calc(73px + env(safe-area-inset-bottom)); }
+  .customization-panel {
+    left: 7px;
+    right: 7px;
+    bottom: calc(73px + env(safe-area-inset-bottom));
+    max-height: 78vh;
+    border-radius: 20px;
+  }
+  .help-dialog,
+  .onboarding-dialog,
+  .command-dialog { border-radius: 20px; }
+}
+
+@media (max-width: 390px) {
+  .portfolio-nav__brand-text { max-width: 92px; }
+  .format-shortcuts { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .format-shortcut { font-size: .88rem; }
+  .critical-values,
+  .metric-grid { grid-template-columns: 1fr; }
+  .mobile-actions-sheet__grid { grid-template-columns: 1fr; }
+  .mobile-sheet-action--danger { grid-column: auto; }
+}
+
 </style>
 </head>
 
@@ -2477,8 +2858,11 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
             <h3 class="form-section__title" data-i18n="sectionIdentification">3 · Noms et traçabilité</h3>
           </div>
 
-          <div class="optional-fields">
-            <h4 class="optional-fields__title" data-i18n="customNamesTitle">Noms personnalisés</h4>
+          <div class="optional-fields is-mobile-collapsed">
+            <div class="optional-fields__mobile-head">
+              <h4 class="optional-fields__title" data-i18n="customNamesTitle">Noms personnalisés</h4>
+              <button class="mobile-optional-toggle" type="button" aria-expanded="false" aria-label="Afficher ou masquer">⌄</button>
+            </div>
             <p class="optional-fields__note" data-i18n="optionalFieldsNote">Tous les champs de cette section sont facultatifs. Ils ne bloquent ni le calcul ni l’export.</p>
             <div class="field-grid">
               <div class="field">
@@ -2496,8 +2880,11 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
             </div>
           </div>
 
-          <div class="optional-fields" style="margin-top: 12px;">
-            <h4 class="optional-fields__title" data-i18n="traceabilityTitle">Traçabilité facultative</h4>
+          <div class="optional-fields is-mobile-collapsed" style="margin-top: 10px;">
+            <div class="optional-fields__mobile-head">
+              <h4 class="optional-fields__title" data-i18n="traceabilityTitle">Traçabilité facultative</h4>
+              <button class="mobile-optional-toggle" type="button" aria-expanded="false" aria-label="Afficher ou masquer">⌄</button>
+            </div>
             <p class="optional-fields__note" data-i18n="traceabilityNote">Renseignez uniquement les informations utiles. Les champs laissés vides sont simplement omis des résumés et exports.</p>
             <div class="field-grid">
               <div class="field">
@@ -2526,7 +2913,7 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
 
         <section class="form-section">
           <div class="form-section__head">
-            <h3 class="form-section__title" data-i18n="sectionVolume">3 · Volume et affichage</h3>
+            <h3 class="form-section__title" data-i18n="sectionVolume">4 · Volume et affichage</h3>
             <button class="info-button info-button--small" type="button"
               data-help-title-key="helpVolumeTitle"
               data-help-key="helpVolume"
@@ -2599,20 +2986,45 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
   </main>
 
   <nav class="mobile-action-bar" data-i18n-aria="quickActions">
-    <button class="button button--secondary" type="button" data-action="reset" data-icon="reset">
-      <span data-i18n="resetShort">Réinitialiser</span>
+    <button class="mobile-nav-button is-active" type="button" data-mobile-nav="parameters">
+      <span class="mobile-nav-button__icon" aria-hidden="true">⌁</span>
+      <span data-i18n="navParameters">Paramètres</span>
     </button>
-    <button class="button button--secondary" type="button" data-action="copy" data-icon="copy">
+    <button class="mobile-nav-button" type="button" data-mobile-nav="protocol">
+      <span class="mobile-nav-button__icon" aria-hidden="true">✓</span>
+      <span data-i18n="navProtocol">Protocole</span>
+    </button>
+    <button class="button" type="button" data-action="copy" data-icon="copy">
       <span data-i18n="copy">Copier</span>
     </button>
-    <button class="button button--secondary" type="button" data-action="share" data-icon="share">
-      <span data-i18n="share">Partager</span>
-    </button>
-    <button class="button button--primary" type="button" data-action="export" data-icon="export">
-      <span data-i18n="exportShort">Exporter</span>
+    <button class="mobile-nav-button" id="mobile-actions-trigger" type="button" aria-controls="mobile-actions-sheet" aria-expanded="false">
+      <span class="mobile-nav-button__icon" aria-hidden="true">•••</span>
+      <span data-i18n="quickActionsLabel">Actions</span>
     </button>
   </nav>
 
+
+  <div class="mobile-actions-backdrop" id="mobile-actions-backdrop" hidden></div>
+  <section class="mobile-actions-sheet" id="mobile-actions-sheet" hidden aria-modal="true" role="dialog" aria-labelledby="mobile-actions-title">
+    <div class="mobile-actions-sheet__handle" aria-hidden="true"></div>
+    <div class="mobile-actions-sheet__head">
+      <strong id="mobile-actions-title" data-i18n="quickActionsLabel">Actions</strong>
+      <button class="mobile-actions-sheet__close" id="mobile-actions-close" type="button" data-i18n-aria="close">×</button>
+    </div>
+    <div class="mobile-actions-sheet__grid">
+      <button class="mobile-sheet-action" type="button" data-mobile-command="verification"><span aria-hidden="true">02</span><span data-i18n="navVerification">Vérification</span></button>
+      <button class="mobile-sheet-action" type="button" data-mobile-command="export-section"><span aria-hidden="true">04</span><span data-i18n="navExport">Export</span></button>
+      <button class="mobile-sheet-action" type="button" data-mobile-command="csv"><span aria-hidden="true">↓</span><span data-i18n="exportCsv">Exporter le CSV</span></button>
+      <button class="mobile-sheet-action" type="button" data-mobile-command="text"><span aria-hidden="true">TXT</span><span data-i18n="actionExportText">Exporter en texte</span></button>
+      <button class="mobile-sheet-action" type="button" data-mobile-command="share"><span aria-hidden="true">↗</span><span data-i18n="share">Partager</span></button>
+      <button class="mobile-sheet-action" type="button" data-mobile-command="lock"><span aria-hidden="true">🔓</span><span data-mobile-lock-label data-i18n="lock">Verrouiller</span></button>
+      <button class="mobile-sheet-action" type="button" data-mobile-command="undo"><span aria-hidden="true">↶</span><span data-i18n="undo">Annuler</span></button>
+      <button class="mobile-sheet-action" type="button" data-mobile-command="redo"><span aria-hidden="true">↷</span><span data-i18n="redo">Rétablir</span></button>
+      <button class="mobile-sheet-action" type="button" data-mobile-command="guide"><span aria-hidden="true">?</span><span data-i18n="guide">Guide</span></button>
+      <button class="mobile-sheet-action" type="button" data-mobile-command="customize"><span aria-hidden="true">⚙</span><span data-i18n="customize">Personnalisation</span></button>
+      <button class="mobile-sheet-action mobile-sheet-action--danger" type="button" data-mobile-command="reset"><span aria-hidden="true">↺</span><span data-i18n="reset">Réinitialiser</span></button>
+    </div>
+  </section>
 
 
   <div class="command-overlay" id="command-overlay" hidden>
@@ -3407,7 +3819,13 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
     autoScrollToggle: $("auto-scroll-toggle"),
     dualUnitToggle: $("dual-unit-toggle"),
     unitConversionNote: $("unit-conversion-note"),
-    normalizedPreview: $("normalized-preview")
+    normalizedPreview: $("normalized-preview"),
+    mobileActionsTrigger: $("mobile-actions-trigger"),
+    mobileActionsSheet: $("mobile-actions-sheet"),
+    mobileActionsBackdrop: $("mobile-actions-backdrop"),
+    mobileActionsClose: $("mobile-actions-close"),
+    mobileNavButtons: Array.from(document.querySelectorAll("[data-mobile-nav]")),
+    mobileOptionalToggles: Array.from(document.querySelectorAll(".mobile-optional-toggle"))
   };
 
   let currentLanguage = safeStorageGet(STORAGE.language) || "fr";
@@ -3681,6 +4099,12 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
     }
     document.querySelectorAll("[data-protocol-command='lock']").forEach((button) => {
       button.innerHTML = `${protocolLocked ? "🔒" : "🔓"} ${escapeHtml(t(protocolLocked ? "unlock" : "lock"))}`;
+    });
+    document.querySelectorAll("[data-mobile-lock-label]").forEach((label) => {
+      label.textContent = t(protocolLocked ? "unlock" : "lock");
+      label.dataset.i18n = protocolLocked ? "unlock" : "lock";
+      const icon = label.parentElement?.querySelector("span[aria-hidden]");
+      if (icon) icon.textContent = protocolLocked ? "🔒" : "🔓";
     });
     if (!silent) showToast(t(protocolLocked ? "parametersLocked" : "parametersUnlocked"));
     updateWorkflowStatus();
@@ -4012,6 +4436,43 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
     commitHistory(true);
     scheduleRefresh(true);
     showToast(t("demoLoaded"));
+  }
+
+  function openMobileActions() {
+    if (!elements.mobileActionsSheet || !elements.mobileActionsBackdrop) return;
+    elements.mobileActionsSheet.hidden = false;
+    elements.mobileActionsBackdrop.hidden = false;
+    requestAnimationFrame(() => {
+      elements.mobileActionsSheet.classList.add("is-open");
+      elements.mobileActionsBackdrop.classList.add("is-open");
+    });
+    elements.mobileActionsTrigger?.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  }
+  function closeMobileActions() {
+    if (!elements.mobileActionsSheet || !elements.mobileActionsBackdrop) return;
+    elements.mobileActionsSheet.classList.remove("is-open");
+    elements.mobileActionsBackdrop.classList.remove("is-open");
+    elements.mobileActionsSheet.hidden = true;
+    elements.mobileActionsBackdrop.hidden = true;
+    elements.mobileActionsTrigger?.setAttribute("aria-expanded", "false");
+    if (elements.commandOverlay.hidden && elements.onboardingOverlay.hidden && elements.helpOverlay.hidden && elements.customizationPanel.hidden) {
+      document.body.style.overflow = "";
+    }
+  }
+  function runMobileCommand(command) {
+    closeMobileActions();
+    if (command === "verification") document.querySelector("#verification")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    else if (command === "export-section") document.querySelector("#export")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    else if (command === "csv") saveCsv();
+    else if (command === "text") saveText();
+    else if (command === "share") shareSummary();
+    else if (command === "lock") toggleProtocolLock();
+    else if (command === "undo") historyBack();
+    else if (command === "redo") historyForward();
+    else if (command === "guide") openOnboarding(0);
+    else if (command === "customize") openCustomization();
+    else if (command === "reset") resetAll();
   }
 
   function openCommandPalette() {
@@ -4997,6 +5458,12 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
       if (active) link.setAttribute("aria-current", "location");
       else link.removeAttribute("aria-current");
     });
+    elements.mobileNavButtons.forEach((button) => {
+      const active = button.dataset.mobileNav === sectionKey;
+      button.classList.toggle("is-active", active);
+      if (active) button.setAttribute("aria-current", "location");
+      else button.removeAttribute("aria-current");
+    });
   }
   function updateActiveSectionFromPosition() {
     const sections = Array.from(document.querySelectorAll("[data-observe-section]"));
@@ -5176,6 +5643,29 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
     }
   });
 
+  elements.mobileNavButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const target = document.getElementById(button.dataset.mobileNav);
+      target?.scrollIntoView({ behavior: "smooth", block: "start" });
+      setActiveSection(button.dataset.mobileNav);
+    });
+  });
+  elements.mobileActionsTrigger?.addEventListener("click", openMobileActions);
+  elements.mobileActionsClose?.addEventListener("click", closeMobileActions);
+  elements.mobileActionsBackdrop?.addEventListener("click", closeMobileActions);
+  elements.mobileActionsSheet?.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-mobile-command]");
+    if (button) runMobileCommand(button.dataset.mobileCommand);
+  });
+  elements.mobileOptionalToggles.forEach((button) => {
+    button.addEventListener("click", () => {
+      const block = button.closest(".optional-fields");
+      if (!block) return;
+      const collapsed = block.classList.toggle("is-mobile-collapsed");
+      button.setAttribute("aria-expanded", String(!collapsed));
+    });
+  });
+
   elements.commandClose.addEventListener("click", closeCommandPalette);
   elements.commandOverlay.addEventListener("click", (event) => {
     if (event.target === elements.commandOverlay) closeCommandPalette();
@@ -5207,7 +5697,10 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
   const navHome = document.querySelector("[data-nav-home]");
   if (navHome) navHome.addEventListener("click", closeSectionMenu);
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 760) closeSectionMenu();
+    if (window.innerWidth > 760) {
+      closeSectionMenu();
+      closeMobileActions();
+    }
   });
   window.addEventListener("scroll", updateActiveSectionFromPosition, { passive: true });
 
@@ -5276,7 +5769,8 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
       return;
     }
     if (event.key !== "Escape") return;
-    if (!elements.commandOverlay.hidden) closeCommandPalette();
+    if (elements.mobileActionsSheet && !elements.mobileActionsSheet.hidden) closeMobileActions();
+    else if (!elements.commandOverlay.hidden) closeCommandPalette();
     else if (!elements.onboardingOverlay.hidden) closeOnboarding(true);
     else if (!elements.helpOverlay.hidden) closeHelp();
     else if (!elements.customizationPanel.hidden) closeCustomization();
