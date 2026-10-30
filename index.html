@@ -1918,6 +1918,192 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
   .onboarding-actions__right { width: 100%; }
 }
 
+/* Major workflow and laboratory ergonomics */
+:root { --config-width: 460px; }
+.workflow-toolbar {
+  position: sticky; top: 62px; z-index: 85; padding: 8px 18px;
+  border-bottom: 1px solid rgba(15,83,58,.12);
+  background: color-mix(in srgb, var(--white) 92%, transparent);
+  backdrop-filter: blur(14px);
+}
+.workflow-toolbar__inner { width:min(100%,1440px); margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:14px; }
+.workflow-toolbar__status { display:flex; align-items:center; gap:9px; min-width:0; }
+.workflow-toolbar__status strong { color:var(--green-900); }
+.workflow-toolbar__message { color:var(--muted); font-size:.86rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.workflow-toolbar__actions { display:flex; gap:6px; flex:0 0 auto; }
+.tool-button { display:inline-flex; align-items:center; gap:6px; min-height:36px; padding:6px 10px; border:1px solid var(--line); border-radius:11px; background:var(--white); color:var(--green-900); font-weight:800; cursor:pointer; }
+.tool-button:disabled { opacity:.42; cursor:default; }
+.tool-button[aria-pressed="true"] { background:var(--green-100); border-color:var(--green-700); }
+.workflow-status-pill { display:inline-flex; align-items:center; gap:6px; min-height:32px; padding:5px 9px; border-radius:999px; background:rgba(255,255,255,.08); color:#fff; font-size:.74rem; font-weight:900; letter-spacing:.03em; }
+.workflow-status-dot { width:8px; height:8px; border-radius:50%; background:#b9c6c0; }
+.workflow-status-pill[data-status="validated"] .workflow-status-dot { background:#73d6a1; }
+.workflow-status-pill[data-status="progress"] .workflow-status-dot { background:#f2c86f; }
+.workflow-status-pill[data-status="complete"] .workflow-status-dot { background:#82d5ff; }
+.workflow-status-pill[data-status="error"] .workflow-status-dot { background:#ff8d8d; }
+body[data-workflow-status="validated"] .workflow-toolbar { box-shadow:inset 4px 0 0 #3f9c6f; }
+body[data-workflow-status="progress"] .workflow-toolbar { box-shadow:inset 4px 0 0 #d3a02f; }
+body[data-workflow-status="complete"] .workflow-toolbar { box-shadow:inset 4px 0 0 #3187b4; }
+body[data-workflow-status="error"] .workflow-toolbar { box-shadow:inset 4px 0 0 #b94d4d; }
+
+.quick-actions-wrap { position:relative; }
+.quick-actions-menu { position:absolute; top:calc(100% + 8px); right:0; width:min(310px,88vw); padding:7px; border:1px solid rgba(255,255,255,.16); border-radius:15px; background:#0a241a; box-shadow:var(--shadow-lg); }
+.quick-actions-menu[hidden] { display:none; }
+.quick-actions-menu button { width:100%; display:flex; align-items:center; gap:10px; padding:10px 11px; border:0; border-radius:10px; background:transparent; color:#fff; text-align:left; font-weight:750; cursor:pointer; }
+.quick-actions-menu button:hover { background:rgba(255,255,255,.09); }
+
+.preference-group { margin-top:14px; }
+.preference-label { display:block; margin-bottom:8px; color:var(--green-900); font-size:.82rem; font-weight:850; }
+.range-preference { display:grid; gap:7px; }
+.range-preference span { display:grid; gap:2px; }
+.range-preference small { color:var(--muted); line-height:1.35; }
+.range-preference input { width:100%; }
+.preference-toggles { margin-top:12px; }
+
+body.ui-compact { font-size:14px; }
+body.ui-compact .card__inner, body.ui-compact .results-card { padding:18px; }
+body.ui-compact .form-section { padding:14px 0; }
+body.ui-large { font-size:17px; }
+body.ui-large .button, body.ui-large input, body.ui-large select, body.ui-large textarea { min-height:48px; }
+body.layout-split .workspace { grid-template-columns:minmax(340px,var(--config-width)) minmax(0,1fr); }
+body.layout-top .workspace { grid-template-columns:1fr; }
+body.layout-top .config-card { position:static; max-height:none; overflow:visible; }
+body.layout-protocol .workspace { grid-template-columns:1fr; }
+body.layout-protocol .config-card { display:none; }
+
+body.lab-contrast { --line:#214c3b; --muted:#304c41; }
+body.lab-contrast .step-card, body.lab-contrast .metric-card, body.lab-contrast .summary-banner, body.lab-contrast .compact-overview, body.lab-contrast .coherence-panel { border-width:2px; }
+body.lab-contrast .volume-chip__value, body.lab-contrast .step-result, body.volume-zoom .volume-chip__value, body.volume-zoom .step-result, body.volume-zoom .critical-value__value { font-size:1.34em; font-weight:950; }
+
+body.lab-fullscreen .portfolio-nav, body.lab-fullscreen .hero, body.lab-fullscreen .workflow-toolbar, body.lab-fullscreen .config-card, body.lab-fullscreen #verification, body.lab-fullscreen #export, body.lab-fullscreen .results-toolbar, body.lab-fullscreen .refresh-status, body.lab-fullscreen .mobile-action-bar { display:none !important; }
+body.lab-fullscreen .workspace { width:100%; max-width:none; padding:12px; display:block; }
+body.lab-fullscreen .results-card { min-height:100vh; padding:12px; border:0; box-shadow:none; }
+body.lab-fullscreen #protocol { margin:0 auto; max-width:1200px; }
+
+.protocol-workflow { display:grid; gap:12px; margin-bottom:18px; }
+.protocol-progress-card { padding:13px 15px; border:1px solid var(--line); border-radius:16px; background:var(--green-050); }
+.protocol-progress-card__top { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.protocol-progress-bar { height:10px; margin-top:9px; overflow:hidden; border-radius:999px; background:var(--green-100); }
+.protocol-progress-bar > span { display:block; height:100%; width:0; border-radius:inherit; background:var(--green-700); transition:width .2s ease; }
+.protocol-mode-row { display:flex; flex-wrap:wrap; gap:7px; }
+.protocol-mode-row button { min-height:36px; padding:6px 10px; border:1px solid var(--line); border-radius:10px; background:var(--white); color:var(--green-900); font-weight:800; cursor:pointer; }
+.protocol-mode-row button[aria-pressed="true"] { background:var(--green-100); border-color:var(--green-700); }
+
+.compact-overview { overflow:auto; margin:0 0 16px; border:1px solid var(--line); border-radius:16px; }
+.compact-overview table { width:100%; border-collapse:collapse; min-width:650px; }
+.compact-overview th, .compact-overview td { padding:9px 11px; border-bottom:1px solid var(--line); text-align:left; }
+.compact-overview th { background:var(--green-050); color:var(--green-900); font-size:.76rem; text-transform:uppercase; letter-spacing:.04em; }
+.compact-overview tbody tr { cursor:pointer; }
+.compact-overview tbody tr:hover { background:rgba(49,128,92,.06); }
+.compact-overview tbody tr:last-child td { border-bottom:0; }
+
+.critical-values { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:14px 0; }
+.critical-value { padding:16px; border:2px solid var(--green-200); border-radius:17px; background:linear-gradient(180deg,var(--white),var(--green-050)); }
+.critical-value__label { margin:0 0 5px; color:var(--muted); font-size:.76rem; font-weight:850; text-transform:uppercase; letter-spacing:.05em; }
+.critical-value__value { margin:0; color:var(--green-900); font-family:Georgia,"Times New Roman",serif; font-size:clamp(1.5rem,3vw,2.3rem); font-weight:900; }
+
+.coherence-panel { margin:14px 0; padding:14px; border:1px solid var(--line); border-radius:16px; background:rgba(255,255,255,.68); }
+.coherence-panel__title { margin:0 0 10px; color:var(--green-900); font-size:.92rem; }
+.coherence-list { display:grid; gap:7px; margin:0; padding:0; list-style:none; }
+.coherence-item { display:flex; align-items:flex-start; gap:8px; color:var(--muted); font-size:.86rem; }
+.coherence-item::before { content:"✓"; color:#2c8b5d; font-weight:950; }
+.coherence-item.is-warning::before { content:"!"; color:#b87a15; }
+
+.protocol-layout { display:grid; grid-template-columns:minmax(0,1fr) 120px; gap:14px; align-items:start; }
+.protocol-minimap { position:sticky; top:126px; display:grid; gap:6px; padding:9px; border:1px solid var(--line); border-radius:14px; background:var(--white); }
+.protocol-minimap button { min-height:34px; border:1px solid var(--line); border-radius:9px; background:var(--green-050); color:var(--green-900); font-weight:900; cursor:pointer; }
+.protocol-minimap button.is-active { background:var(--green-700); color:var(--white); }
+.protocol-minimap button.is-done { box-shadow:inset 0 0 0 2px #5ab17e; }
+
+.current-step-float { position:sticky; top:118px; z-index:20; display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px; padding:9px 12px; border:1px solid var(--line); border-radius:13px; background:color-mix(in srgb,var(--white) 94%,transparent); backdrop-filter:blur(9px); box-shadow:var(--shadow-sm); }
+.current-step-float strong { color:var(--green-900); }
+
+.step-card { position:relative; transition:opacity .16s ease, transform .16s ease, box-shadow .16s ease; }
+.step-card::before { content:""; position:absolute; left:-14px; top:50px; width:12px; border-top:2px solid var(--source-color,var(--green-400)); }
+.step-card::after { content:""; position:absolute; left:-5px; top:46px; border-left:6px solid var(--source-color,var(--green-400)); border-top:5px solid transparent; border-bottom:5px solid transparent; }
+.step-card.is-active { box-shadow:0 0 0 3px color-mix(in srgb,var(--source-color,var(--green-700)) 30%,transparent),var(--shadow-sm); transform:translateY(-1px); }
+.step-card.is-complete { opacity:.64; }
+.step-card.is-expanded { margin-left:-12px; margin-right:-12px; padding-top:6px; padding-bottom:6px; transform:scale(1.01); }
+.step-number { font-size:1.45rem; min-width:58px; min-height:58px; }
+.step-hierarchy { margin-top:3px; color:var(--muted); font-size:.75rem; font-weight:800; }
+.step-actions { margin-left:auto; display:flex; flex-wrap:wrap; justify-content:flex-end; gap:6px; }
+.step-action { min-height:34px; padding:5px 8px; border:1px solid var(--line); border-radius:9px; background:var(--white); color:var(--green-900); font-size:.76rem; font-weight:850; cursor:pointer; }
+.step-complete-label { display:inline-flex; align-items:center; gap:7px; margin-top:10px; padding:7px 9px; border-radius:10px; background:var(--green-050); color:var(--green-900); font-weight:850; }
+.step-complete-label input { width:18px; height:18px; }
+
+body.view-bench .composition-card, body.view-bench .protocol-list { display:none; }
+body.view-bench .step-card__body { padding-top:8px; }
+body.view-bench .step-result { font-size:1.08rem; }
+body.view-single .step-card { display:none; }
+body.view-single .step-card.is-active { display:block; }
+
+.unit-conversion-note, .normalized-preview { min-height:1.2em; margin-top:7px; color:var(--green-700); font-size:.82rem; font-weight:750; }
+.normalized-preview { margin-top:12px; padding:9px 11px; border:1px dashed var(--green-300); border-radius:11px; background:var(--green-050); }
+
+.field:focus-within { border-radius:12px; outline:2px solid color-mix(in srgb,var(--green-600) 30%,transparent); outline-offset:4px; }
+input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible, a:focus-visible { outline:3px solid var(--green-600); outline-offset:2px; }
+
+.command-overlay { position:fixed; inset:0; z-index:1400; display:grid; place-items:start center; padding:min(11vh,90px) 16px 16px; background:rgba(3,18,12,.70); backdrop-filter:blur(8px); }
+.command-overlay[hidden] { display:none; }
+.command-dialog { width:min(720px,100%); max-height:78vh; overflow:auto; padding:20px; border:1px solid var(--line); border-radius:22px; background:var(--white); box-shadow:var(--shadow-lg); }
+.command-dialog__head { display:flex; justify-content:space-between; gap:12px; }
+.command-dialog h2 { margin:0 0 12px; color:var(--green-900); }
+.command-search { width:100%; min-height:48px; margin-bottom:10px; padding:10px 12px; border:1px solid var(--line); border-radius:12px; }
+.command-list { display:grid; gap:5px; }
+.command-list button { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 11px; border:1px solid transparent; border-radius:10px; background:transparent; color:var(--ink); text-align:left; cursor:pointer; }
+.command-list button:hover, .command-list button:focus { border-color:var(--line); background:var(--green-050); }
+.command-shortcuts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px 12px; margin-top:14px; padding-top:12px; border-top:1px solid var(--line); color:var(--muted); font-size:.78rem; }
+.command-shortcuts strong { grid-column:1 / -1; color:var(--green-900); }
+
+.section-drag-handle { display:inline-flex; align-items:center; justify-content:center; min-width:34px; min-height:34px; border:1px solid var(--line); border-radius:9px; background:var(--white); color:var(--muted); cursor:grab; }
+.major-section.is-dragging { opacity:.45; }
+
+body.dark-mode .workflow-toolbar, body.dark-mode .tool-button, body.dark-mode .protocol-minimap, body.dark-mode .current-step-float, body.dark-mode .command-dialog, body.dark-mode .step-action, body.dark-mode .coherence-panel { background:#071a13; color:#f2faf5; }
+body.dark-mode .critical-value { background:linear-gradient(180deg,#0b2018,#071a13); }
+
+@media (max-width:980px) {
+  .protocol-layout { grid-template-columns:1fr; }
+  .protocol-minimap { position:static; grid-template-columns:repeat(auto-fit,minmax(42px,1fr)); }
+  .workflow-toolbar { top:58px; }
+}
+@media (max-width:760px) {
+  .workflow-toolbar { top:55px; padding:6px 10px; }
+  .workflow-toolbar__message { display:none; }
+  .workflow-toolbar__actions .tool-button span:last-child { display:none; }
+  .workflow-toolbar__actions .tool-button { min-width:38px; justify-content:center; }
+  .workflow-status-pill { display:none; }
+  .critical-values { grid-template-columns:1fr; }
+  .current-step-float { top:100px; }
+  .step-actions { width:100%; justify-content:flex-start; margin-left:0; }
+  .command-shortcuts { grid-template-columns:1fr; }
+}
+
+@media (max-width: 860px) {
+  body.layout-split .workspace,
+  body.layout-top .workspace,
+  body.layout-protocol .workspace { grid-template-columns: 1fr; }
+  body.layout-split .config-card,
+  body.layout-top .config-card { position: static; max-height: none; overflow: visible; }
+}
+
+body.demo-mode .workflow-toolbar__status::after {
+  content: "DEMO";
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: #f4cf75;
+  color: #342600;
+  font-size: .68rem;
+  font-weight: 950;
+  letter-spacing: .08em;
+}
+body.view-bench .step-number { font-size: 2rem; min-width: 70px; min-height: 70px; }
+body.view-bench .volume-chip__value { font-size: 1.35rem; }
+
+body[data-workflow-status="entry"] .major-section-banner { border-color: rgba(98,129,118,.35); }
+body[data-workflow-status="validated"] .major-section-banner { border-color: rgba(47,139,97,.42); background: linear-gradient(90deg, rgba(47,139,97,.07), transparent); }
+body[data-workflow-status="progress"] .major-section-banner { border-color: rgba(181,128,28,.45); background: linear-gradient(90deg, rgba(181,128,28,.07), transparent); }
+body[data-workflow-status="complete"] .major-section-banner { border-color: rgba(43,124,166,.45); background: linear-gradient(90deg, rgba(43,124,166,.07), transparent); }
+body[data-workflow-status="error"] .major-section-banner { border-color: rgba(185,77,77,.45); }
+
 </style>
 </head>
 
@@ -2007,6 +2193,63 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
         <button type="button" id="a11y-clear-all" data-i18n="clearAll">Tout décocher</button>
       </div>
     </div>
+
+    <div class="customization-block">
+      <h3><span aria-hidden="true">⌘</span><span data-i18n="workspacePreferences">Espace de travail</span></h3>
+
+      <div class="preference-group">
+        <span class="preference-label" data-i18n="uiDensity">Taille de l'interface</span>
+        <div class="panel-button-row" role="group" data-i18n-aria="uiDensityAria">
+          <button type="button" class="panel-choice" data-ui-size="compact" aria-pressed="false" data-i18n="compact">Compact</button>
+          <button type="button" class="panel-choice" data-ui-size="standard" aria-pressed="true" data-i18n="standard">Standard</button>
+          <button type="button" class="panel-choice" data-ui-size="large" aria-pressed="false" data-i18n="large">Large</button>
+        </div>
+      </div>
+
+      <div class="preference-group">
+        <span class="preference-label" data-i18n="desktopLayout">Disposition ordinateur</span>
+        <div class="panel-button-row" role="group" data-i18n-aria="desktopLayoutAria">
+          <button type="button" class="panel-choice" data-layout-mode="split" aria-pressed="true" data-i18n="layoutSplit">Deux colonnes</button>
+          <button type="button" class="panel-choice" data-layout-mode="top" aria-pressed="false" data-i18n="layoutTop">Paramètres en haut</button>
+          <button type="button" class="panel-choice" data-layout-mode="protocol" aria-pressed="false" data-i18n="layoutProtocol">Protocole prioritaire</button>
+        </div>
+      </div>
+
+      <div class="preference-group">
+        <label class="range-preference" for="config-width-range">
+          <span><strong data-i18n="parameterWidth">Largeur du panneau Paramètres</strong><small data-i18n="parameterWidthHelp">Ajuste la place occupée par les paramètres sur grand écran.</small></span>
+          <input id="config-width-range" type="range" min="340" max="620" step="10" value="460">
+        </label>
+      </div>
+
+      <div class="preference-group">
+        <span class="preference-label" data-i18n="decimalSeparator">Séparateur décimal</span>
+        <div class="panel-button-row" role="group" data-i18n-aria="decimalSeparatorAria">
+          <button type="button" class="panel-choice" data-decimal-style="auto" aria-pressed="true" data-i18n="automatic">Automatique</button>
+          <button type="button" class="panel-choice" data-decimal-style="comma" aria-pressed="false">1,23</button>
+          <button type="button" class="panel-choice" data-decimal-style="dot" aria-pressed="false">1.23</button>
+        </div>
+      </div>
+
+      <div class="accessibility-options preference-toggles">
+        <label class="accessibility-option">
+          <input type="checkbox" id="lab-contrast-toggle">
+          <span><strong data-i18n="labContrast">Contraste laboratoire</strong><small data-i18n="labContrastHelp">Renforce les repères et les chiffres pour une utilisation à distance.</small></span>
+        </label>
+        <label class="accessibility-option">
+          <input type="checkbox" id="volume-zoom-toggle">
+          <span><strong data-i18n="volumeZoom">Agrandir volumes et concentrations</strong><small data-i18n="volumeZoomHelp">Augmente uniquement les valeurs critiques du protocole.</small></span>
+        </label>
+        <label class="accessibility-option">
+          <input type="checkbox" id="auto-scroll-toggle" checked>
+          <span><strong data-i18n="autoScroll">Défilement intelligent</strong><small data-i18n="autoScrollHelp">Passe automatiquement à l'étape suivante lorsqu'une étape est terminée.</small></span>
+        </label>
+        <label class="accessibility-option">
+          <input type="checkbox" id="dual-unit-toggle" checked>
+          <span><strong data-i18n="dualUnits">Afficher la conversion d'unité</strong><small data-i18n="dualUnitsHelp">Affiche une seconde unité sous le volume saisi lorsque cela est possible.</small></span>
+        </label>
+      </div>
+    </div>
   </section>
 
   <nav class="portfolio-nav" aria-label="Navigation principale" data-i18n-aria="sectionNavigationAria">
@@ -2025,6 +2268,21 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
         <a class="portfolio-nav__link" href="#export" data-nav-section="export"><span class="portfolio-nav__number">04</span><span data-i18n="navExport">Export</span></a>
       </div>
       <div class="top-controls">
+        <span class="workflow-status-pill" id="workflow-status-pill" data-status="entry"><span class="workflow-status-dot"></span><span id="workflow-status-text" data-i18n="statusEntry">Saisie</span></span>
+        <div class="quick-actions-wrap">
+          <button type="button" class="guide-trigger" id="quick-actions-trigger" aria-controls="quick-actions-menu" aria-expanded="false" data-i18n-aria="quickActionsMenuAria">
+            <span class="guide-trigger__icon" aria-hidden="true">⋯</span>
+            <span class="guide-trigger__label" data-i18n="quickActionsLabel">Actions</span>
+          </button>
+          <div class="quick-actions-menu" id="quick-actions-menu" hidden>
+            <button type="button" data-command="toggle-lock"><span aria-hidden="true">🔒</span><span data-i18n="lockProtocol">Verrouiller le protocole</span></button>
+            <button type="button" data-command="toggle-fullscreen"><span aria-hidden="true">⛶</span><span data-i18n="labFullscreen">Mode plein écran</span></button>
+            <button type="button" data-command="demo"><span aria-hidden="true">▶</span><span data-i18n="demoMode">Mode démonstration</span></button>
+            <button type="button" data-command="command-palette"><span aria-hidden="true">⌘K</span><span data-i18n="commandPalette">Palette de commandes</span></button>
+            <button type="button" data-command="copy-field"><span aria-hidden="true">⧉</span><span data-i18n="copyFieldValue">Copier la valeur du champ actif</span></button>
+            <button type="button" data-command="paste-field"><span aria-hidden="true">↳</span><span data-i18n="pasteFieldValue">Coller dans le champ actif</span></button>
+          </div>
+        </div>
         <button type="button" class="guide-trigger" id="guide-trigger" data-i18n-aria="guideAria">
           <span class="guide-trigger__icon" aria-hidden="true">?</span>
           <span class="guide-trigger__label" data-i18n="guide">Guide</span>
@@ -2050,6 +2308,21 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
       <div class="hero__badge"><span class="hero__badge-dot"></span><span data-i18n="localCalculation">Calcul 100 % local</span></div>
     </div>
   </header>
+
+  <section class="workflow-toolbar" id="workflow-toolbar" aria-label="Workflow">
+    <div class="workflow-toolbar__inner">
+      <div class="workflow-toolbar__status">
+        <strong data-i18n="workflow">Workflow</strong>
+        <span class="workflow-toolbar__message" id="workflow-message" data-i18n="workflowReady">Configurez la préparation puis vérifiez le protocole.</span>
+      </div>
+      <div class="workflow-toolbar__actions">
+        <button class="tool-button" type="button" id="history-back" data-i18n-aria="undoAria"><span aria-hidden="true">↶</span><span data-i18n="undo">Annuler</span></button>
+        <button class="tool-button" type="button" id="history-forward" data-i18n-aria="redoAria"><span aria-hidden="true">↷</span><span data-i18n="redo">Rétablir</span></button>
+        <button class="tool-button" type="button" id="protocol-lock"><span aria-hidden="true">🔓</span><span data-lock-label data-i18n="lock">Verrouiller</span></button>
+        <button class="tool-button" type="button" id="demo-mode-button"><span aria-hidden="true">▶</span><span data-i18n="demo">Démo</span></button>
+      </div>
+    </div>
+  </section>
 
   <main class="workspace" id="main">
     <aside class="card config-card major-section" id="parameters" data-observe-section="parameters" aria-labelledby="config-title">
@@ -2165,6 +2438,7 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
             </div>
             <p class="field-note algebra-note" data-i18n="fractionNote">Exemple : 1 / 20 correspond à 5 % v/v.</p>
           </div>
+          <div class="normalized-preview" id="normalized-preview" aria-live="polite"></div>
         </section>
 
         <section class="form-section">
@@ -2262,12 +2536,14 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
             <div class="field">
               <label for="total-volume" data-i18n="totalVolume">Volume final par tube</label>
               <input id="total-volume" inputmode="decimal" value="10" autocomplete="off">
+              <p class="field-note unit-conversion-note" id="unit-conversion-note"></p>
             </div>
             <div class="field">
               <label for="unit" data-i18n="unit">Unité</label>
               <select id="unit">
                 <option value="mL">mL</option>
                 <option value="µL">µL</option>
+                <option value="L">L</option>
                 <option value="unités" data-i18n="genericUnits">unités</option>
               </select>
             </div>
@@ -2319,24 +2595,6 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
       </div>
       <div class="results-content" id="results-content" aria-live="polite"></div>
 
-      <section class="export-section major-section" id="export" data-observe-section="export" aria-labelledby="export-section-title">
-        <div class="major-section-banner">
-          <div class="major-section-banner__number">04</div>
-          <div class="major-section-banner__copy">
-            <p class="major-section-banner__eyebrow" data-i18n="sectionLabel">Section</p>
-            <h3 class="major-section-banner__title" id="export-section-title" data-i18n="navExport">Export</h3>
-          </div>
-          <button class="info-button" type="button" data-help-title-key="helpExportTitle" data-help-key="helpExport" data-i18n-aria="helpExportAria">?</button>
-        </div>
-        <div class="export-section__body">
-          <p class="export-section__description" data-i18n="exportSectionDescription">Copiez, partagez ou exportez le protocole complet. Les informations facultatives ne sont ajoutées que lorsqu’elles ont été renseignées.</p>
-          <div class="export-section__actions">
-            <button class="button button--ghost" type="button" data-action="copy" data-icon="copy"><span data-i18n="copyProtocol">Copier le protocole</span></button>
-            <button class="button button--ghost" type="button" data-action="share" data-icon="share"><span data-i18n="shareProtocol">Partager le protocole</span></button>
-            <button class="button button--primary" type="button" data-action="export" data-icon="export"><span data-i18n="exportCsv">Exporter le CSV</span></button>
-          </div>
-        </div>
-      </section>
     </section>
   </main>
 
@@ -2355,6 +2613,29 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
     </button>
   </nav>
 
+
+
+  <div class="command-overlay" id="command-overlay" hidden>
+    <section class="command-dialog" role="dialog" aria-modal="true" aria-labelledby="command-title">
+      <div class="command-dialog__head">
+        <div>
+          <p class="onboarding-kicker" data-i18n="commandPalette">Palette de commandes</p>
+          <h2 id="command-title" data-i18n="findAction">Rechercher une action</h2>
+        </div>
+        <button class="onboarding-close" id="command-close" type="button" aria-label="Fermer">×</button>
+      </div>
+      <input class="command-search" id="command-search" autocomplete="off" data-i18n-placeholder="commandSearchPlaceholder" placeholder="Rechercher...">
+      <div class="command-list" id="command-list"></div>
+      <div class="command-shortcuts">
+        <strong data-i18n="keyboardShortcuts">Raccourcis clavier</strong>
+        <span>Ctrl/Cmd + K : palette</span>
+        <span>Alt + L : verrouiller</span>
+        <span>Alt + F : plein écran</span>
+        <span>Alt + 1/2/3 : vue complète, paillasse, une étape</span>
+        <span>← / → : étape précédente/suivante en vue une étape</span>
+      </div>
+    </section>
+  </div>
 
   <div class="onboarding-overlay" id="onboarding-overlay" hidden>
     <section class="onboarding-dialog" role="dialog" aria-modal="true" aria-labelledby="onboarding-title">
@@ -2755,13 +3036,280 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
     startUsing: "Start"
   });
 
+
+  Object.assign(I18N.fr, {
+    workspacePreferences: "Espace de travail",
+    uiDensity: "Taille de l'interface",
+    uiDensityAria: "Choisir la taille de l'interface",
+    compact: "Compact",
+    standard: "Standard",
+    large: "Large",
+    desktopLayout: "Disposition ordinateur",
+    desktopLayoutAria: "Choisir la disposition sur ordinateur",
+    layoutSplit: "Deux colonnes",
+    layoutTop: "Paramètres en haut",
+    layoutProtocol: "Protocole prioritaire",
+    parameterWidth: "Largeur du panneau Paramètres",
+    parameterWidthHelp: "Ajuste la place occupée par les paramètres sur grand écran.",
+    decimalSeparator: "Séparateur décimal",
+    decimalSeparatorAria: "Choisir le séparateur décimal d'affichage",
+    automatic: "Automatique",
+    labContrast: "Contraste laboratoire",
+    labContrastHelp: "Renforce les repères et les chiffres pour une utilisation à distance.",
+    volumeZoom: "Agrandir volumes et concentrations",
+    volumeZoomHelp: "Augmente uniquement les valeurs critiques du protocole.",
+    autoScroll: "Défilement intelligent",
+    autoScrollHelp: "Passe automatiquement à l'étape suivante lorsqu'une étape est terminée.",
+    dualUnits: "Afficher la conversion d'unité",
+    dualUnitsHelp: "Affiche une seconde unité sous le volume saisi lorsque cela est possible.",
+    workflow: "Workflow",
+    workflowReady: "Configurez la préparation puis vérifiez le protocole.",
+    undo: "Annuler",
+    redo: "Rétablir",
+    undoAria: "Revenir à la configuration précédente",
+    redoAria: "Rétablir la configuration suivante",
+    lock: "Verrouiller",
+    unlock: "Déverrouiller",
+    lockProtocol: "Verrouiller le protocole",
+    labFullscreen: "Mode plein écran",
+    demoMode: "Mode démonstration",
+    demo: "Démo",
+    quickActionsLabel: "Actions",
+    quickActionsMenuAria: "Ouvrir les actions rapides",
+    commandPalette: "Palette de commandes",
+    findAction: "Rechercher une action",
+    commandSearchPlaceholder: "Rechercher une action...",
+    keyboardShortcuts: "Raccourcis clavier",
+    copyFieldValue: "Copier la valeur du champ actif",
+    pasteFieldValue: "Coller dans le champ actif",
+    statusEntry: "Saisie",
+    statusValidated: "Vérifié",
+    statusProgress: "En cours",
+    statusComplete: "Terminé",
+    statusError: "À corriger",
+    workflowEntryMessage: "Le protocole est en cours de configuration.",
+    workflowValidatedMessage: "Le plan est cohérent et prêt à être exécuté.",
+    workflowProgressMessage: "La préparation est en cours.",
+    workflowCompleteMessage: "Toutes les étapes du protocole sont terminées.",
+    workflowErrorMessage: "Corrigez les paramètres avant de commencer.",
+    viewFull: "Vue complète",
+    viewBench: "Vue paillasse",
+    viewSingle: "Une étape",
+    fullscreen: "Plein écran",
+    exitFullscreen: "Quitter le plein écran",
+    protocolProgress: "Progression",
+    completedSteps: "{done} sur {total} étapes terminées",
+    activeStep: "Étape active",
+    previousStep: "Précédente",
+    nextStep: "Suivante",
+    markComplete: "Étape réalisée",
+    copyStep: "Copier l'étape",
+    enlargeCard: "Agrandir la carte",
+    reduceCard: "Réduire la carte",
+    compactOverview: "Aperçu compact",
+    compactTube: "Tube",
+    compactSource: "Source",
+    compactSourceVolume: "Volume source",
+    compactDiluent: "Diluant",
+    compactFinalVolume: "Volume final",
+    compactConcentration: "Concentration",
+    coherenceTitle: "Contrôle automatique de cohérence",
+    coherenceTarget: "La concentration cible est comprise entre 0 et 100 % v/v.",
+    coherenceVolume: "Le volume final est strictement positif.",
+    coherenceFinite: "Tous les volumes calculés sont finis et non négatifs.",
+    coherenceSequence: "La séquence de dilution est cohérente d'une étape à la suivante.",
+    coherenceFinal: "La concentration finale correspond à la cible demandée.",
+    criticalTarget: "Concentration cible",
+    criticalVolume: "Volume final par tube",
+    totalPrepared: "Volume total préparé",
+    totalTubes: "Nombre total de tubes",
+    totalTransfers: "Volume cumulé transféré",
+    exportText: "Exporter le texte",
+    textReady: "Fichier texte prêt.",
+    sectionReorder: "Déplacer la section",
+    sessionRestored: "Session précédente restaurée.",
+    sessionSaved: "Session sauvegardée.",
+    parametersLocked: "Paramètres verrouillés.",
+    parametersUnlocked: "Paramètres déverrouillés.",
+    startedChangeWarning: "Des étapes ont déjà été réalisées. Modifier les paramètres réinitialisera la progression. Continuer ?",
+    resetProgress: "La progression a été réinitialisée.",
+    demoLoaded: "Mode démonstration chargé.",
+    fieldCopied: "Valeur du champ copiée.",
+    fieldPasted: "Valeur collée dans le champ.",
+    noActiveField: "Sélectionnez d'abord un champ de saisie.",
+    noFieldClipboard: "Aucune valeur n'a encore été copiée.",
+    normalizationApplied: "Saisie normalisée.",
+    conversionPerformed: "{before} {from} = {after} {to}",
+    dragSectionHint: "Faites glisser les sections Vérification, Protocole et Export pour les réordonner.",
+    directUse: "Utilisation directe",
+    hierarchyStep: "Étape {step}/{total}",
+    sourceArrow: "Source",
+    commandNoResult: "Aucune action correspondante.",
+    actionGoParameters: "Aller aux paramètres",
+    actionGoVerification: "Aller à la vérification",
+    actionGoProtocol: "Aller au protocole",
+    actionGoExport: "Aller à l'export",
+    actionToggleLock: "Verrouiller ou déverrouiller",
+    actionToggleFullscreen: "Activer ou quitter le plein écran",
+    actionViewFull: "Afficher la vue complète",
+    actionViewBench: "Afficher la vue paillasse",
+    actionViewSingle: "Afficher une seule étape",
+    actionDemo: "Charger les données de démonstration",
+    actionExportText: "Exporter le protocole en texte",
+    actionExportCsv: "Exporter le protocole en CSV",
+    actionCopyProtocol: "Copier le protocole",
+    actionReset: "Réinitialiser les paramètres",
+    actionUndo: "Annuler la dernière modification",
+    actionRedo: "Rétablir la modification",
+    activeFieldClipboard: "Presse-papiers de valeur",
+    restorePrevious: "Restaurer la session précédente",
+    currentStepSummary: "{tube} - {sourceVolume} {unit} source + {diluentVolume} {unit} diluant",
+    directCurrentSummary: "{tube} - utilisation directe",
+    demoBadge: "Démo"
+  });
+
+  Object.assign(I18N.en, {
+    workspacePreferences: "Workspace",
+    uiDensity: "Interface size",
+    uiDensityAria: "Choose the interface size",
+    compact: "Compact",
+    standard: "Standard",
+    large: "Large",
+    desktopLayout: "Desktop layout",
+    desktopLayoutAria: "Choose the desktop layout",
+    layoutSplit: "Two columns",
+    layoutTop: "Parameters on top",
+    layoutProtocol: "Protocol priority",
+    parameterWidth: "Parameters panel width",
+    parameterWidthHelp: "Adjusts the space used by parameters on large screens.",
+    decimalSeparator: "Decimal separator",
+    decimalSeparatorAria: "Choose the displayed decimal separator",
+    automatic: "Automatic",
+    labContrast: "Laboratory contrast",
+    labContrastHelp: "Strengthens landmarks and numbers for viewing at a distance.",
+    volumeZoom: "Enlarge volumes and concentrations",
+    volumeZoomHelp: "Enlarges only the critical protocol values.",
+    autoScroll: "Smart scrolling",
+    autoScrollHelp: "Moves automatically to the next step after a step is completed.",
+    dualUnits: "Show unit conversion",
+    dualUnitsHelp: "Shows a second unit below the entered volume when possible.",
+    workflow: "Workflow",
+    workflowReady: "Configure the preparation, then check the protocol.",
+    undo: "Undo",
+    redo: "Redo",
+    undoAria: "Restore the previous configuration",
+    redoAria: "Restore the next configuration",
+    lock: "Lock",
+    unlock: "Unlock",
+    lockProtocol: "Lock protocol",
+    labFullscreen: "Full-screen mode",
+    demoMode: "Demo mode",
+    demo: "Demo",
+    quickActionsLabel: "Actions",
+    quickActionsMenuAria: "Open quick actions",
+    commandPalette: "Command palette",
+    findAction: "Find an action",
+    commandSearchPlaceholder: "Search for an action...",
+    keyboardShortcuts: "Keyboard shortcuts",
+    copyFieldValue: "Copy active field value",
+    pasteFieldValue: "Paste into active field",
+    statusEntry: "Entry",
+    statusValidated: "Checked",
+    statusProgress: "In progress",
+    statusComplete: "Completed",
+    statusError: "Needs correction",
+    workflowEntryMessage: "The protocol is being configured.",
+    workflowValidatedMessage: "The plan is coherent and ready to run.",
+    workflowProgressMessage: "The preparation is in progress.",
+    workflowCompleteMessage: "All protocol steps are completed.",
+    workflowErrorMessage: "Correct the parameters before starting.",
+    viewFull: "Full view",
+    viewBench: "Bench view",
+    viewSingle: "One step",
+    fullscreen: "Full screen",
+    exitFullscreen: "Exit full screen",
+    protocolProgress: "Progress",
+    completedSteps: "{done} of {total} steps completed",
+    activeStep: "Active step",
+    previousStep: "Previous",
+    nextStep: "Next",
+    markComplete: "Step completed",
+    copyStep: "Copy step",
+    enlargeCard: "Enlarge card",
+    reduceCard: "Reduce card",
+    compactOverview: "Compact overview",
+    compactTube: "Tube",
+    compactSource: "Source",
+    compactSourceVolume: "Source volume",
+    compactDiluent: "Diluent",
+    compactFinalVolume: "Final volume",
+    compactConcentration: "Concentration",
+    coherenceTitle: "Automatic coherence check",
+    coherenceTarget: "The target concentration is between 0 and 100% v/v.",
+    coherenceVolume: "The final volume is strictly positive.",
+    coherenceFinite: "All calculated volumes are finite and non-negative.",
+    coherenceSequence: "The dilution sequence is coherent from one step to the next.",
+    coherenceFinal: "The final concentration matches the requested target.",
+    criticalTarget: "Target concentration",
+    criticalVolume: "Final volume per tube",
+    totalPrepared: "Total prepared volume",
+    totalTubes: "Total number of tubes",
+    totalTransfers: "Cumulative transferred volume",
+    exportText: "Export text",
+    textReady: "Text file ready.",
+    sectionReorder: "Move section",
+    sessionRestored: "Previous session restored.",
+    sessionSaved: "Session saved.",
+    parametersLocked: "Parameters locked.",
+    parametersUnlocked: "Parameters unlocked.",
+    startedChangeWarning: "Some steps have already been completed. Changing parameters will reset progress. Continue?",
+    resetProgress: "Progress was reset.",
+    demoLoaded: "Demo mode loaded.",
+    fieldCopied: "Field value copied.",
+    fieldPasted: "Value pasted into field.",
+    noActiveField: "Select an input field first.",
+    noFieldClipboard: "No value has been copied yet.",
+    normalizationApplied: "Input normalized.",
+    conversionPerformed: "{before} {from} = {after} {to}",
+    dragSectionHint: "Drag the Check, Protocol and Export sections to reorder them.",
+    directUse: "Direct use",
+    hierarchyStep: "Step {step}/{total}",
+    sourceArrow: "Source",
+    commandNoResult: "No matching action.",
+    actionGoParameters: "Go to parameters",
+    actionGoVerification: "Go to check",
+    actionGoProtocol: "Go to protocol",
+    actionGoExport: "Go to export",
+    actionToggleLock: "Lock or unlock",
+    actionToggleFullscreen: "Enter or exit full screen",
+    actionViewFull: "Show full view",
+    actionViewBench: "Show bench view",
+    actionViewSingle: "Show one step",
+    actionDemo: "Load demo data",
+    actionExportText: "Export protocol as text",
+    actionExportCsv: "Export protocol as CSV",
+    actionCopyProtocol: "Copy protocol",
+    actionReset: "Reset parameters",
+    actionUndo: "Undo the last change",
+    actionRedo: "Redo the change",
+    activeFieldClipboard: "Value clipboard",
+    restorePrevious: "Restore previous session",
+    currentStepSummary: "{tube} - {sourceVolume} {unit} source + {diluentVolume} {unit} diluent",
+    directCurrentSummary: "{tube} - direct use",
+    demoBadge: "Demo"
+  });
+
   const Engine = window.DilutionEngine;
   const $ = (id) => document.getElementById(id);
   const STORAGE = {
     language: "dilution.language",
     theme: "dilution.theme",
     accessibility: "dilution.accessibility",
-    onboarding: "dilution.onboarding.completed"
+    onboarding: "dilution.onboarding.completed",
+    session: "dilution.session.v2",
+    history: "dilution.history.v2",
+    preferences: "dilution.preferences.v2",
+    sectionOrder: "dilution.sectionOrder.v2"
   };
   const A11Y_CLASSES = {
     largeText: "a11y-large-text",
@@ -2836,7 +3384,30 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
     a11yClearAll: $("a11y-clear-all"),
     sectionMenuToggle: $("section-menu-toggle"),
     sectionMenu: $("section-menu"),
-    sectionNavLinks: Array.from(document.querySelectorAll("[data-nav-section]"))
+    sectionNavLinks: Array.from(document.querySelectorAll("[data-nav-section]")),
+    workflowStatusPill: $("workflow-status-pill"),
+    workflowStatusText: $("workflow-status-text"),
+    workflowMessage: $("workflow-message"),
+    historyBack: $("history-back"),
+    historyForward: $("history-forward"),
+    protocolLock: $("protocol-lock"),
+    demoModeButton: $("demo-mode-button"),
+    quickActionsTrigger: $("quick-actions-trigger"),
+    quickActionsMenu: $("quick-actions-menu"),
+    commandOverlay: $("command-overlay"),
+    commandClose: $("command-close"),
+    commandSearch: $("command-search"),
+    commandList: $("command-list"),
+    uiSizeButtons: Array.from(document.querySelectorAll("[data-ui-size]")),
+    layoutButtons: Array.from(document.querySelectorAll("[data-layout-mode]")),
+    decimalStyleButtons: Array.from(document.querySelectorAll("[data-decimal-style]")),
+    configWidthRange: $("config-width-range"),
+    labContrastToggle: $("lab-contrast-toggle"),
+    volumeZoomToggle: $("volume-zoom-toggle"),
+    autoScrollToggle: $("auto-scroll-toggle"),
+    dualUnitToggle: $("dual-unit-toggle"),
+    unitConversionNote: $("unit-conversion-note"),
+    normalizedPreview: $("normalized-preview")
   };
 
   let currentLanguage = safeStorageGet(STORAGE.language) || "fr";
@@ -2849,12 +3420,48 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
   let currentInput = null;
   let sectionObserver = null;
   let onboardingStep = 0;
+  let protocolLocked = false;
+  let completedSteps = new Set();
+  let activeStep = 1;
+  let protocolViewMode = "full";
+  let historyStack = [];
+  let historyIndex = -1;
+  let applyingHistory = false;
+  let lastCommittedInput = null;
+  let fieldClipboard = "";
+  let lastFocusedField = null;
+  let demoMode = false;
+  let draggedSection = null;
+  let restorePendingScroll = false;
+  let previousUnit = elements.unit ? elements.unit.value : "mL";
+  let sectionOrder = readStoredJson(STORAGE.sectionOrder, ["verification", "protocol", "export"]);
+  const preferenceState = Object.assign({
+    uiSize: "standard",
+    layout: "split",
+    configWidth: 460,
+    decimalStyle: "auto",
+    labContrast: false,
+    volumeZoom: false,
+    autoScroll: true,
+    dualUnits: true
+  }, readStoredJson(STORAGE.preferences, {}));
 
   function safeStorageGet(key) {
     try { return localStorage.getItem(key); } catch (_) { return null; }
   }
   function safeStorageSet(key, value) {
     try { localStorage.setItem(key, value); } catch (_) { /* unavailable */ }
+  }
+  function readStoredJson(key, fallback) {
+    try {
+      const value = localStorage.getItem(key);
+      return value ? JSON.parse(value) : fallback;
+    } catch (_) {
+      return fallback;
+    }
+  }
+  function writeStoredJson(key, value) {
+    try { localStorage.setItem(key, JSON.stringify(value)); } catch (_) { /* unavailable */ }
   }
   function readAccessibilityState() {
     try {
@@ -2901,6 +3508,9 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
     });
     if (elements.onboardingOverlay && !elements.onboardingOverlay.hidden) renderOnboardingStep();
     if (currentResult && currentInput) renderResult(currentResult, currentInput);
+    updateWorkflowStatus();
+    updateUnitConversionNote();
+    updateNormalizedPreview();
   }
   function setLanguage(language) {
     currentLanguage = language === "en" ? "en" : "fr";
@@ -3016,7 +3626,467 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
     closeOnboarding(true);
     document.querySelector("#parameters").scrollIntoView({ behavior: "smooth", block: "start" });
   }
+
+  function savePreferences() {
+    writeStoredJson(STORAGE.preferences, preferenceState);
+  }
+  function applyPreferences() {
+    document.body.classList.remove("ui-compact", "ui-standard", "ui-large", "layout-split", "layout-top", "layout-protocol", "lab-contrast", "volume-zoom");
+    document.body.classList.add(`ui-${preferenceState.uiSize}`, `layout-${preferenceState.layout}`);
+    document.body.classList.toggle("lab-contrast", Boolean(preferenceState.labContrast));
+    document.body.classList.toggle("volume-zoom", Boolean(preferenceState.volumeZoom));
+    document.documentElement.style.setProperty("--config-width", `${Number(preferenceState.configWidth) || 460}px`);
+
+    elements.uiSizeButtons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.uiSize === preferenceState.uiSize)));
+    elements.layoutButtons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.layoutMode === preferenceState.layout)));
+    elements.decimalStyleButtons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.decimalStyle === preferenceState.decimalStyle)));
+    if (elements.configWidthRange) elements.configWidthRange.value = String(preferenceState.configWidth);
+    if (elements.labContrastToggle) elements.labContrastToggle.checked = Boolean(preferenceState.labContrast);
+    if (elements.volumeZoomToggle) elements.volumeZoomToggle.checked = Boolean(preferenceState.volumeZoom);
+    if (elements.autoScrollToggle) elements.autoScrollToggle.checked = Boolean(preferenceState.autoScroll);
+    if (elements.dualUnitToggle) elements.dualUnitToggle.checked = Boolean(preferenceState.dualUnits);
+    updateUnitConversionNote();
+    if (currentResult && currentInput) renderResult(currentResult, currentInput);
+  }
+  function setPreference(key, value) {
+    preferenceState[key] = value;
+    savePreferences();
+    applyPreferences();
+  }
+
+  function calculationControls() {
+    return [
+      ...elements.modeButtons,
+      ...elements.formatShortcuts,
+      elements.percentage, elements.coefficient, elements.scientificExponent,
+      elements.powerX, elements.numerator, elements.denominator,
+      elements.productBase, elements.diluent,
+      elements.totalVolume, elements.unit, elements.precision,
+      elements.stockSolutionName, elements.tubePrefix, elements.finalSolutionName
+    ].filter(Boolean);
+  }
+  function setProtocolLocked(value, silent) {
+    protocolLocked = Boolean(value);
+    calculationControls().forEach((control) => { control.disabled = protocolLocked; });
+    document.body.classList.toggle("parameters-locked", protocolLocked);
+    if (elements.protocolLock) {
+      elements.protocolLock.setAttribute("aria-pressed", String(protocolLocked));
+      const icon = elements.protocolLock.querySelector("span[aria-hidden]");
+      if (icon) icon.textContent = protocolLocked ? "🔒" : "🔓";
+      const label = elements.protocolLock.querySelector("[data-lock-label]");
+      if (label) {
+        label.textContent = t(protocolLocked ? "unlock" : "lock");
+        label.dataset.i18n = protocolLocked ? "unlock" : "lock";
+      }
+    }
+    document.querySelectorAll("[data-protocol-command='lock']").forEach((button) => {
+      button.innerHTML = `${protocolLocked ? "🔒" : "🔓"} ${escapeHtml(t(protocolLocked ? "unlock" : "lock"))}`;
+    });
+    if (!silent) showToast(t(protocolLocked ? "parametersLocked" : "parametersUnlocked"));
+    updateWorkflowStatus();
+    saveSession();
+  }
+  function toggleProtocolLock() {
+    setProtocolLocked(!protocolLocked, false);
+  }
+
+  function snapshotInput() {
+    return readInput();
+  }
+  function applyInputState(input) {
+    if (!input) return;
+    applyingHistory = true;
+    if (input.mode) setMode(input.mode, false);
+    const map = {
+      percentage: "percentage",
+      coefficient: "coefficient",
+      scientificExponent: "scientificExponent",
+      powerX: "powerX",
+      numerator: "numerator",
+      denominator: "denominator",
+      productBase: "productBase",
+      diluent: "diluent",
+      stockSolutionName: "stockSolutionName",
+      tubePrefix: "tubePrefix",
+      finalSolutionName: "finalSolutionName",
+      projectName: "projectName",
+      operatorName: "operatorName",
+      lotNumber: "lotNumber",
+      preparationDate: "preparationDate",
+      preparationNotes: "preparationNotes",
+      totalVolume: "totalVolume",
+      unit: "unit",
+      precision: "precision"
+    };
+    Object.entries(map).forEach(([key, elementKey]) => {
+      if (input[key] !== undefined && elements[elementKey]) elements[elementKey].value = input[key];
+    });
+    applyingHistory = false;
+    lastCommittedInput = snapshotInput();
+    updateUnitConversionNote();
+    scheduleRefresh(true);
+  }
+  function commitHistory(force) {
+    if (applyingHistory) return;
+    const snapshot = snapshotInput();
+    const serialized = JSON.stringify(snapshot);
+    if (!force && historyIndex >= 0 && JSON.stringify(historyStack[historyIndex]) === serialized) return;
+    historyStack = historyStack.slice(0, historyIndex + 1);
+    historyStack.push(snapshot);
+    if (historyStack.length > 20) historyStack.shift();
+    historyIndex = historyStack.length - 1;
+    writeStoredJson(STORAGE.history, historyStack);
+    updateHistoryButtons();
+    lastCommittedInput = snapshot;
+  }
+  function updateHistoryButtons() {
+    if (elements.historyBack) elements.historyBack.disabled = historyIndex <= 0;
+    if (elements.historyForward) elements.historyForward.disabled = historyIndex < 0 || historyIndex >= historyStack.length - 1;
+  }
+  function historyBack() {
+    if (historyIndex <= 0) return;
+    if (completedSteps.size && !confirm(t("startedChangeWarning"))) return;
+    clearProgress(true);
+    historyIndex -= 1;
+    applyInputState(historyStack[historyIndex]);
+    updateHistoryButtons();
+  }
+  function historyForward() {
+    if (historyIndex >= historyStack.length - 1) return;
+    if (completedSteps.size && !confirm(t("startedChangeWarning"))) return;
+    clearProgress(true);
+    historyIndex += 1;
+    applyInputState(historyStack[historyIndex]);
+    updateHistoryButtons();
+  }
+
+  function saveSession() {
+    const payload = {
+      input: snapshotInput(),
+      completedSteps: Array.from(completedSteps),
+      activeStep,
+      protocolViewMode,
+      protocolLocked,
+      demoMode,
+      timestamp: Date.now()
+    };
+    writeStoredJson(STORAGE.session, payload);
+  }
+  function restoreSession() {
+    const payload = readStoredJson(STORAGE.session, null);
+    if (!payload || !payload.input) return false;
+    applyInputState(payload.input);
+    completedSteps = new Set(Array.isArray(payload.completedSteps) ? payload.completedSteps.map(Number) : []);
+    activeStep = Number(payload.activeStep) || 1;
+    protocolViewMode = ["full", "bench", "single"].includes(payload.protocolViewMode) ? payload.protocolViewMode : "full";
+    demoMode = Boolean(payload.demoMode);
+    restorePendingScroll = true;
+    setProtocolLocked(Boolean(payload.protocolLocked), true);
+    document.body.classList.toggle("demo-mode", demoMode);
+    showToast(t("sessionRestored"));
+    return true;
+  }
+
+  function clearProgress(silent) {
+    completedSteps.clear();
+    activeStep = 1;
+    if (!silent) showToast(t("resetProgress"));
+    updateWorkflowStatus();
+    saveSession();
+  }
+  function totalProtocolSteps() {
+    return currentResult ? Math.max(1, currentResult.steps.length) : 0;
+  }
+  function updateWorkflowStatus() {
+    let status = "entry";
+    let labelKey = "statusEntry";
+    let messageKey = "workflowEntryMessage";
+    if (!currentResult) {
+      status = "error";
+      labelKey = "statusError";
+      messageKey = "workflowErrorMessage";
+    } else {
+      const total = totalProtocolSteps();
+      const done = Array.from(completedSteps).filter((step) => step >= 1 && step <= total).length;
+      if (total > 0 && done >= total) {
+        status = "complete";
+        labelKey = "statusComplete";
+        messageKey = "workflowCompleteMessage";
+      } else if (done > 0) {
+        status = "progress";
+        labelKey = "statusProgress";
+        messageKey = "workflowProgressMessage";
+      } else if (protocolLocked || currentResult) {
+        status = "validated";
+        labelKey = "statusValidated";
+        messageKey = "workflowValidatedMessage";
+      }
+    }
+    document.body.dataset.workflowStatus = status;
+    document.body.dataset.statusTheme = status;
+    if (elements.workflowStatusPill) elements.workflowStatusPill.dataset.status = status;
+    if (elements.workflowStatusText) {
+      elements.workflowStatusText.textContent = t(labelKey);
+      elements.workflowStatusText.dataset.i18n = labelKey;
+    }
+    if (elements.workflowMessage) {
+      elements.workflowMessage.textContent = t(messageKey);
+      elements.workflowMessage.dataset.i18n = messageKey;
+    }
+  }
+
+  function setProtocolView(mode) {
+    protocolViewMode = ["full", "bench", "single"].includes(mode) ? mode : "full";
+    document.body.classList.toggle("view-bench", protocolViewMode === "bench");
+    document.body.classList.toggle("view-single", protocolViewMode === "single");
+    document.querySelectorAll("[data-view-mode]").forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.viewMode === protocolViewMode));
+    });
+    applyActiveStepState();
+    saveSession();
+  }
+  function toggleLabFullscreen() {
+    document.body.classList.toggle("lab-fullscreen");
+    applyActiveStepState();
+  }
+  function setActiveStep(step, scroll) {
+    const total = totalProtocolSteps();
+    if (!total) return;
+    activeStep = Math.max(1, Math.min(Number(step) || 1, total));
+    applyActiveStepState();
+    saveSession();
+    if (scroll) {
+      const card = document.querySelector(`[data-step-number="${activeStep}"]`);
+      if (card) card.scrollIntoView({ behavior: accessibilityState.reduceMotion ? "auto" : "smooth", block: "center" });
+    }
+  }
+  function stepDelta(delta) {
+    setActiveStep(activeStep + delta, true);
+  }
+  function applyActiveStepState() {
+    const cards = Array.from(document.querySelectorAll("[data-step-number]"));
+    cards.forEach((card) => {
+      const number = Number(card.dataset.stepNumber);
+      card.classList.toggle("is-active", number === activeStep);
+      card.classList.toggle("is-complete", completedSteps.has(number));
+    });
+    document.querySelectorAll("[data-minimap-step]").forEach((button) => {
+      const number = Number(button.dataset.minimapStep);
+      button.classList.toggle("is-active", number === activeStep);
+      button.classList.toggle("is-done", completedSteps.has(number));
+    });
+    const total = totalProtocolSteps();
+    const done = Array.from(completedSteps).filter((step) => step <= total).length;
+    const pct = total ? done / total * 100 : 0;
+    const bar = document.querySelector("[data-progress-fill]");
+    const text = document.querySelector("[data-progress-text]");
+    if (bar) bar.style.width = `${pct}%`;
+    if (text) text.textContent = t("completedSteps", { done, total });
+    document.querySelectorAll("[data-step-complete]").forEach((input) => {
+      input.checked = completedSteps.has(Number(input.dataset.stepComplete));
+    });
+    const float = document.querySelector("[data-current-step-summary]");
+    const indexLabel = document.querySelector("[data-current-step-index]");
+    if (indexLabel) indexLabel.textContent = `${String(activeStep).padStart(2, "0")}/${String(total).padStart(2, "0")}`;
+    if (float && currentResult && currentInput) {
+      if (!currentResult.steps.length) {
+        float.textContent = t("directCurrentSummary", { tube: finalPreparationName(currentInput, 0) });
+      } else {
+        const step = currentResult.steps[activeStep - 1];
+        if (step) {
+          float.textContent = t("currentStepSummary", {
+            tube: tubeName(step.number, step.number === currentResult.steps.length, currentInput),
+            sourceVolume: formatNumber(step.sourceVolume, currentInput.precision),
+            diluentVolume: formatNumber(step.diluentVolume, currentInput.precision),
+            unit: unitLabel(currentInput.unit)
+          });
+        }
+      }
+    }
+    updateWorkflowStatus();
+  }
+  function toggleStepComplete(stepNumber, checked) {
+    const step = Number(stepNumber);
+    if (checked) completedSteps.add(step);
+    else completedSteps.delete(step);
+    applyActiveStepState();
+    saveSession();
+    if (checked && preferenceState.autoScroll && step < totalProtocolSteps()) {
+      setTimeout(() => setActiveStep(step + 1, true), 80);
+    }
+    showToast(checked ? t("markComplete") : t("resetProgress"));
+  }
+
+  function normalizeInputValue(control) {
+    if (!control || control.tagName !== "INPUT") return;
+    const type = control.getAttribute("type");
+    if (type && !["text", "number"].includes(type)) return;
+    let value = control.value;
+    const normalized = value
+      .replace(/[\u2212\u2013\u2014]/g, "-")
+      .replace(/[×xX]\s*10\s*\^?\s*/g, "10^")
+      .replace(/\s+/g, " ")
+      .trim();
+    if (normalized !== value) {
+      control.value = normalized;
+      showToast(t("normalizationApplied"));
+    }
+  }
+
+  function physicalUnitFactor(unit) {
+    return { "µL": 0.001, "mL": 1, "L": 1000 }[unit] ?? null;
+  }
+  function convertVolume(value, from, to) {
+    const a = physicalUnitFactor(from);
+    const b = physicalUnitFactor(to);
+    if (a == null || b == null) return null;
+    return value * a / b;
+  }
+  function updateUnitConversionNote() {
+    if (!elements.unitConversionNote) return;
+    if (!preferenceState.dualUnits) {
+      elements.unitConversionNote.textContent = "";
+      return;
+    }
+    const value = numericInput(elements.totalVolume.value);
+    const unit = elements.unit.value;
+    if (!Number.isFinite(value) || physicalUnitFactor(unit) == null) {
+      elements.unitConversionNote.textContent = "";
+      return;
+    }
+    let target = unit === "µL" ? "mL" : unit === "mL" ? "µL" : "mL";
+    const converted = convertVolume(value, unit, target);
+    elements.unitConversionNote.textContent = `${formatNumber(value, 4)} ${unit} = ${formatNumber(converted, 4)} ${target}`;
+  }
+  function updateNormalizedPreview() {
+    if (!elements.normalizedPreview) return;
+    try {
+      const input = readInput();
+      const result = Engine.calculate(input);
+      const scientific = formatScientific(result.coefficient, result.scientificExponent, Math.min(4, input.precision), true);
+      const decimal = formatNumber(result.targetRatio, Math.max(4, input.precision));
+      elements.normalizedPreview.innerHTML = `${scientific} = ${decimal} = ${formatNumber(result.targetPercent, Math.min(4, input.precision))} % v/v`;
+    } catch (_) {
+      elements.normalizedPreview.textContent = "";
+    }
+  }
+
+  function copyActiveFieldValue() {
+    const field = lastFocusedField;
+    if (!field || !("value" in field)) { showToast(t("noActiveField")); return; }
+    fieldClipboard = field.value;
+    showToast(t("fieldCopied"));
+  }
+  function pasteActiveFieldValue() {
+    const field = lastFocusedField;
+    if (!field || !("value" in field)) { showToast(t("noActiveField")); return; }
+    if (!fieldClipboard) { showToast(t("noFieldClipboard")); return; }
+    field.value = fieldClipboard;
+    field.dispatchEvent(new Event("input", { bubbles: true }));
+    field.dispatchEvent(new Event("change", { bubbles: true }));
+    showToast(t("fieldPasted"));
+  }
+
+  function loadDemo() {
+    if (protocolLocked) setProtocolLocked(false, true);
+    applyingHistory = true;
+    setMode("scientific", false);
+    elements.coefficient.value = "1";
+    elements.scientificExponent.value = "-3";
+    elements.totalVolume.value = "10";
+    elements.unit.value = "mL";
+    elements.productBase.value = "Arôme ou mélange complexe";
+    elements.diluent.value = "Propylène glycol";
+    elements.stockSolutionName.value = currentLanguage === "fr" ? "Solution mère démo" : "Demo stock";
+    elements.tubePrefix.value = currentLanguage === "fr" ? "Tube démo" : "Demo tube";
+    elements.finalSolutionName.value = currentLanguage === "fr" ? "Préparation démo" : "Demo preparation";
+    elements.projectName.value = "";
+    elements.operatorName.value = "";
+    elements.lotNumber.value = "";
+    elements.preparationDate.value = "";
+    elements.preparationNotes.value = "";
+    applyingHistory = false;
+    demoMode = true;
+    document.body.classList.add("demo-mode");
+    clearProgress(true);
+    commitHistory(true);
+    scheduleRefresh(true);
+    showToast(t("demoLoaded"));
+  }
+
+  function openCommandPalette() {
+    renderCommandList("");
+    elements.commandOverlay.hidden = false;
+    document.body.style.overflow = "hidden";
+    elements.commandSearch.value = "";
+    setTimeout(() => elements.commandSearch.focus(), 20);
+  }
+  function closeCommandPalette() {
+    elements.commandOverlay.hidden = true;
+    document.body.style.overflow = "";
+  }
+  function commandDefinitions() {
+    return [
+      ["parameters", "actionGoParameters", () => document.querySelector("#parameters")?.scrollIntoView({ behavior: "smooth" })],
+      ["verification", "actionGoVerification", () => document.querySelector("#verification")?.scrollIntoView({ behavior: "smooth" })],
+      ["protocol", "actionGoProtocol", () => document.querySelector("#protocol")?.scrollIntoView({ behavior: "smooth" })],
+      ["export", "actionGoExport", () => document.querySelector("#export")?.scrollIntoView({ behavior: "smooth" })],
+      ["lock", "actionToggleLock", toggleProtocolLock],
+      ["fullscreen", "actionToggleFullscreen", toggleLabFullscreen],
+      ["full-view", "actionViewFull", () => setProtocolView("full")],
+      ["bench-view", "actionViewBench", () => setProtocolView("bench")],
+      ["single-view", "actionViewSingle", () => setProtocolView("single")],
+      ["demo", "actionDemo", loadDemo],
+      ["text", "actionExportText", saveText],
+      ["csv", "actionExportCsv", saveCsv],
+      ["copy", "actionCopyProtocol", copySummary],
+      ["reset", "actionReset", resetAll],
+      ["undo", "actionUndo", historyBack],
+      ["redo", "actionRedo", historyForward]
+    ];
+  }
+  function renderCommandList(query) {
+    const needle = String(query || "").trim().toLowerCase();
+    const commands = commandDefinitions().filter(([, key]) => t(key).toLowerCase().includes(needle));
+    elements.commandList.innerHTML = commands.length
+      ? commands.map(([id, key]) => `<button type="button" data-palette-command="${id}"><span>${escapeHtml(t(key))}</span><span aria-hidden="true">↵</span></button>`).join("")
+      : `<p class="field-note">${escapeHtml(t("commandNoResult"))}</p>`;
+  }
+  function runCommand(id) {
+    const command = commandDefinitions().find(([commandId]) => commandId === id);
+    if (!command) return;
+    closeCommandPalette();
+    command[2]();
+  }
+
+  function prepareSectionDnD() {
+    const container = elements.results;
+    if (!container) return;
+    const validOrder = sectionOrder.filter((key) => ["verification", "protocol", "export"].includes(key));
+    ["verification", "protocol", "export"].forEach((key) => { if (!validOrder.includes(key)) validOrder.push(key); });
+    sectionOrder = validOrder;
+    sectionOrder.forEach((key) => {
+      const section = document.getElementById(key);
+      if (section && section.parentElement === container) container.appendChild(section);
+    });
+    container.querySelectorAll("[data-draggable-result-section]").forEach((section) => {
+      section.setAttribute("draggable", "true");
+    });
+    const navParent = elements.sectionMenu;
+    if (navParent) {
+      sectionOrder.forEach((key) => {
+        const link = navParent.querySelector(`[data-nav-section="${key}"]`);
+        if (link) navParent.appendChild(link);
+      });
+    }
+  }
+  function persistSectionOrder() {
+    writeStoredJson(STORAGE.sectionOrder, sectionOrder);
+  }
+
   function resetAll() {
+    if (completedSteps.size && !confirm(t("startedChangeWarning"))) return;
+    if (protocolLocked) setProtocolLocked(false, true);
     resetConcentrationFields();
     elements.productBase.selectedIndex = 0;
     elements.diluent.selectedIndex = 0;
@@ -3029,9 +4099,16 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
     elements.preparationDate.value = "";
     elements.preparationNotes.value = "";
     elements.totalVolume.value = "10";
-    elements.unit.selectedIndex = 0;
+    elements.unit.value = "mL";
     elements.precision.value = "2";
+    demoMode = false;
+    document.body.classList.remove("demo-mode");
+    clearProgress(true);
     setMode("scientific", false);
+    commitHistory(true);
+    updateUnitConversionNote();
+    updateNormalizedPreview();
+    saveSession();
     showToast(t("settingsReset"));
   }
   function readInput() {
@@ -3068,7 +4145,9 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
     } else {
       result = value.toFixed(decimals);
     }
-    return currentLanguage === "fr" ? result.replace(".", ",") : result;
+    const useComma = preferenceState.decimalStyle === "comma"
+      || (preferenceState.decimalStyle === "auto" && currentLanguage === "fr");
+    return useComma ? result.replace(".", ",") : result;
   }
   function formatScientific(coefficient, exponent, decimals, omitOne) {
     const isOne = Math.abs(coefficient - 1) < Math.pow(10, -(decimals + 1));
@@ -3241,31 +4320,167 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
       try {
         currentResult = Engine.calculate(currentInput);
         renderResult(currentResult, currentInput);
+        updateNormalizedPreview();
       } catch (error) {
         currentResult = null;
+        if (elements.normalizedPreview) elements.normalizedPreview.textContent = "";
         renderError(translateEngineError(error instanceof Error ? error.message : String(error)));
       }
+      updateWorkflowStatus();
       elements.refreshStatus.classList.remove("is-visible");
       elements.results.classList.remove("is-refreshing");
       elements.results.classList.add("is-ready");
     }, wait);
   }
+
+  function renderExportSection() {
+    return `
+      <section class="export-section major-section" id="export" data-observe-section="export" data-draggable-result-section="export" aria-labelledby="export-section-title">
+        <div class="major-section-banner">
+          <div class="major-section-banner__number">04</div>
+          <div class="major-section-banner__copy">
+            <p class="major-section-banner__eyebrow">${escapeHtml(t("sectionLabel"))}</p>
+            <h3 class="major-section-banner__title" id="export-section-title">${escapeHtml(t("navExport"))}</h3>
+          </div>
+          <button class="section-drag-handle" type="button" draggable="true" data-section-drag-handle aria-label="${escapeHtml(t("sectionReorder"))}">⋮⋮</button>
+          <button class="info-button" type="button" data-help-title-key="helpExportTitle" data-help-key="helpExport" aria-label="${escapeHtml(t("helpExportAria"))}">?</button>
+        </div>
+        <div class="export-section__body">
+          <p class="export-section__description">${escapeHtml(t("exportSectionDescription"))}</p>
+          <div class="export-section__actions">
+            <button class="button button--ghost" type="button" data-dynamic-action="copy" data-icon="copy"><span>${escapeHtml(t("copyProtocol"))}</span></button>
+            <button class="button button--ghost" type="button" data-dynamic-action="share" data-icon="share"><span>${escapeHtml(t("shareProtocol"))}</span></button>
+            <button class="button button--ghost" type="button" data-dynamic-action="text"><span aria-hidden="true">TXT</span><span>${escapeHtml(t("exportText"))}</span></button>
+            <button class="button button--primary" type="button" data-dynamic-action="export" data-icon="export"><span>${escapeHtml(t("exportCsv"))}</span></button>
+          </div>
+        </div>
+      </section>`;
+  }
+
+  function coherenceChecks(result, input) {
+    const volume = numericInput(input.totalVolume);
+    const targetOk = Number.isFinite(result.targetRatio) && result.targetRatio > 0 && result.targetRatio <= 1;
+    const volumeOk = Number.isFinite(volume) && volume > 0;
+    const finiteOk = result.steps.every((step) => [step.sourceVolume, step.diluentVolume, step.totalVolume, step.cumulativeRatio].every((value) => Number.isFinite(value) && value >= 0));
+    let sequenceOk = true;
+    let previous = 1;
+    result.steps.forEach((step) => {
+      if (step.cumulativeRatio > previous + 1e-12 || step.cumulativeRatio <= 0) sequenceOk = false;
+      previous = step.cumulativeRatio;
+    });
+    const finalRatio = result.steps.length ? result.steps[result.steps.length - 1].cumulativeRatio : 1;
+    const finalOk = Math.abs(finalRatio - result.targetRatio) <= Math.max(1e-12, Math.abs(result.targetRatio) * 1e-8);
+    return [
+      ["coherenceTarget", targetOk],
+      ["coherenceVolume", volumeOk],
+      ["coherenceFinite", finiteOk],
+      ["coherenceSequence", sequenceOk],
+      ["coherenceFinal", finalOk]
+    ];
+  }
+  function renderCoherencePanel(result, input) {
+    const checks = coherenceChecks(result, input);
+    return `
+      <div class="coherence-panel">
+        <h4 class="coherence-panel__title">${escapeHtml(t("coherenceTitle"))}</h4>
+        <ul class="coherence-list">
+          ${checks.map(([key, ok]) => `<li class="coherence-item${ok ? "" : " is-warning"}">${escapeHtml(t(key))}</li>`).join("")}
+        </ul>
+      </div>`;
+  }
+  function renderCompactOverview(result, input) {
+    const d = input.precision;
+    const unit = escapeHtml(unitLabel(input.unit));
+    if (!result.steps.length) {
+      return `
+        <div class="compact-overview">
+          <table>
+            <thead><tr><th>${escapeHtml(t("compactTube"))}</th><th>${escapeHtml(t("compactSource"))}</th><th>${escapeHtml(t("compactFinalVolume"))}</th><th>${escapeHtml(t("compactConcentration"))}</th></tr></thead>
+            <tbody><tr data-overview-step="1"><td>${escapeHtml(finalPreparationName(input, 0))}</td><td>${escapeHtml(stockName(input))}</td><td>${formatNumber(numericInput(input.totalVolume), d)} ${unit}</td><td>100 % v/v</td></tr></tbody>
+          </table>
+        </div>`;
+    }
+    return `
+      <div class="compact-overview">
+        <table>
+          <thead>
+            <tr>
+              <th>${escapeHtml(t("compactTube"))}</th>
+              <th>${escapeHtml(t("compactSource"))}</th>
+              <th>${escapeHtml(t("compactSourceVolume"))}</th>
+              <th>${escapeHtml(t("compactDiluent"))}</th>
+              <th>${escapeHtml(t("compactFinalVolume"))}</th>
+              <th>${escapeHtml(t("compactConcentration"))}</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${result.steps.map((step, index) => {
+              const sci = Engine.ratioToScientific(step.cumulativeRatio);
+              return `<tr data-overview-step="${step.number}">
+                <td>${escapeHtml(tubeName(step.number, index === result.steps.length - 1, input))}</td>
+                <td>${escapeHtml(sourceLabel(step, input))}</td>
+                <td>${formatNumber(step.sourceVolume, d)} ${unit}</td>
+                <td>${formatNumber(step.diluentVolume, d)} ${unit}</td>
+                <td>${formatNumber(step.totalVolume, d)} ${unit}</td>
+                <td>${formatScientific(sci.coefficient, sci.exponent, d, true)}</td>
+              </tr>`;
+            }).join("")}
+          </tbody>
+        </table>
+      </div>`;
+  }
+  function renderMinimap(result, input) {
+    const total = Math.max(1, result.steps.length);
+    const buttons = result.steps.length
+      ? result.steps.map((step, index) => `<button type="button" data-minimap-step="${step.number}" aria-label="${escapeHtml(tubeName(step.number, index === result.steps.length - 1, input))}">${String(step.number).padStart(2, "0")}</button>`).join("")
+      : `<button type="button" data-minimap-step="1" aria-label="${escapeHtml(finalPreparationName(input, 0))}">01</button>`;
+    return `<aside class="protocol-minimap" aria-label="${escapeHtml(t("protocolProgress"))}">${buttons}</aside>`;
+  }
+  function renderProtocolWorkflow(result) {
+    const total = Math.max(1, result.steps.length);
+    const done = Array.from(completedSteps).filter((step) => step <= total).length;
+    return `
+      <div class="protocol-workflow">
+        <div class="protocol-progress-card">
+          <div class="protocol-progress-card__top">
+            <strong>${escapeHtml(t("protocolProgress"))}</strong>
+            <span data-progress-text>${escapeHtml(t("completedSteps", { done, total }))}</span>
+          </div>
+          <div class="protocol-progress-bar" aria-hidden="true"><span data-progress-fill style="width:${total ? done / total * 100 : 0}%"></span></div>
+        </div>
+        <div class="protocol-mode-row">
+          <button type="button" data-view-mode="full" aria-pressed="${protocolViewMode === "full"}">${escapeHtml(t("viewFull"))}</button>
+          <button type="button" data-view-mode="bench" aria-pressed="${protocolViewMode === "bench"}">${escapeHtml(t("viewBench"))}</button>
+          <button type="button" data-view-mode="single" aria-pressed="${protocolViewMode === "single"}">${escapeHtml(t("viewSingle"))}</button>
+          <button type="button" data-protocol-command="previous">← ${escapeHtml(t("previousStep"))}</button>
+          <button type="button" data-protocol-command="next">${escapeHtml(t("nextStep"))} →</button>
+          <button type="button" data-protocol-command="fullscreen">⛶ ${escapeHtml(document.body.classList.contains("lab-fullscreen") ? t("exitFullscreen") : t("fullscreen"))}</button>
+          <button type="button" data-protocol-command="lock">${protocolLocked ? "🔒" : "🔓"} ${escapeHtml(t(protocolLocked ? "unlock" : "lock"))}</button>
+        </div>
+      </div>`;
+  }
+
   function renderError(message) {
     elements.results.innerHTML = `
-      <section class="result-section major-section" id="verification" data-observe-section="verification" aria-labelledby="verification-section-title">
+      <section class="result-section major-section" id="verification" data-observe-section="verification" data-draggable-result-section="verification" aria-labelledby="verification-section-title">
         <div class="major-section-banner">
           <div class="major-section-banner__number">02</div>
           <div class="major-section-banner__copy">
             <p class="major-section-banner__eyebrow">${escapeHtml(t("sectionLabel"))}</p>
             <h3 class="major-section-banner__title" id="verification-section-title">${escapeHtml(t("navVerification"))}</h3>
           </div>
+          <button class="section-drag-handle" type="button" draggable="true" data-section-drag-handle aria-label="${escapeHtml(t("sectionReorder"))}">⋮⋮</button>
           <button class="info-button" type="button" data-help-title-key="helpVerificationTitle" data-help-key="helpVerification" aria-label="${escapeHtml(t("helpVerificationAria"))}">?</button>
         </div>
         <div class="error-card">
           <strong>${escapeHtml(t("invalidParameters"))}</strong>
           <p>${escapeHtml(message)}</p>
         </div>
-      </section>`;
+      </section>
+      ${renderExportSection()}`;
+    currentResult = null;
+    updateWorkflowStatus();
+    prepareSectionDnD();
     refreshSectionNavigation();
   }
   function renderResult(result, input) {
@@ -3277,6 +4492,9 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
       ? t("noDilution")
       : `${result.steps.length} ${t(result.steps.length > 1 ? "tubePlural" : "tubeSingular")}`;
     const compatibilityText = compatibilityCopy(input, result.compatibility.kind);
+    const totalTubes = Math.max(1, result.steps.length);
+    const totalPrepared = volume * totalTubes;
+    const totalTransferred = result.steps.reduce((sum, step) => sum + step.sourceVolume, 0);
 
     const summary = `
       <div class="summary-banner">
@@ -3292,63 +4510,53 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
         </section>
       </div>`;
 
-    const finalSource = result.steps.length
-      ? sourceLabel(result.steps[result.steps.length - 1], input)
-      : stockName(input);
+    const finalSource = result.steps.length ? sourceLabel(result.steps[result.steps.length - 1], input) : stockName(input);
+    const critical = `
+      <div class="critical-values">
+        <article class="critical-value"><p class="critical-value__label">${escapeHtml(t("criticalTarget"))}</p><p class="critical-value__value">${target}</p></article>
+        <article class="critical-value"><p class="critical-value__label">${escapeHtml(t("criticalVolume"))}</p><p class="critical-value__value">${formatNumber(volume, d)} ${unit}</p></article>
+      </div>`;
     const metrics = `
       <div class="metric-grid">
-        <article class="metric-card">
-          <p class="metric-label">${escapeHtml(t("minimumStock"))}</p>
-          <p class="metric-value">${formatNumber(result.stockRequired, d)} ${unit}</p>
-          <p class="metric-detail">${escapeHtml(t("minimumStockDetail"))}</p>
-        </article>
-        <article class="metric-card">
-          <p class="metric-label">${escapeHtml(t("cumulativeDiluent"))}</p>
-          <p class="metric-value">${formatNumber(result.totalDiluentUsed, d)} ${unit}</p>
-          <p class="metric-detail">${escapeHtml(t("cumulativeDiluentDetail"))}</p>
-        </article>
-        <article class="metric-card">
-          <p class="metric-label">${escapeHtml(t("finalVolume"))}</p>
-          <p class="metric-value">${formatNumber(volume, d)} ${unit}</p>
-          <p class="metric-detail">${escapeHtml(t("finalVolumeDetail"))}</p>
-        </article>
-        <article class="metric-card">
-          <p class="metric-label">${escapeHtml(t("finalTubeSource"))}</p>
-          <p class="metric-value">${escapeHtml(finalSource)}</p>
-          <p class="metric-detail">${escapeHtml(t("finalTubeSourceDetail"))}</p>
-        </article>
+        <article class="metric-card"><p class="metric-label">${escapeHtml(t("minimumStock"))}</p><p class="metric-value">${formatNumber(result.stockRequired, d)} ${unit}</p><p class="metric-detail">${escapeHtml(t("minimumStockDetail"))}</p></article>
+        <article class="metric-card"><p class="metric-label">${escapeHtml(t("cumulativeDiluent"))}</p><p class="metric-value">${formatNumber(result.totalDiluentUsed, d)} ${unit}</p><p class="metric-detail">${escapeHtml(t("cumulativeDiluentDetail"))}</p></article>
+        <article class="metric-card"><p class="metric-label">${escapeHtml(t("totalPrepared"))}</p><p class="metric-value">${formatNumber(totalPrepared, d)} ${unit}</p><p class="metric-detail">${escapeHtml(t("totalTubes"))} : ${totalTubes}</p></article>
+        <article class="metric-card"><p class="metric-label">${escapeHtml(t("totalTransfers"))}</p><p class="metric-value">${formatNumber(totalTransferred, d)} ${unit}</p><p class="metric-detail">${escapeHtml(t("finalTubeSource"))} : ${escapeHtml(finalSource)}</p></article>
       </div>`;
 
-    const compatibility = `
-      <div class="compatibility compatibility--${result.compatibility.kind}">
-        <strong>${escapeHtml(compatibilityText.title)}</strong>
-        <p>${escapeHtml(compatibilityText.message)}</p>
-      </div>`;
+    const compatibility = `<div class="compatibility compatibility--${result.compatibility.kind}"><strong>${escapeHtml(compatibilityText.title)}</strong><p>${escapeHtml(compatibilityText.message)}</p></div>`;
 
-    let stepsHtml;
-    if (result.steps.length) {
-      stepsHtml = result.steps.map((step, index) => renderStep(step, index === result.steps.length - 1, input)).join("");
-    } else {
-      stepsHtml = renderDirectUse(volume, unit, d);
-    }
+    let stepsHtml = result.steps.length
+      ? result.steps.map((step, index) => renderStep(step, index === result.steps.length - 1, input, result.steps.length)).join("")
+      : renderDirectUse(volume, unit, d);
 
-    const stepCount = result.steps.length || 1;
+    const stepCount = Math.max(1, result.steps.length);
+    activeStep = Math.max(1, Math.min(activeStep, stepCount));
+    completedSteps = new Set(Array.from(completedSteps).filter((step) => step >= 1 && step <= stepCount));
+    const activeLabel = result.steps.length
+      ? tubeName(activeStep, activeStep === result.steps.length, input)
+      : finalPreparationName(input, 0);
+
     elements.results.innerHTML = `
-      <section class="result-section major-section" id="verification" data-observe-section="verification" aria-labelledby="verification-section-title">
+      <section class="result-section major-section" id="verification" data-observe-section="verification" data-draggable-result-section="verification" aria-labelledby="verification-section-title">
         <div class="major-section-banner">
           <div class="major-section-banner__number">02</div>
           <div class="major-section-banner__copy">
             <p class="major-section-banner__eyebrow">${escapeHtml(t("sectionLabel"))}</p>
             <h3 class="major-section-banner__title" id="verification-section-title">${escapeHtml(t("navVerification"))}</h3>
           </div>
+          <button class="section-drag-handle" type="button" draggable="true" data-section-drag-handle aria-label="${escapeHtml(t("sectionReorder"))}">⋮⋮</button>
           <button class="info-button" type="button" data-help-title-key="helpVerificationTitle" data-help-key="helpVerification" aria-label="${escapeHtml(t("helpVerificationAria"))}">?</button>
         </div>
         ${summary}
+        ${critical}
         ${renderTraceSummary(input)}
         ${metrics}
+        ${renderCoherencePanel(result, input)}
         ${compatibility}
       </section>
-      <section class="result-section major-section" id="protocol" data-observe-section="protocol" aria-labelledby="protocol-section-title">
+
+      <section class="result-section major-section" id="protocol" data-observe-section="protocol" data-draggable-result-section="protocol" aria-labelledby="protocol-section-title">
         <div class="major-section-banner">
           <div class="major-section-banner__number">03</div>
           <div class="major-section-banner__copy">
@@ -3356,32 +4564,58 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
             <h3 class="major-section-banner__title" id="protocol-section-title">${escapeHtml(t("navProtocol"))}</h3>
           </div>
           <span class="major-section-banner__meta">${stepCount} ${escapeHtml(t(stepCount > 1 ? "stepPlural" : "stepSingular"))}</span>
+          <button class="section-drag-handle" type="button" draggable="true" data-section-drag-handle aria-label="${escapeHtml(t("sectionReorder"))}">⋮⋮</button>
           <button class="info-button" type="button" data-help-title-key="helpProtocolTitle" data-help-key="helpProtocol" aria-label="${escapeHtml(t("helpProtocolAria"))}">?</button>
         </div>
-        <div class="protocol-heading">
-          <h3 class="protocol-title">${escapeHtml(t("detailedSteps"))}</h3>
+        ${renderProtocolWorkflow(result)}
+        <div class="current-step-float"><span><strong>${escapeHtml(t("activeStep"))} :</strong> <span data-current-step-summary>${escapeHtml(activeLabel)}</span></span><span data-current-step-index>${String(activeStep).padStart(2, "0")}/${String(stepCount).padStart(2, "0")}</span></div>
+        <div class="protocol-heading"><h3 class="protocol-title">${escapeHtml(t("compactOverview"))}</h3></div>
+        ${renderCompactOverview(result, input)}
+        <div class="protocol-heading"><h3 class="protocol-title">${escapeHtml(t("detailedSteps"))}</h3></div>
+        <div class="protocol-layout">
+          <div class="step-list">${stepsHtml}</div>
+          ${renderMinimap(result, input)}
         </div>
-        <div class="step-list">${stepsHtml}</div>
-        <div class="notice-card">
-          <strong>${escapeHtml(t("checksTitle"))}</strong>
-          <p>${escapeHtml(t("checksBody"))}</p>
-        </div>
-      </section>`;
+        <div class="notice-card"><strong>${escapeHtml(t("checksTitle"))}</strong><p>${escapeHtml(t("checksBody"))}</p></div>
+      </section>
+
+      ${renderExportSection()}`;
+
+    document.body.classList.toggle("view-bench", protocolViewMode === "bench");
+    document.body.classList.toggle("view-single", protocolViewMode === "single");
+    prepareSectionDnD();
+    applyActiveStepState();
+    attachDynamicProtocolHandlers();
+    updateWorkflowStatus();
+    saveSession();
     refreshSectionNavigation();
+    if (restorePendingScroll) {
+      restorePendingScroll = false;
+      setTimeout(() => {
+        const card = document.querySelector(`[data-step-number="${activeStep}"]`);
+        if (card) card.scrollIntoView({ behavior: "auto", block: "center" });
+      }, 80);
+    }
   }
   function renderDirectUse(volume, unit, d) {
     const input = currentInput || {};
     const stock = stockName(input);
     const finalName = finalPreparationName(input, 0);
     const color = sourceColor(0);
+    const complete = completedSteps.has(1);
     return `
-      <article class="step-card step-card--source-coded" style="--source-color:${color}">
+      <article class="step-card step-card--source-coded${activeStep === 1 ? " is-active" : ""}${complete ? " is-complete" : ""}" style="--source-color:${color}" data-step-number="1">
         <div class="step-card__head">
           <div class="step-number">01</div>
           <div>
             <h3>${escapeHtml(finalName)} <span class="final-badge">${escapeHtml(t("finalPreparation"))}</span></h3>
             <p class="step-source">${escapeHtml(t("targetEqualsStock"))}</p>
+            <p class="step-hierarchy">${escapeHtml(t("hierarchyStep", { step: 1, total: 1 }))}</p>
             <span class="source-identity"><span class="source-identity__dot"></span>${escapeHtml(t("namedSource", { source: stock }))}</span>
+          </div>
+          <div class="step-actions">
+            <button type="button" class="step-action" data-copy-step="1">⧉ ${escapeHtml(t("copyStep"))}</button>
+            <button type="button" class="step-action" data-expand-step="1">⤢ ${escapeHtml(t("enlargeCard"))}</button>
           </div>
         </div>
         <div class="step-card__body">
@@ -3399,10 +4633,11 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
             <li>${escapeHtml(t("identifyFinalDirect", { finalName }))}</li>
           </ol>
           <div class="step-result">${escapeHtml(t("finalVolume"))} : ${formatNumber(volume, d)} ${unit} · ${escapeHtml(t("finalConcentration"))} : 100 % v/v</div>
+          <label class="step-complete-label"><input type="checkbox" data-step-complete="1" ${complete ? "checked" : ""}><span>${escapeHtml(t("markComplete"))}</span></label>
         </div>
       </article>`;
   }
-  function renderStep(step, isFinal, input) {
+  function renderStep(step, isFinal, input, totalSteps) {
     const d = input.precision;
     const unit = escapeHtml(unitLabel(input.unit));
     const sci = Engine.ratioToScientific(step.cumulativeRatio);
@@ -3414,15 +4649,20 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
     const diluent = diluentLabel(input.diluent);
     const factor = 1 / step.stepFactor;
     const color = sourceColor(step.number - 1);
-
+    const complete = completedSteps.has(step.number);
     return `
-      <article class="step-card step-card--source-coded" style="--source-color:${color}">
+      <article class="step-card step-card--source-coded${activeStep === step.number ? " is-active" : ""}${complete ? " is-complete" : ""}" style="--source-color:${color}" data-step-number="${step.number}">
         <div class="step-card__head">
           <div class="step-number">${String(step.number).padStart(2, "0")}</div>
           <div>
             <h3>${escapeHtml(currentTubeName)}${isFinal ? `<span class="final-badge">${escapeHtml(t("finalBadge"))}</span>` : ""}</h3>
             <p class="step-source">${escapeHtml(t("stepDilution"))} × ${formatNumber(factor, d)}</p>
+            <p class="step-hierarchy">${escapeHtml(t("hierarchyStep", { step: step.number, total: totalSteps }))}</p>
             <span class="source-identity"><span class="source-identity__dot"></span>${escapeHtml(t("namedSource", { source }))}</span>
+          </div>
+          <div class="step-actions">
+            <button type="button" class="step-action" data-copy-step="${step.number}">⧉ ${escapeHtml(t("copyStep"))}</button>
+            <button type="button" class="step-action" data-expand-step="${step.number}">⤢ ${escapeHtml(t("enlargeCard"))}</button>
           </div>
         </div>
         <div class="step-card__body">
@@ -3449,6 +4689,7 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
             <li>${escapeHtml(isFinal ? t("finalInstruction") : t("nextInstruction", { tubeName: currentTubeName, nextTubeName }))}</li>
           </ol>
           <div class="step-result">${escapeHtml(t("obtainedConcentration"))} : ${concentration} · ${formatNumber(step.cumulativeRatio * 100, d)} % v/v · ${escapeHtml(t("finalVolume").toLowerCase())} : ${formatNumber(step.totalVolume, d)} ${unit}</div>
+          <label class="step-complete-label"><input type="checkbox" data-step-complete="${step.number}" ${complete ? "checked" : ""}><span>${escapeHtml(t("markComplete"))}</span></label>
         </div>
       </article>`;
   }
@@ -3457,6 +4698,149 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
     temporary.innerHTML = value;
     return temporary.textContent || temporary.innerText || "";
   }
+
+  function stepText(stepNumber) {
+    if (!currentResult || !currentInput) return "";
+    const i = currentInput;
+    const d = i.precision;
+    const unit = unitLabel(i.unit);
+    if (!currentResult.steps.length) {
+      return [
+        finalPreparationName(i, 0),
+        `${t("takeStockDirect", { volume: formatNumber(numericInput(i.totalVolume), d), unit, stockName: stockName(i) })}`,
+        t("transferDirect"),
+        t("homogenizeDirect")
+      ].join("\n");
+    }
+    const step = currentResult.steps[Number(stepNumber) - 1];
+    if (!step) return "";
+    const isFinal = step.number === currentResult.steps.length;
+    const sci = Engine.ratioToScientific(step.cumulativeRatio);
+    const source = sourceLabel(step, i);
+    const tube = tubeName(step.number, isFinal, i);
+    return [
+      tube,
+      `${t("sourceToTake")} : ${formatNumber(step.sourceVolume, d)} ${unit} - ${source}`,
+      `${t("diluentToAdd")} : ${formatNumber(step.diluentVolume, d)} ${unit} - ${diluentLabel(i.diluent)}`,
+      `${t("finalVolume")} : ${formatNumber(step.totalVolume, d)} ${unit}`,
+      `${t("obtainedConcentration")} : ${stripHtml(formatScientific(sci.coefficient, sci.exponent, d, true))}`,
+      t("transferAndMix", { tubeName: tube })
+    ].join("\n");
+  }
+  async function copyStep(stepNumber) {
+    const text = stepText(stepNumber);
+    if (!text) return;
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (_) {
+      const area = document.createElement("textarea");
+      area.value = text;
+      area.style.position = "fixed";
+      area.style.opacity = "0";
+      document.body.appendChild(area);
+      area.select();
+      document.execCommand("copy");
+      area.remove();
+    }
+    showToast(t("protocolCopied"));
+  }
+  function saveText() {
+    if (!currentResult) { showToast(t("fixParametersFirst")); return; }
+    const blob = new Blob([summaryText()], { type: "text/plain;charset=utf-8" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `dilution_protocol_${new Date().toISOString().slice(0,10)}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(link.href), 500);
+    showToast(t("textReady"));
+  }
+  function attachDynamicProtocolHandlers() {
+    document.querySelectorAll("[data-view-mode]").forEach((button) => {
+      button.addEventListener("click", () => setProtocolView(button.dataset.viewMode));
+    });
+    document.querySelectorAll("[data-protocol-command]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const command = button.dataset.protocolCommand;
+        if (command === "previous") stepDelta(-1);
+        else if (command === "next") stepDelta(1);
+        else if (command === "fullscreen") toggleLabFullscreen();
+        else if (command === "lock") toggleProtocolLock();
+      });
+    });
+    document.querySelectorAll("[data-step-complete]").forEach((input) => {
+      input.addEventListener("change", () => toggleStepComplete(input.dataset.stepComplete, input.checked));
+    });
+    document.querySelectorAll("[data-step-number]").forEach((card) => {
+      card.addEventListener("click", (event) => {
+        if (event.target.closest("button,input,label")) return;
+        setActiveStep(Number(card.dataset.stepNumber), false);
+      });
+    });
+    document.querySelectorAll("[data-minimap-step]").forEach((button) => {
+      button.addEventListener("click", () => setActiveStep(Number(button.dataset.minimapStep), true));
+    });
+    document.querySelectorAll("[data-overview-step]").forEach((row) => {
+      row.addEventListener("click", () => setActiveStep(Number(row.dataset.overviewStep), true));
+    });
+    document.querySelectorAll("[data-copy-step]").forEach((button) => {
+      button.addEventListener("click", () => copyStep(Number(button.dataset.copyStep)));
+    });
+    document.querySelectorAll("[data-expand-step]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const card = button.closest(".step-card");
+        if (!card) return;
+        card.classList.toggle("is-expanded");
+        button.textContent = card.classList.contains("is-expanded")
+          ? `⤡ ${t("reduceCard")}`
+          : `⤢ ${t("enlargeCard")}`;
+      });
+    });
+    elements.results.querySelectorAll("[data-dynamic-action]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const action = button.dataset.dynamicAction;
+        if (action === "copy") copySummary();
+        else if (action === "share") shareSummary();
+        else if (action === "export") saveCsv();
+        else if (action === "text") saveText();
+      });
+    });
+    elements.results.querySelectorAll("[data-icon]").forEach((button) => {
+      if (button.querySelector("svg")) return;
+      const icon = svg[button.dataset.icon];
+      if (icon) button.insertAdjacentHTML("afterbegin", icon);
+    });
+
+    elements.results.querySelectorAll("[data-draggable-result-section]").forEach((section) => {
+      section.addEventListener("dragstart", (event) => {
+        if (!event.target.closest("[data-section-drag-handle]")) {
+          event.preventDefault();
+          return;
+        }
+        draggedSection = section;
+        section.classList.add("is-dragging");
+        event.dataTransfer.effectAllowed = "move";
+      });
+      section.addEventListener("dragend", () => {
+        section.classList.remove("is-dragging");
+        draggedSection = null;
+        sectionOrder = Array.from(elements.results.querySelectorAll("[data-draggable-result-section]")).map((node) => node.id);
+        persistSectionOrder();
+        prepareSectionDnD();
+        refreshSectionNavigation();
+      });
+      section.addEventListener("dragover", (event) => {
+        if (!draggedSection || draggedSection === section) return;
+        event.preventDefault();
+        const rect = section.getBoundingClientRect();
+        const after = event.clientY > rect.top + rect.height / 2;
+        if (after) section.after(draggedSection);
+        else section.before(draggedSection);
+      });
+    });
+  }
+
   function summaryText() {
     if (!currentResult || !currentInput) return t("noValidPlan");
     const r = currentResult;
@@ -3464,8 +4848,11 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
     const d = i.precision;
     const unit = unitLabel(i.unit);
     const target = stripHtml(formatScientific(r.coefficient, r.scientificExponent, d, true));
+    const total = totalProtocolSteps();
+    const done = Array.from(completedSteps).filter((step) => step <= total).length;
     const lines = [
       t("calculatorHeading"),
+      `${t("protocolProgress")} : ${done}/${total}`,
       "",
       `${t("stockSolutionName")} : ${stockName(i)}`,
       `${t("finalSolutionName")} : ${finalPreparationName(i, r.steps.length)}`,
@@ -3664,17 +5051,26 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
     const icon = svg[button.dataset.icon];
     if (icon) button.insertAdjacentHTML("afterbegin", icon);
   });
+  function requestModeChange(mode, resetValues, focusField) {
+    if (completedSteps.size) {
+      const proceed = confirm(t("startedChangeWarning"));
+      if (!proceed) return;
+      clearProgress(true);
+    }
+    setMode(mode, resetValues);
+    demoMode = false;
+    document.body.classList.remove("demo-mode");
+    commitHistory(true);
+    saveSession();
+    if (focusField) focusModeField(mode);
+  }
   elements.modeButtons.forEach((button) => {
-    button.addEventListener("click", () => setMode(button.dataset.mode, true));
+    button.addEventListener("click", () => requestModeChange(button.dataset.mode, true, false));
   });
   elements.formatShortcuts.forEach((button) => {
-    button.addEventListener("click", () => {
-      const mode = button.dataset.formatShortcut;
-      setMode(mode, false);
-      focusModeField(mode);
-    });
+    button.addEventListener("click", () => requestModeChange(button.dataset.formatShortcut, false, true));
   });
-  [
+  const trackedControls = [
     elements.percentage, elements.coefficient, elements.scientificExponent,
     elements.powerX, elements.numerator, elements.denominator,
     elements.productBase, elements.diluent,
@@ -3682,14 +5078,114 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
     elements.projectName, elements.operatorName, elements.lotNumber,
     elements.preparationDate, elements.preparationNotes,
     elements.totalVolume, elements.unit, elements.precision
-  ].forEach((control) => {
-    control.addEventListener("input", () => scheduleRefresh(false));
-    control.addEventListener("change", () => scheduleRefresh(false));
+  ].filter(Boolean);
+
+  trackedControls.forEach((control) => {
+    control.addEventListener("focus", () => {
+      lastFocusedField = control;
+      if (control.tagName === "INPUT" && !["date", "checkbox", "range"].includes(control.type)) {
+        setTimeout(() => {
+          try { control.select(); } catch (_) { /* selection unavailable */ }
+        }, 0);
+      }
+    });
+    control.addEventListener("blur", () => normalizeInputValue(control));
+    control.addEventListener("input", () => {
+      if (applyingHistory) return;
+      scheduleRefresh(false);
+      updateUnitConversionNote();
+      updateNormalizedPreview();
+    });
+    control.addEventListener("change", () => {
+      if (applyingHistory) return;
+      const affectsPlan = calculationControls().includes(control);
+      if (completedSteps.size && affectsPlan) {
+        const proceed = confirm(t("startedChangeWarning"));
+        if (!proceed) {
+          if (lastCommittedInput) applyInputState(lastCommittedInput);
+          return;
+        }
+        clearProgress(true);
+      }
+
+      if (control === elements.unit) {
+        const from = previousUnit;
+        const to = elements.unit.value;
+        const value = numericInput(elements.totalVolume.value);
+        const converted = convertVolume(value, from, to);
+        if (Number.isFinite(converted) && from !== to) {
+          elements.totalVolume.value = String(converted);
+          showToast(t("conversionPerformed", {
+            before: formatNumber(value, 4), from,
+            after: formatNumber(converted, 4), to
+          }));
+        }
+        previousUnit = to;
+      }
+
+      normalizeInputValue(control);
+      demoMode = false;
+      document.body.classList.remove("demo-mode");
+      commitHistory(true);
+      saveSession();
+      updateUnitConversionNote();
+      scheduleRefresh(false);
+    });
   });
   elements.resetButtons.forEach((button) => button.addEventListener("click", resetAll));
   elements.exportButtons.forEach((button) => button.addEventListener("click", saveCsv));
   elements.copyButtons.forEach((button) => button.addEventListener("click", copySummary));
   elements.shareButtons.forEach((button) => button.addEventListener("click", shareSummary));
+  elements.historyBack.addEventListener("click", historyBack);
+  elements.historyForward.addEventListener("click", historyForward);
+  elements.protocolLock.addEventListener("click", toggleProtocolLock);
+  elements.demoModeButton.addEventListener("click", loadDemo);
+
+  elements.uiSizeButtons.forEach((button) => button.addEventListener("click", () => setPreference("uiSize", button.dataset.uiSize)));
+  elements.layoutButtons.forEach((button) => button.addEventListener("click", () => setPreference("layout", button.dataset.layoutMode)));
+  elements.decimalStyleButtons.forEach((button) => button.addEventListener("click", () => setPreference("decimalStyle", button.dataset.decimalStyle)));
+  elements.configWidthRange.addEventListener("input", () => setPreference("configWidth", Number(elements.configWidthRange.value)));
+  elements.labContrastToggle.addEventListener("change", () => setPreference("labContrast", elements.labContrastToggle.checked));
+  elements.volumeZoomToggle.addEventListener("change", () => setPreference("volumeZoom", elements.volumeZoomToggle.checked));
+  elements.autoScrollToggle.addEventListener("change", () => setPreference("autoScroll", elements.autoScrollToggle.checked));
+  elements.dualUnitToggle.addEventListener("change", () => setPreference("dualUnits", elements.dualUnitToggle.checked));
+
+  elements.quickActionsTrigger.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const open = elements.quickActionsMenu.hidden;
+    elements.quickActionsMenu.hidden = !open;
+    elements.quickActionsTrigger.setAttribute("aria-expanded", String(open));
+  });
+  elements.quickActionsMenu.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-command]");
+    if (!button) return;
+    elements.quickActionsMenu.hidden = true;
+    elements.quickActionsTrigger.setAttribute("aria-expanded", "false");
+    const command = button.dataset.command;
+    if (command === "toggle-lock") toggleProtocolLock();
+    else if (command === "toggle-fullscreen") toggleLabFullscreen();
+    else if (command === "demo") loadDemo();
+    else if (command === "command-palette") openCommandPalette();
+    else if (command === "copy-field") copyActiveFieldValue();
+    else if (command === "paste-field") pasteActiveFieldValue();
+  });
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest(".quick-actions-wrap")) {
+      elements.quickActionsMenu.hidden = true;
+      elements.quickActionsTrigger.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  elements.commandClose.addEventListener("click", closeCommandPalette);
+  elements.commandOverlay.addEventListener("click", (event) => {
+    if (event.target === elements.commandOverlay) closeCommandPalette();
+  });
+  elements.commandSearch.addEventListener("input", () => renderCommandList(elements.commandSearch.value));
+  elements.commandList.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-palette-command]");
+    if (button) runCommand(button.dataset.paletteCommand);
+  });
+
   document.addEventListener("click", (event) => {
     const helpButton = event.target.closest("[data-help-key]");
     if (helpButton) openHelp(helpButton);
@@ -3746,22 +5242,77 @@ body.a11y-high-contrast .onboarding-button--primary { outline: 3px solid current
   elements.a11yEnableAll.addEventListener("click", () => setAllAccessibility(true));
   elements.a11yClearAll.addEventListener("click", () => setAllAccessibility(false));
   document.addEventListener("keydown", (event) => {
+    const target = event.target;
+    const editing = target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName);
+
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
+      event.preventDefault();
+      openCommandPalette();
+      return;
+    }
+    if (event.altKey && event.key.toLowerCase() === "l") {
+      event.preventDefault();
+      toggleProtocolLock();
+      return;
+    }
+    if (event.altKey && event.key.toLowerCase() === "f") {
+      event.preventDefault();
+      toggleLabFullscreen();
+      return;
+    }
+    if (event.altKey && ["1", "2", "3"].includes(event.key)) {
+      event.preventDefault();
+      setProtocolView(event.key === "1" ? "full" : event.key === "2" ? "bench" : "single");
+      return;
+    }
+    if (!editing && protocolViewMode === "single" && (event.key === "ArrowLeft" || event.key === "ArrowRight")) {
+      event.preventDefault();
+      stepDelta(event.key === "ArrowLeft" ? -1 : 1);
+      return;
+    }
+    if (!editing && event.key === "?") {
+      event.preventDefault();
+      openOnboarding(0);
+      return;
+    }
     if (event.key !== "Escape") return;
-    if (!elements.onboardingOverlay.hidden) closeOnboarding(true);
+    if (!elements.commandOverlay.hidden) closeCommandPalette();
+    else if (!elements.onboardingOverlay.hidden) closeOnboarding(true);
     else if (!elements.helpOverlay.hidden) closeHelp();
     else if (!elements.customizationPanel.hidden) closeCustomization();
+    else if (document.body.classList.contains("lab-fullscreen")) toggleLabFullscreen();
     else closeSectionMenu();
   });
 
   applyTheme();
   applyAccessibility();
+  applyPreferences();
   applyTranslations();
-  setMode("scientific", false);
+
+  const storedHistory = readStoredJson(STORAGE.history, []);
+  historyStack = Array.isArray(storedHistory) ? storedHistory.slice(-20) : [];
+  historyIndex = historyStack.length - 1;
+
+  const restored = restoreSession();
+  if (!restored) {
+    setMode("scientific", false);
+    commitHistory(true);
+  } else if (!historyStack.length) {
+    commitHistory(true);
+  }
+  previousUnit = elements.unit.value;
+  setProtocolView(protocolViewMode);
+  updateHistoryButtons();
+  updateUnitConversionNote();
+  updateNormalizedPreview();
   refreshSectionNavigation();
   scheduleRefresh(true);
+
   if (safeStorageGet(STORAGE.onboarding) !== "1") {
     setTimeout(() => openOnboarding(0), 250);
   }
+
+  window.addEventListener("beforeunload", saveSession);
 })();
 </script>
 
