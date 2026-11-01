@@ -3312,6 +3312,186 @@ body.dark-mode .onboarding-language-label {
   }
 }
 
+
+/* Laptop-height panel fit refinement */
+@media (min-width: 1000px) and (max-height: 840px) {
+  .config-card {
+    top: 52px !important;
+  }
+
+  .config-card .card__inner {
+    padding: 7px 9px 8px;
+  }
+
+  .config-card .major-section-banner {
+    min-height: 34px;
+    margin-bottom: 4px;
+    padding: 4px 6px;
+    gap: 6px;
+  }
+
+  .config-card .major-section-banner__number {
+    width: 25px;
+    height: 25px;
+    border-radius: 8px;
+    font-size: .68rem;
+  }
+
+  .config-card .major-section-banner__title {
+    font-size: .88rem;
+  }
+
+  .config-card .major-section-banner .info-button {
+    width: 25px;
+    height: 25px;
+    min-width: 25px;
+  }
+
+  .config-card .form-section {
+    padding: 6px 7px;
+    border-radius: 11px;
+  }
+
+  .config-card .form-section + .form-section {
+    margin-top: 4px;
+  }
+
+  .config-card .form-section__head {
+    min-height: 20px;
+    margin-bottom: 4px;
+  }
+
+  .config-card .form-section__title {
+    font-size: .64rem;
+    line-height: 1.05;
+  }
+
+  .config-card .format-shortcuts-block {
+    margin-bottom: 4px;
+    padding: 4px 5px;
+  }
+
+  .config-card .format-shortcuts-block__head {
+    margin-bottom: 4px;
+    font-size: .58rem;
+  }
+
+  .config-card .format-shortcut {
+    min-height: 28px;
+    padding: 3px;
+    font-size: .73rem;
+  }
+
+  .config-card .mode-panel {
+    margin-top: 4px;
+    padding-top: 4px;
+  }
+
+  .config-card .field-grid {
+    gap: 4px 7px;
+  }
+
+  .config-card label {
+    font-size: .68rem;
+  }
+
+  .config-card input,
+  .config-card select {
+    min-height: 29px;
+    margin-top: 2px;
+    padding: 3px 7px;
+    font-size: .77rem;
+  }
+
+  .config-card .field-note {
+    margin-top: 2px;
+    font-size: .6rem;
+    line-height: 1.12;
+  }
+
+  .config-card .normalized-preview {
+    margin-top: 4px;
+    padding: 5px 7px;
+    font-size: .69rem;
+    line-height: 1.15;
+  }
+
+  /* The two optional groups are independent, so they can share one row. */
+  .config-card .form-section:has(#stock-solution-name) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px;
+  }
+
+  .config-card .form-section:has(#stock-solution-name) > .form-section__head {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+  }
+
+  .config-card .form-section:has(#stock-solution-name) > .optional-fields {
+    margin-top: 0 !important;
+    min-width: 0;
+    padding: 4px 5px;
+  }
+
+  .config-card .optional-fields__mobile-head {
+    gap: 4px;
+  }
+
+  .config-card .optional-fields__mobile-head .optional-fields__title {
+    font-size: .63rem;
+    line-height: 1.05;
+  }
+
+  .config-card .mobile-optional-toggle {
+    width: 23px;
+    height: 23px;
+    border-radius: 7px;
+    font-size: .68rem;
+  }
+
+  .config-card .form-section:has(#total-volume) .form-section__head {
+    margin-bottom: 3px;
+  }
+
+  .config-card .form-section:has(#total-volume) .field-grid {
+    gap: 5px;
+  }
+
+  .config-card .config-actions {
+    margin-top: 4px;
+    gap: 5px;
+  }
+
+  .config-card .config-actions .button {
+    min-height: 27px;
+    padding: 3px 7px;
+    font-size: .67rem;
+  }
+}
+
+@media (min-width: 1000px) and (max-height: 760px) {
+  .config-card {
+    top: 49px !important;
+  }
+
+  .config-card .format-shortcuts-block__head,
+  .config-card .mode-panel .field-note:not(.field-error),
+  .config-card .unit-conversion-note {
+    display: none !important;
+  }
+
+  .config-card .normalized-preview {
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  .config-card .config-actions .button svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
 </style>
 </head>
 
