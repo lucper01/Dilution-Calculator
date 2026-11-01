@@ -3715,17 +3715,39 @@ body.dark-mode .onboarding-language-label {
 }
 
 
-/* Runtime desktop panel auto-fit */
-@media (min-width: 1000px) {
-  .config-card {
-    zoom: var(--desktop-config-fit, 1);
-    transition: zoom .12s ease;
-  }
-}
 
-@media (prefers-reduced-motion: reduce) {
+
+
+/* True fixed desktop parameters panel */
+@media (min-width: 1000px) {
+  .workspace {
+    position: relative;
+  }
+
+  .results-card {
+    grid-column: 2 !important;
+  }
+
   .config-card {
-    transition: none !important;
+    position: fixed !important;
+    top: var(--desktop-sticky-top-runtime, 116px) !important;
+    left: var(--desktop-config-left-runtime, 18px) !important;
+    width: var(--desktop-config-width-runtime, var(--config-width, 460px)) !important;
+    height: var(--desktop-config-height-runtime, calc(100vh - 126px)) !important;
+    max-height: none !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    z-index: 70;
+  }
+
+  .config-card > .card__inner {
+    transform-origin: top left;
+    transform: scale(var(--desktop-config-scale-runtime, 1));
+    width: calc(100% / var(--desktop-config-scale-runtime, 1));
+  }
+
+  .config-card::-webkit-scrollbar {
+    display: none !important;
   }
 }
 
@@ -6790,46 +6812,73 @@ body.dark-mode .onboarding-language-label {
   function syncDesktopParametersFit() {
     const root = document.documentElement;
     const card = document.querySelector(".config-card");
-    if (!card || window.innerWidth < 1000) {
-      root.style.removeProperty("--desktop-config-fit");
+    const workspace = document.querySelector(".workspace");
+
+    if (!card || !workspace || window.innerWidth < 1000) {
+      root.style.removeProperty("--desktop-config-left-runtime");
+      root.style.removeProperty("--desktop-config-width-runtime");
+      root.style.removeProperty("--desktop-config-height-runtime");
+      root.style.removeProperty("--desktop-config-scale-runtime");
       return;
     }
 
-    root.style.setProperty("--desktop-config-fit", "1");
+    const workspaceRect = workspace.getBoundingClientRect();
+    const workspaceStyle = window.getComputedStyle(workspace);
+    const paddingLeft = Number.parseFloat(workspaceStyle.paddingLeft) || 0;
+    const gridGap = Number.parseFloat(workspaceStyle.columnGap || workspaceStyle.gap) || 24;
+    const requestedWidth = Number.parseFloat(
+      getComputedStyle(root).getPropertyValue("--config-width")
+    ) || 460;
+
+    const left = Math.round(workspaceRect.left + paddingLeft);
+    const availableGridWidth = Math.max(340, workspaceRect.width - paddingLeft - (Number.parseFloat(workspaceStyle.paddingRight) || 0));
+    const panelWidth = Math.min(requestedWidth, Math.max(340, availableGridWidth * 0.42));
+
+    const stickyTopRaw = getComputedStyle(root).getPropertyValue("--desktop-sticky-top-runtime");
+    const top = Number.parseFloat(stickyTopRaw) || 116;
+    const bottomGap = 10;
+    const availableHeight = Math.max(360, window.innerHeight - top - bottomGap);
+
+    root.style.setProperty("--desktop-config-left-runtime", `${left}px`);
+    root.style.setProperty("--desktop-config-width-runtime", `${panelWidth}px`);
+    root.style.setProperty("--desktop-config-height-runtime", `${availableHeight}px`);
+    root.style.setProperty("--desktop-config-scale-runtime", "1");
 
     requestAnimationFrame(() => {
-      const stickyTopRaw = getComputedStyle(root).getPropertyValue("--desktop-sticky-top-runtime");
-      const stickyTop = Number.parseFloat(stickyTopRaw) || 116;
-      const safetyBottom = 10;
-      const availableHeight = Math.max(360, window.innerHeight - stickyTop - safetyBottom);
-      const naturalHeight = Math.ceil(card.getBoundingClientRect().height);
+      const inner = card.querySelector(".card__inner");
+      if (!inner) return;
 
+      const naturalHeight = Math.ceil(inner.scrollHeight);
       if (!naturalHeight || naturalHeight <= availableHeight) {
-        root.style.setProperty("--desktop-config-fit", "1");
+        root.style.setProperty("--desktop-config-scale-runtime", "1");
         return;
       }
 
       const requiredScale = availableHeight / naturalHeight;
-      const scale = Math.max(0.88, Math.min(1, requiredScale));
-      root.style.setProperty("--desktop-config-fit", scale.toFixed(4));
+      const scale = Math.max(0.90, Math.min(1, requiredScale));
+      root.style.setProperty("--desktop-config-scale-runtime", scale.toFixed(4));
     });
   }
 
   function syncDesktopStickyTop() {
     const root = document.documentElement;
+
     if (window.innerWidth < 1000) {
       root.style.removeProperty("--desktop-sticky-top-runtime");
-      root.style.removeProperty("--desktop-config-fit");
+      syncDesktopParametersFit();
       return;
     }
+
     const nav = document.querySelector(".portfolio-nav");
     const workflow = document.querySelector(".workflow-toolbar");
+
     const visibleHeight = (element) => {
       if (!element) return 0;
       const style = window.getComputedStyle(element);
       if (style.display === "none" || style.visibility === "hidden") return 0;
       return Math.ceil(element.getBoundingClientRect().height || element.offsetHeight || 0);
     };
+
     const top = visibleHeight(nav) + visibleHeight(workflow) + 8;
     root.style.setProperty("--desktop-sticky-top-runtime", `${Math.max(72, top)}px`);
     syncDesktopParametersFit();
@@ -7149,6 +7198,7 @@ body.dark-mode .onboarding-language-label {
   }
 
   window.addEventListener("load", syncDesktopStickyTop);
+  window.addEventListener("orientationchange", syncDesktopStickyTop);
   window.addEventListener("beforeunload", saveSession);
 })();
 </script>
