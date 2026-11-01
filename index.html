@@ -3984,6 +3984,51 @@ body.dark-mode .onboarding-language-label {
   }
 }
 
+
+/* Final desktop polish: stable parameters offset and inline active-step summary */
+@media (min-width: 1000px) {
+  /* Keep Parameters safely below the complete sticky header stack. */
+  .config-card,
+  body.desktop-parameters-fixed .config-card {
+    position: sticky !important;
+    top: 118px !important;
+    align-self: start !important;
+    overflow: visible !important;
+  }
+
+  /* Active-step information belongs to the protocol flow on desktop. */
+  .current-step-float {
+    position: static !important;
+    top: auto !important;
+    z-index: auto !important;
+    margin: 0 0 12px !important;
+    padding: 9px 12px;
+    border: 1px solid var(--line);
+    border-radius: 13px;
+    background: var(--green-050);
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+
+  body.dark-mode .current-step-float {
+    background: #0c2119;
+  }
+}
+
+@media (min-width: 1000px) and (max-height: 900px) {
+  .config-card,
+  body.desktop-parameters-fixed .config-card {
+    top: 110px !important;
+  }
+}
+
+@media (min-width: 1000px) and (max-height: 720px) {
+  .config-card,
+  body.desktop-parameters-fixed .config-card {
+    top: 100px !important;
+  }
+}
+
 </style>
 </head>
 
