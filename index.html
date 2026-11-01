@@ -4056,6 +4056,111 @@ body.dark-mode .onboarding-language-label {
   }
 }
 
+
+/* FINAL DESKTOP SPLIT VIEW - fixed parameters, scrollable procedure */
+@media (min-width: 1000px) {
+  :root {
+    --desktop-workspace-top: 108px;
+  }
+
+  /* The workspace itself stays stable. Only the right column scrolls. */
+  .workspace,
+  body.layout-split .workspace {
+    position: relative !important;
+    width: min(100%, 1440px) !important;
+    height: calc(100vh - var(--desktop-workspace-top)) !important;
+    min-height: 520px !important;
+    margin: 0 auto !important;
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+    overflow: hidden !important;
+    align-items: stretch !important;
+    grid-template-columns: minmax(340px, var(--config-width)) minmax(0, 1fr) !important;
+  }
+
+  /* Left side never moves while browsing the protocol. */
+  .config-card,
+  body.desktop-parameters-fixed .config-card,
+  body.parameters-pinned .config-card,
+  body:not(.parameters-pinned) .config-card {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    width: auto !important;
+    height: 100% !important;
+    max-height: none !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    align-self: stretch !important;
+    z-index: 1 !important;
+    zoom: 1 !important;
+  }
+
+  .config-card > .card__inner,
+  body.desktop-parameters-fixed .config-card > .card__inner,
+  body.parameters-pinned .config-card > .card__inner,
+  body:not(.parameters-pinned) .config-card > .card__inner {
+    width: auto !important;
+    transform: none !important;
+  }
+
+  /* Right side becomes the only vertical scrolling area. */
+  .results-card {
+    grid-column: 2 !important;
+    height: 100% !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    overscroll-behavior: contain !important;
+    scrollbar-gutter: stable;
+    scroll-behavior: smooth;
+  }
+
+  .results-card::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .results-card::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .results-card::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(31, 111, 80, .22);
+  }
+
+  .results-card::-webkit-scrollbar-thumb:hover {
+    background: rgba(31, 111, 80, .38);
+  }
+
+  /* No floating active-step overlay on desktop. */
+  .current-step-float {
+    position: static !important;
+    top: auto !important;
+    z-index: auto !important;
+    margin: 0 0 12px !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+
+  .parameters-pin-sentinel {
+    display: none !important;
+  }
+}
+
+/* Slightly more compact top chrome on laptop-height screens. */
+@media (min-width: 1000px) and (max-height: 900px) {
+  :root {
+    --desktop-workspace-top: 100px;
+  }
+}
+
+@media (min-width: 1000px) and (max-height: 720px) {
+  :root {
+    --desktop-workspace-top: 92px;
+  }
+}
+
 </style>
 </head>
 
@@ -7113,95 +7218,18 @@ body.dark-mode .onboarding-language-label {
     updateActiveSectionFromPosition();
   }
 
-  let parametersPinObserver = null;
-
-  function desktopPinTop() {
-    const raw = getComputedStyle(document.documentElement).getPropertyValue("--desktop-pin-top");
-    return Number.parseFloat(raw) || 108;
+  function fitPinnedParameters() {}
+  function setParametersPinned() {
+    document.body.classList.remove("parameters-pinned", "desktop-parameters-fixed");
   }
-
-  function fitPinnedParameters() {
-    const root = document.documentElement;
-    const card = document.querySelector(".config-card");
-
-    if (!card || window.innerWidth < 1000 || !document.body.classList.contains("parameters-pinned")) {
-      root.style.setProperty("--desktop-pinned-fit", "1");
-      return;
-    }
-
-    root.style.setProperty("--desktop-pinned-fit", "1");
-
-    requestAnimationFrame(() => {
-      if (!document.body.classList.contains("parameters-pinned")) return;
-
-      const availableHeight = Math.max(360, window.innerHeight - desktopPinTop() - 10);
-      const naturalHeight = Math.ceil(card.getBoundingClientRect().height);
-
-      if (!naturalHeight || naturalHeight <= availableHeight) {
-        root.style.setProperty("--desktop-pinned-fit", "1");
-        return;
-      }
-
-      const fit = Math.max(0.90, Math.min(1, availableHeight / naturalHeight));
-      root.style.setProperty("--desktop-pinned-fit", fit.toFixed(4));
-    });
-  }
-
-  function setParametersPinned(pinned) {
-    if (window.innerWidth < 1000) pinned = false;
-    const changed = document.body.classList.contains("parameters-pinned") !== pinned;
-    document.body.classList.toggle("parameters-pinned", pinned);
-    document.body.classList.remove("desktop-parameters-fixed");
-    if (changed || pinned) fitPinnedParameters();
-  }
-
   function refreshParametersPinState() {
-    const sentinel = document.querySelector(".parameters-pin-sentinel");
-    if (!sentinel || window.innerWidth < 1000) {
-      setParametersPinned(false);
-      return;
-    }
-    setParametersPinned(sentinel.getBoundingClientRect().top <= desktopPinTop());
+    setParametersPinned(false);
   }
-
   function initParametersPinning() {
-    const workspace = document.querySelector(".workspace");
-    if (!workspace) return;
-
-    let sentinel = workspace.querySelector(".parameters-pin-sentinel");
-    if (!sentinel) {
-      sentinel = document.createElement("span");
-      sentinel.className = "parameters-pin-sentinel";
-      sentinel.setAttribute("aria-hidden", "true");
-      workspace.prepend(sentinel);
-    }
-
-    if (parametersPinObserver) parametersPinObserver.disconnect();
-
-    parametersPinObserver = new IntersectionObserver((entries) => {
-      const entry = entries[0];
-      if (!entry) return;
-      const pin = window.innerWidth >= 1000 &&
-        !entry.isIntersecting &&
-        entry.boundingClientRect.top < desktopPinTop();
-      setParametersPinned(pin);
-    }, {
-      root: null,
-      rootMargin: `-${desktopPinTop()}px 0px 0px 0px`,
-      threshold: 0
-    });
-
-    parametersPinObserver.observe(sentinel);
-    refreshParametersPinState();
+    setParametersPinned(false);
   }
-
-  function syncDesktopParametersFit() {
-    fitPinnedParameters();
-  }
-
-  function syncDesktopStickyTop() {
-    refreshParametersPinState();
-  }
+  function syncDesktopParametersFit() {}
+  function syncDesktopStickyTop() {}
 
   function showToast(message) {
     clearTimeout(toastTimer);
