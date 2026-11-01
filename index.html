@@ -2780,30 +2780,44 @@ body.dark-mode .onboarding-language-label {
 
 
 
-/* CLEAN DESKTOP SYSTEM - unified header and stable split workspace */
+/* CLEAN DESKTOP SYSTEM - one header, stable full-height workspace */
 @media (min-width: 1000px) {
-  :root {
-    --desktop-header-height: 96px;
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
   }
 
-  html {
-    scroll-padding-top: var(--desktop-header-height);
+  body {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
   }
 
   .portfolio-nav {
-    position: sticky !important;
-    top: 0 !important;
+    position: relative !important;
+    top: auto !important;
     z-index: 140 !important;
-    background: rgba(6,31,23,.97) !important;
+    flex: 0 0 auto;
+    overflow: visible;
+    color: var(--white);
+    background:
+      radial-gradient(circle at 88% 65%, rgba(159,208,178,.16), transparent 23rem),
+      linear-gradient(135deg, var(--green-950), var(--green-900)) !important;
     border-bottom: 1px solid rgba(220,238,227,.18) !important;
     box-shadow: 0 10px 26px rgba(6,31,23,.13) !important;
-    backdrop-filter: blur(16px);
+  }
+
+  .portfolio-nav__main {
+    position: relative;
+    z-index: 3;
   }
 
   .portfolio-nav__inner {
+    width: min(100%,1440px);
     min-height: 54px !important;
-    padding-top: 6px !important;
-    padding-bottom: 6px !important;
+    margin: 0 auto;
+    padding: 6px max(198px, calc(env(safe-area-inset-right) + 198px)) 6px max(18px, env(safe-area-inset-left)) !important;
   }
 
   .portfolio-nav .top-controls {
@@ -2816,96 +2830,158 @@ body.dark-mode .onboarding-language-label {
     display: none !important;
   }
 
-  .portfolio-nav__workflow {
-    display: block;
-    min-height: 41px;
-    border-top: 1px solid rgba(255,255,255,.08);
-    background: rgba(255,255,255,.025);
+  .portfolio-nav__overview {
+    position: relative;
+    overflow: hidden;
   }
 
-  .portfolio-nav__workflow .workflow-toolbar__inner {
-    width: min(100%, 1440px);
-    min-height: 41px;
+  .portfolio-nav__overview::after {
+    content: "";
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    right: -120px;
+    bottom: -190px;
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 50%;
+    box-shadow: 0 0 0 26px rgba(255,255,255,.022), 0 0 0 56px rgba(255,255,255,.016);
+    pointer-events: none;
+  }
+
+  .portfolio-nav__overview-inner {
+    position: relative;
+    z-index: 1;
+    width: min(100%,1440px);
+    min-height: 112px;
     margin: 0 auto;
-    padding: 4px 18px;
-    display: flex;
+    padding: 13px 18px 15px;
+    display: grid;
+    grid-template-columns: minmax(0,1fr) minmax(360px,520px);
     align-items: center;
-    justify-content: space-between;
-    gap: 14px;
+    gap: 30px;
   }
 
-  .portfolio-nav__workflow .workflow-toolbar__status {
+  .portfolio-nav__overview .hero__copy {
+    max-width: 900px;
+  }
+
+  .portfolio-nav__overview .eyebrow {
+    margin-bottom: 5px;
+    color: var(--green-300);
+    font-size: .69rem;
+  }
+
+  .portfolio-nav__overview h1 {
+    margin: 0;
+    color: #fff;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.8rem,3vw,2.9rem);
+    line-height: 1.02;
+    letter-spacing: -.025em;
+  }
+
+  .portfolio-nav__overview .hero__subtitle {
+    margin: 7px 0 0;
+    max-width: 860px;
+    color: var(--green-100);
+    font-size: .86rem;
+    line-height: 1.4;
+  }
+
+  .portfolio-nav__overview-side {
+    min-width: 0;
+    display: grid;
+    justify-items: end;
+    gap: 10px;
+  }
+
+  .portfolio-nav__overview-meta {
+    width: 100%;
     min-width: 0;
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: flex-end;
+    gap: 12px;
   }
 
-  .portfolio-nav__workflow .workflow-toolbar__status strong {
+  .portfolio-nav__overview .hero__badge {
+    padding: 7px 10px;
+    font-size: .74rem;
+  }
+
+  .portfolio-nav__overview .workflow-toolbar__status {
+    min-width: 0;
+    display: grid;
+    gap: 2px;
+    text-align: right;
+  }
+
+  .portfolio-nav__overview .workflow-toolbar__status strong {
     color: var(--green-300);
-    font-size: .75rem;
-    letter-spacing: .05em;
+    font-size: .67rem;
+    letter-spacing: .07em;
     text-transform: uppercase;
   }
 
-  .portfolio-nav__workflow .workflow-toolbar__message {
+  .portfolio-nav__overview .workflow-toolbar__message {
+    max-width: 360px;
     color: rgba(243,250,245,.76);
-    font-size: .76rem;
+    font-size: .74rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  .portfolio-nav__workflow .workflow-toolbar__actions {
+  .portfolio-nav__overview .workflow-toolbar__actions {
     display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
     gap: 5px;
-    flex: 0 0 auto;
   }
 
-  .portfolio-nav__workflow .tool-button {
+  .portfolio-nav__overview .tool-button {
     min-height: 30px;
     padding: 4px 8px;
-    border-color: rgba(255,255,255,.13);
+    border: 1px solid rgba(255,255,255,.13);
+    border-radius: 9px;
     background: rgba(255,255,255,.07);
     color: #f3faf5;
-    border-radius: 9px;
     font-size: .72rem;
   }
 
-  .portfolio-nav__workflow .tool-button:hover {
+  .portfolio-nav__overview .tool-button:hover {
     background: rgba(255,255,255,.12);
   }
 
-  .portfolio-nav__workflow .tool-button[aria-pressed="true"] {
+  .portfolio-nav__overview .tool-button[aria-pressed="true"] {
     border-color: rgba(159,208,178,.48);
     background: rgba(159,208,178,.18);
     color: #fff;
   }
 
-  body[data-workflow-status="validated"] .portfolio-nav__workflow {
-    box-shadow: inset 4px 0 0 #3f9c6f;
+  body[data-workflow-status="validated"] .portfolio-nav {
+    box-shadow: inset 4px 0 0 #3f9c6f, 0 10px 26px rgba(6,31,23,.13) !important;
   }
-  body[data-workflow-status="progress"] .portfolio-nav__workflow {
-    box-shadow: inset 4px 0 0 #d3a02f;
+  body[data-workflow-status="progress"] .portfolio-nav {
+    box-shadow: inset 4px 0 0 #d3a02f, 0 10px 26px rgba(6,31,23,.13) !important;
   }
-  body[data-workflow-status="complete"] .portfolio-nav__workflow {
-    box-shadow: inset 4px 0 0 #3187b4;
+  body[data-workflow-status="complete"] .portfolio-nav {
+    box-shadow: inset 4px 0 0 #3187b4, 0 10px 26px rgba(6,31,23,.13) !important;
   }
-  body[data-workflow-status="error"] .portfolio-nav__workflow {
-    box-shadow: inset 4px 0 0 #b94d4d;
+  body[data-workflow-status="error"] .portfolio-nav {
+    box-shadow: inset 4px 0 0 #b94d4d, 0 10px 26px rgba(6,31,23,.13) !important;
   }
 
-  /* The hero stays in normal page flow. Once it has scrolled away,
-     the workspace exactly fills the viewport below the unified header. */
   .workspace,
   body.layout-split .workspace {
-    width: min(100%, 1440px) !important;
-    height: calc(100dvh - var(--desktop-header-height)) !important;
+    flex: 1 1 auto;
     min-height: 0 !important;
+    height: auto !important;
+    width: min(100%,1440px) !important;
     margin: 0 auto !important;
-    padding: 12px 18px !important;
+    padding: 10px 18px 12px !important;
     display: grid !important;
-    grid-template-columns: minmax(340px, var(--config-width)) minmax(0,1fr) !important;
+    grid-template-columns: minmax(340px,var(--config-width)) minmax(0,1fr) !important;
     grid-template-rows: minmax(0,1fr) !important;
     gap: 24px !important;
     align-items: stretch !important;
@@ -2977,7 +3053,6 @@ body.dark-mode .onboarding-language-label {
     scroll-margin-top: 14px;
   }
 
-  /* Laptop-height compaction keeps the whole left card visible without a scrollbar. */
   .config-card .panel-heading {
     display: none !important;
   }
@@ -3035,40 +3110,25 @@ body.dark-mode .onboarding-language-label {
 }
 
 @media (min-width: 1000px) and (max-height: 900px) {
-  :root {
-    --desktop-header-height: 92px;
-  }
-
   .portfolio-nav__inner {
-    min-height: 51px !important;
+    min-height: 50px !important;
     padding-top: 4px !important;
     padding-bottom: 4px !important;
   }
 
-  .portfolio-nav__workflow,
-  .portfolio-nav__workflow .workflow-toolbar__inner {
-    min-height: 40px;
+  .portfolio-nav__overview-inner {
+    min-height: 96px;
+    padding-top: 9px;
+    padding-bottom: 10px;
   }
 
-  .hero {
-    padding-top: 15px;
-    padding-bottom: 16px;
+  .portfolio-nav__overview h1 {
+    font-size: clamp(1.68rem,2.65vw,2.45rem);
   }
 
-  .hero h1 {
-    font-size: clamp(1.75rem,2.7vw,2.55rem);
-  }
-
-  .hero__subtitle {
-    margin-top: 7px;
-    font-size: .88rem;
-  }
-
-  .workspace,
-  body.layout-split .workspace {
-    height: calc(100dvh - var(--desktop-header-height)) !important;
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
+  .portfolio-nav__overview .hero__subtitle {
+    margin-top: 5px;
+    font-size: .82rem;
   }
 
   .config-card .card__inner {
@@ -3177,31 +3237,34 @@ body.dark-mode .onboarding-language-label {
 }
 
 @media (min-width: 1000px) and (max-height: 720px) {
-  :root {
-    --desktop-header-height: 86px;
+  .portfolio-nav__overview-inner {
+    min-height: 82px;
+    grid-template-columns: minmax(0,1fr) minmax(330px,460px);
+    padding-top: 7px;
+    padding-bottom: 8px;
   }
 
-  .portfolio-nav__workflow .workflow-toolbar__message {
+  .portfolio-nav__overview .eyebrow {
     display: none;
   }
 
-  .portfolio-nav__workflow .tool-button span:last-child {
+  .portfolio-nav__overview h1 {
+    font-size: clamp(1.5rem,2.3vw,2.05rem);
+  }
+
+  .portfolio-nav__overview .hero__subtitle,
+  .portfolio-nav__overview .workflow-toolbar__message {
     display: none;
   }
 
-  .portfolio-nav__workflow .tool-button {
+  .portfolio-nav__overview .tool-button span:last-child {
+    display: none;
+  }
+
+  .portfolio-nav__overview .tool-button {
     min-width: 30px;
     justify-content: center;
     padding: 3px 6px;
-  }
-
-  .hero .eyebrow {
-    display: none;
-  }
-
-  .hero {
-    padding-top: 10px;
-    padding-bottom: 11px;
   }
 
   .config-card .format-shortcuts-block__head {
@@ -3214,9 +3277,9 @@ body.dark-mode .onboarding-language-label {
   }
 }
 
-/* Mobile keeps the existing single compact section header. */
+/* Mobile keeps the existing compact navigation and no desktop hero block. */
 @media (max-width: 999px) {
-  .portfolio-nav__workflow {
+  .portfolio-nav__overview {
     display: none !important;
   }
 }
@@ -3369,80 +3432,85 @@ body.dark-mode .onboarding-language-label {
     </div>
   </section>
 
-  <nav class="portfolio-nav" aria-label="Navigation principale" data-i18n-aria="sectionNavigationAria">
-    <div class="portfolio-nav__inner">
-      <a class="portfolio-nav__brand" href="#top" data-nav-home>
-        <span class="portfolio-nav__brand-mark" aria-hidden="true">DC</span>
-        <span class="portfolio-nav__brand-text" data-i18n="navBrand">Dilution Calculator</span>
-      </a>
-      <button class="portfolio-nav__toggle" id="section-menu-toggle" type="button" aria-controls="section-menu" aria-expanded="false" data-i18n-aria="openSectionMenu">
-        <span class="portfolio-nav__toggle-lines" aria-hidden="true"></span>
-        <span class="mobile-section-current" aria-hidden="true">
-          <span class="mobile-section-current__number" id="mobile-current-section-number">01</span>
-          <span class="mobile-section-current__label" id="mobile-current-section-label" data-i18n="navParameters">Paramètres</span>
-          <span class="mobile-section-current__chevron">⌄</span>
-        </span>
-      </button>
-      <div class="portfolio-nav__links" id="section-menu">
-        <a class="portfolio-nav__link is-active" href="#parameters" data-nav-section="parameters"><span class="portfolio-nav__number">01</span><span data-i18n="navParameters">Paramètres</span></a>
-        <a class="portfolio-nav__link" href="#verification" data-nav-section="verification"><span class="portfolio-nav__number">02</span><span data-i18n="navVerification">Vérification</span></a>
-        <a class="portfolio-nav__link" href="#protocol" data-nav-section="protocol"><span class="portfolio-nav__number">03</span><span data-i18n="navProtocol">Protocole</span></a>
-        <a class="portfolio-nav__link" href="#export" data-nav-section="export"><span class="portfolio-nav__number">04</span><span data-i18n="navExport">Export</span></a>
-      </div>
-      <div class="top-controls">
-        <span class="workflow-status-pill" id="workflow-status-pill" data-status="entry"><span class="workflow-status-dot"></span><span id="workflow-status-text" data-i18n="statusEntry">Saisie</span></span>
-        <div class="quick-actions-wrap">
-          <button type="button" class="guide-trigger" id="quick-actions-trigger" aria-controls="quick-actions-menu" aria-expanded="false" data-i18n-aria="quickActionsMenuAria">
-            <span class="guide-trigger__icon" aria-hidden="true">⋯</span>
-            <span class="guide-trigger__label" data-i18n="quickActionsLabel">Actions</span>
+  <header class="portfolio-nav" id="top">
+    <nav class="portfolio-nav__main" aria-label="Navigation principale" data-i18n-aria="sectionNavigationAria">
+      <div class="portfolio-nav__inner">
+        <a class="portfolio-nav__brand" href="#top" data-nav-home>
+          <span class="portfolio-nav__brand-mark" aria-hidden="true">DC</span>
+          <span class="portfolio-nav__brand-text" data-i18n="navBrand">Dilution Calculator</span>
+        </a>
+
+        <button class="portfolio-nav__toggle" id="section-menu-toggle" type="button" aria-controls="section-menu" aria-expanded="false" data-i18n-aria="openSectionMenu">
+          <span class="portfolio-nav__toggle-lines" aria-hidden="true"></span>
+          <span class="mobile-section-current" aria-hidden="true">
+            <span class="mobile-section-current__number" id="mobile-current-section-number">01</span>
+            <span class="mobile-section-current__label" id="mobile-current-section-label" data-i18n="navParameters">Paramètres</span>
+            <span class="mobile-section-current__chevron">⌄</span>
+          </span>
+        </button>
+
+        <div class="portfolio-nav__links" id="section-menu">
+          <a class="portfolio-nav__link is-active" href="#parameters" data-nav-section="parameters"><span class="portfolio-nav__number">01</span><span data-i18n="navParameters">Paramètres</span></a>
+          <a class="portfolio-nav__link" href="#verification" data-nav-section="verification"><span class="portfolio-nav__number">02</span><span data-i18n="navVerification">Vérification</span></a>
+          <a class="portfolio-nav__link" href="#protocol" data-nav-section="protocol"><span class="portfolio-nav__number">03</span><span data-i18n="navProtocol">Protocole</span></a>
+          <a class="portfolio-nav__link" href="#export" data-nav-section="export"><span class="portfolio-nav__number">04</span><span data-i18n="navExport">Export</span></a>
+        </div>
+
+        <div class="top-controls">
+          <span class="workflow-status-pill" id="workflow-status-pill" data-status="entry"><span class="workflow-status-dot"></span><span id="workflow-status-text" data-i18n="statusEntry">Saisie</span></span>
+          <div class="quick-actions-wrap">
+            <button type="button" class="guide-trigger" id="quick-actions-trigger" aria-controls="quick-actions-menu" aria-expanded="false" data-i18n-aria="quickActionsMenuAria">
+              <span class="guide-trigger__icon" aria-hidden="true">⋯</span>
+              <span class="guide-trigger__label" data-i18n="quickActionsLabel">Actions</span>
+            </button>
+            <div class="quick-actions-menu" id="quick-actions-menu" hidden>
+              <button type="button" data-command="toggle-lock"><span aria-hidden="true">🔒</span><span data-i18n="lockProtocol">Verrouiller le protocole</span></button>
+              <button type="button" data-command="toggle-fullscreen"><span aria-hidden="true">⛶</span><span data-i18n="labFullscreen">Mode plein écran</span></button>
+              <button type="button" data-command="demo"><span aria-hidden="true">▶</span><span data-i18n="demoMode">Mode démonstration</span></button>
+              <button type="button" data-command="command-palette"><span aria-hidden="true">⌘K</span><span data-i18n="commandPalette">Palette de commandes</span></button>
+              <button type="button" data-command="copy-field"><span aria-hidden="true">⧉</span><span data-i18n="copyFieldValue">Copier la valeur du champ actif</span></button>
+              <button type="button" data-command="paste-field"><span aria-hidden="true">↳</span><span data-i18n="pasteFieldValue">Coller dans le champ actif</span></button>
+            </div>
+          </div>
+          <button type="button" class="guide-trigger" id="guide-trigger" data-i18n-aria="guideAria">
+            <span class="guide-trigger__icon" aria-hidden="true">?</span>
+            <span class="guide-trigger__label" data-i18n="guide">Guide</span>
           </button>
-          <div class="quick-actions-menu" id="quick-actions-menu" hidden>
-            <button type="button" data-command="toggle-lock"><span aria-hidden="true">🔒</span><span data-i18n="lockProtocol">Verrouiller le protocole</span></button>
-            <button type="button" data-command="toggle-fullscreen"><span aria-hidden="true">⛶</span><span data-i18n="labFullscreen">Mode plein écran</span></button>
-            <button type="button" data-command="demo"><span aria-hidden="true">▶</span><span data-i18n="demoMode">Mode démonstration</span></button>
-            <button type="button" data-command="command-palette"><span aria-hidden="true">⌘K</span><span data-i18n="commandPalette">Palette de commandes</span></button>
-            <button type="button" data-command="copy-field"><span aria-hidden="true">⧉</span><span data-i18n="copyFieldValue">Copier la valeur du champ actif</span></button>
-            <button type="button" data-command="paste-field"><span aria-hidden="true">↳</span><span data-i18n="pasteFieldValue">Coller dans le champ actif</span></button>
+          <div class="customization-trigger-group">
+            <button type="button" class="customization-trigger" id="customization-trigger" aria-controls="customization-panel" aria-expanded="false" data-i18n-aria="customizationAria">
+              <span class="gear" aria-hidden="true">⚙</span>
+              <span class="trigger-label" data-i18n="customize">Personnalisation</span>
+            </button>
           </div>
         </div>
-        <button type="button" class="guide-trigger" id="guide-trigger" data-i18n-aria="guideAria">
-          <span class="guide-trigger__icon" aria-hidden="true">?</span>
-          <span class="guide-trigger__label" data-i18n="guide">Guide</span>
-        </button>
-        <div class="customization-trigger-group">
-          <button type="button" class="customization-trigger" id="customization-trigger" aria-controls="customization-panel" aria-expanded="false" data-i18n-aria="customizationAria">
-            <span class="gear" aria-hidden="true">⚙</span>
-            <span class="trigger-label" data-i18n="customize">Personnalisation</span>
-          </button>
-        </div>
       </div>
-    </div>
+    </nav>
 
-    <div class="portfolio-nav__workflow" id="workflow-toolbar" aria-label="Workflow">
-      <div class="workflow-toolbar__inner">
+    <div class="portfolio-nav__overview">
+      <div class="portfolio-nav__overview-inner">
+        <div class="hero__copy">
+          <p class="eyebrow" data-i18n="heroEyebrow">Outil de laboratoire · Calcul exécuté dans le navigateur</p>
+          <h1 data-i18n="heroTitle">Calculateur de concentration et dilution</h1>
+          <p class="hero__subtitle" data-i18n="heroSubtitle">Définissez la concentration souhaitée et obtenez un protocole de dilution en cascade complet, tube par tube, sur ordinateur comme sur mobile.</p>
+        </div>
+
+        <div class="portfolio-nav__overview-side">
+          <div class="portfolio-nav__overview-meta">
+            <div class="hero__badge"><span class="hero__badge-dot"></span><span data-i18n="localCalculation">Calcul 100 % local</span></div>
             <div class="workflow-toolbar__status">
               <strong data-i18n="workflow">Workflow</strong>
               <span class="workflow-toolbar__message" id="workflow-message" data-i18n="workflowReady">Configurez la préparation puis vérifiez le protocole.</span>
             </div>
-            <div class="workflow-toolbar__actions">
-              <button class="tool-button" type="button" id="history-back" data-i18n-aria="undoAria"><span aria-hidden="true">↶</span><span data-i18n="undo">Annuler</span></button>
-              <button class="tool-button" type="button" id="history-forward" data-i18n-aria="redoAria"><span aria-hidden="true">↷</span><span data-i18n="redo">Rétablir</span></button>
-              <button class="tool-button" type="button" id="protocol-lock"><span aria-hidden="true">🔓</span><span data-lock-label data-i18n="lock">Verrouiller</span></button>
-              <button class="tool-button" type="button" id="demo-mode-button"><span aria-hidden="true">▶</span><span data-i18n="demo">Démo</span></button>
-            </div>
           </div>
-    </div>
-  </nav>
 
-
-  <header class="hero" id="top">
-    <div class="hero__inner">
-      <div class="hero__copy">
-        <p class="eyebrow" data-i18n="heroEyebrow">Outil de laboratoire · Calcul exécuté dans le navigateur</p>
-        <h1 data-i18n="heroTitle">Calculateur de concentration et dilution</h1>
-        <p class="hero__subtitle" data-i18n="heroSubtitle">Définissez la concentration souhaitée et obtenez un protocole de dilution en cascade complet, tube par tube, sur ordinateur comme sur mobile.</p>
+          <div class="workflow-toolbar__actions">
+            <button class="tool-button" type="button" id="history-back" data-i18n-aria="undoAria"><span aria-hidden="true">↶</span><span data-i18n="undo">Annuler</span></button>
+            <button class="tool-button" type="button" id="history-forward" data-i18n-aria="redoAria"><span aria-hidden="true">↷</span><span data-i18n="redo">Rétablir</span></button>
+            <button class="tool-button" type="button" id="protocol-lock"><span aria-hidden="true">🔓</span><span data-lock-label data-i18n="lock">Verrouiller</span></button>
+            <button class="tool-button" type="button" id="demo-mode-button"><span aria-hidden="true">▶</span><span data-i18n="demo">Démo</span></button>
+          </div>
+        </div>
       </div>
-      <div class="hero__badge"><span class="hero__badge-dot"></span><span data-i18n="localCalculation">Calcul 100 % local</span></div>
     </div>
   </header>
 
@@ -6504,11 +6572,20 @@ body.dark-mode .onboarding-language-label {
   elements.sectionNavLinks.forEach((link) => {
     link.addEventListener("click", (event) => {
       const sectionKey = link.dataset.navSection;
-      if (window.innerWidth >= 1000 && sectionKey !== "parameters") {
-        const target = document.getElementById(sectionKey);
-        if (target) {
-          event.preventDefault();
-          target.scrollIntoView({ behavior: accessibilityState.reduceMotion ? "auto" : "smooth", block: "start" });
+      if (window.innerWidth >= 1000) {
+        const resultsPane = document.querySelector(".results-card");
+        event.preventDefault();
+
+        if (sectionKey === "parameters") {
+          resultsPane?.scrollTo({ top: 0, behavior: accessibilityState.reduceMotion ? "auto" : "smooth" });
+        } else {
+          const target = document.getElementById(sectionKey);
+          if (target && resultsPane) {
+            const paneTop = resultsPane.getBoundingClientRect().top;
+            const targetTop = target.getBoundingClientRect().top;
+            const nextTop = resultsPane.scrollTop + targetTop - paneTop - 12;
+            resultsPane.scrollTo({ top: nextTop, behavior: accessibilityState.reduceMotion ? "auto" : "smooth" });
+          }
         }
       }
       setActiveSection(sectionKey);
