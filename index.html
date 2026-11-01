@@ -2593,6 +2593,132 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
   }
 }
 
+
+/* Desktop section contrast correction */
+@media (min-width: 761px) {
+  .major-section-banner {
+    border: 1px solid rgba(31, 111, 80, 0.18);
+    background:
+      radial-gradient(circle at 95% 0%, rgba(159, 208, 178, 0.16), transparent 12rem),
+      linear-gradient(135deg, #f6fbf7, #edf5f0);
+    color: var(--green-900);
+    box-shadow: 0 8px 20px rgba(6, 31, 23, 0.06);
+  }
+
+  .major-section-banner__number {
+    border: 1px solid rgba(31, 111, 80, 0.16);
+    background: rgba(31, 111, 80, 0.08);
+    color: var(--green-700);
+  }
+
+  .major-section-banner__eyebrow {
+    color: var(--green-600);
+  }
+
+  .major-section-banner__title {
+    color: var(--green-900);
+  }
+
+  .major-section-banner__meta {
+    color: var(--green-700);
+  }
+
+  .major-section-banner .info-button {
+    border-color: rgba(31, 111, 80, 0.14);
+    background: rgba(255, 255, 255, 0.78);
+    color: var(--green-800);
+  }
+
+  .major-section-banner .info-button:hover {
+    background: #ffffff;
+    border-color: rgba(31, 111, 80, 0.24);
+  }
+
+  .section-kicker,
+  .major-section-banner__eyebrow {
+    color: var(--green-600);
+  }
+
+  .panel-description,
+  .export-section__description {
+    color: #4f6258;
+  }
+
+  body[data-workflow-status="entry"] .major-section-banner {
+    border-color: rgba(98, 129, 118, 0.32);
+    background:
+      radial-gradient(circle at 95% 0%, rgba(159, 208, 178, 0.12), transparent 12rem),
+      linear-gradient(135deg, #f7fbf8, #eef4f0);
+  }
+
+  body[data-workflow-status="validated"] .major-section-banner {
+    border-color: rgba(47, 139, 97, 0.34);
+    background:
+      radial-gradient(circle at 95% 0%, rgba(47, 139, 97, 0.11), transparent 12rem),
+      linear-gradient(135deg, #f4fbf7, #eaf5ee);
+  }
+
+  body[data-workflow-status="progress"] .major-section-banner {
+    border-color: rgba(181, 128, 28, 0.34);
+    background:
+      radial-gradient(circle at 95% 0%, rgba(181, 128, 28, 0.10), transparent 12rem),
+      linear-gradient(135deg, #fffaf0, #f7f1df);
+  }
+
+  body[data-workflow-status="complete"] .major-section-banner {
+    border-color: rgba(43, 124, 166, 0.34);
+    background:
+      radial-gradient(circle at 95% 0%, rgba(43, 124, 166, 0.10), transparent 12rem),
+      linear-gradient(135deg, #f4f9fc, #eaf2f7);
+  }
+
+  body[data-workflow-status="error"] .major-section-banner {
+    border-color: rgba(185, 77, 77, 0.34);
+    background:
+      radial-gradient(circle at 95% 0%, rgba(185, 77, 77, 0.10), transparent 12rem),
+      linear-gradient(135deg, #fff7f7, #f8eeee);
+  }
+
+  body.dark-mode .major-section-banner,
+  body.dark-mode[data-workflow-status="entry"] .major-section-banner,
+  body.dark-mode[data-workflow-status="validated"] .major-section-banner,
+  body.dark-mode[data-workflow-status="progress"] .major-section-banner,
+  body.dark-mode[data-workflow-status="complete"] .major-section-banner,
+  body.dark-mode[data-workflow-status="error"] .major-section-banner {
+    border-color: rgba(200, 228, 210, 0.18);
+    background:
+      radial-gradient(circle at 95% 0%, rgba(159, 208, 178, 0.08), transparent 12rem),
+      linear-gradient(135deg, #0b2118, #102b20);
+    color: #f4fbf6;
+  }
+
+  body.dark-mode .major-section-banner__title {
+    color: #f4fbf6;
+  }
+
+  body.dark-mode .major-section-banner__eyebrow,
+  body.dark-mode .major-section-banner__meta,
+  body.dark-mode .major-section-banner__number {
+    color: #9fd0b2;
+  }
+
+  body.dark-mode .major-section-banner__number {
+    border-color: rgba(200, 228, 210, 0.16);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  body.dark-mode .major-section-banner .info-button {
+    border-color: rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.06);
+    color: #f4fbf6;
+  }
+
+  body.dark-mode .panel-description,
+  body.dark-mode .export-section__description {
+    color: #b8c9bf;
+  }
+}
+
 </style>
 </head>
 
