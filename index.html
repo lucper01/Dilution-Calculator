@@ -2720,370 +2720,6 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
 }
 
 
-/* Desktop scroll ergonomics correction */
-@media (min-width: 761px) {
-  /* One natural page scroll: no nested scrollbar in the parameters column. */
-  .config-card {
-    position: static !important;
-    top: auto !important;
-    max-height: none !important;
-    overflow: visible !important;
-    scrollbar-width: auto;
-  }
-
-  .config-card::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* Keep anchored sections comfortably below the sticky navigation. */
-  #parameters,
-  #verification,
-  #protocol,
-  #export,
-  .major-section {
-    scroll-margin-top: 84px;
-  }
-}
-
-
-/* Desktop fixed parameters panel */
-@media (min-width: 1000px) {
-  .workspace {
-    align-items: start;
-  }
-
-  .config-card {
-    position: sticky !important;
-    top: 78px !important;
-    align-self: start;
-    max-height: calc(100vh - 96px) !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    overscroll-behavior: contain;
-    scrollbar-gutter: stable;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(31, 111, 80, 0.28) transparent;
-  }
-
-  .config-card::-webkit-scrollbar {
-    display: block;
-    width: 7px;
-  }
-
-  .config-card::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .config-card::-webkit-scrollbar-thumb {
-    border-radius: 999px;
-    background: rgba(31, 111, 80, 0.24);
-  }
-
-  .config-card::-webkit-scrollbar-thumb:hover {
-    background: rgba(31, 111, 80, 0.40);
-  }
-
-  body.dark-mode .config-card {
-    scrollbar-color: rgba(159, 208, 178, 0.30) transparent;
-  }
-
-  body.dark-mode .config-card::-webkit-scrollbar-thumb {
-    background: rgba(159, 208, 178, 0.26);
-  }
-}
-
-
-/* Short desktop viewport fit: keep the full parameters panel visible */
-@media (min-width: 1000px) and (max-height: 900px) {
-  /* Keep the left column fixed, but make the default state fit in the viewport. */
-  .config-card {
-    position: sticky !important;
-    top: 70px !important;
-    max-height: none !important;
-    overflow: visible !important;
-    scrollbar-width: none !important;
-  }
-
-  .config-card::-webkit-scrollbar {
-    display: none !important;
-  }
-
-  .config-card .card__inner {
-    padding: 11px 13px 12px;
-  }
-
-  /* The numbered section banner is enough context on a short screen. */
-  .config-card .major-section-banner {
-    min-height: 42px;
-    margin-bottom: 7px;
-    padding: 5px 7px;
-    gap: 7px;
-    border-radius: 13px;
-  }
-
-  .config-card .major-section-banner__number {
-    width: 30px;
-    height: 30px;
-    border-radius: 9px;
-    font-size: .75rem;
-  }
-
-  .config-card .major-section-banner__eyebrow,
-  .config-card .major-section-banner__meta {
-    display: none !important;
-  }
-
-  .config-card .major-section-banner__title {
-    font-size: 1rem;
-    line-height: 1;
-  }
-
-  .config-card .major-section-banner .info-button {
-    width: 30px;
-    height: 30px;
-    min-width: 30px;
-  }
-
-  .config-card .panel-heading {
-    display: none !important;
-  }
-
-  .config-card .form-section {
-    padding: 8px 9px;
-    border-radius: 13px;
-  }
-
-  .config-card .form-section + .form-section {
-    margin-top: 6px;
-  }
-
-  .config-card .form-section__head {
-    min-height: 24px;
-    margin-bottom: 6px;
-    gap: 6px;
-  }
-
-  .config-card .form-section__title {
-    font-size: .69rem;
-    letter-spacing: .06em;
-  }
-
-  .config-card .info-button--small {
-    width: 23px;
-    height: 23px;
-    font-size: .68rem;
-  }
-
-  /* Only keep the quick algebraic selector. The larger cards duplicate it. */
-  .config-card .mode-grid {
-    display: none !important;
-  }
-
-  .config-card .format-shortcuts-block {
-    margin-bottom: 6px;
-    padding: 6px;
-    border-radius: 11px;
-  }
-
-  .config-card .format-shortcuts-block__head {
-    margin-bottom: 5px;
-    font-size: .62rem;
-  }
-
-  .config-card .format-shortcuts-block__head > :last-child {
-    display: none;
-  }
-
-  .config-card .format-shortcuts {
-    gap: 4px;
-  }
-
-  .config-card .format-shortcut {
-    min-height: 30px;
-    padding: 4px 3px;
-    border-radius: 9px;
-    font-size: .78rem;
-  }
-
-  .config-card .mode-panel {
-    margin-top: 5px;
-    padding-top: 5px;
-  }
-
-  .config-card .field-grid {
-    gap: 6px 8px;
-  }
-
-  .config-card .label-row {
-    min-height: 18px;
-  }
-
-  .config-card label {
-    font-size: .73rem;
-    line-height: 1.15;
-  }
-
-  .config-card input,
-  .config-card select {
-    min-height: 32px;
-    margin-top: 3px;
-    padding: 5px 8px;
-    border-radius: 9px;
-    font-size: .82rem;
-  }
-
-  .config-card textarea {
-    min-height: 58px;
-    padding: 7px 8px;
-    border-radius: 9px;
-    font-size: .82rem;
-  }
-
-  .config-card .field-note {
-    margin-top: 3px;
-    font-size: .66rem;
-    line-height: 1.2;
-  }
-
-  /* Optional identification and traceability stay available, collapsed by default. */
-  .config-card .optional-fields {
-    padding: 6px 7px;
-    border-radius: 10px;
-  }
-
-  .config-card .optional-fields__mobile-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 7px;
-  }
-
-  .config-card .optional-fields__mobile-head .optional-fields__title {
-    margin: 0;
-    font-size: .73rem;
-  }
-
-  .config-card .mobile-optional-toggle {
-    display: grid;
-    place-items: center;
-    width: 27px;
-    height: 27px;
-    flex: 0 0 auto;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: var(--white);
-    color: var(--green-900);
-    font-size: .78rem;
-    font-weight: 900;
-    cursor: pointer;
-  }
-
-  .config-card .optional-fields.is-mobile-collapsed > :not(.optional-fields__mobile-head) {
-    display: none !important;
-  }
-
-  .config-card .optional-fields.is-mobile-collapsed .mobile-optional-toggle {
-    transform: rotate(-90deg);
-  }
-
-  /* Put the three volume/display controls on one line. */
-  .config-card .form-section:has(#total-volume) .field-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .config-card .unit-conversion-note {
-    display: none;
-  }
-
-  .config-card .config-actions {
-    position: static;
-    gap: 6px;
-    margin: 7px 0 0;
-    padding: 0;
-    border-top: 0;
-    background: transparent;
-    backdrop-filter: none;
-  }
-
-  .config-card .config-actions .button {
-    min-height: 32px;
-    padding: 5px 8px;
-    font-size: .72rem;
-  }
-
-  body.dark-mode .config-card .mobile-optional-toggle {
-    border-color: rgba(255,255,255,.12);
-    background: #0c2119;
-    color: #f2faf5;
-  }
-}
-
-/* Extra compression for very short laptop displays. */
-@media (min-width: 1000px) and (max-height: 720px) {
-  .config-card {
-    top: var(--desktop-sticky-top, 58px) !important;
-  }
-
-  .config-card .card__inner {
-    padding: 8px 10px 9px;
-  }
-
-  .config-card .major-section-banner {
-    min-height: 36px;
-    margin-bottom: 5px;
-  }
-
-  .config-card .major-section-banner__number {
-    width: 26px;
-    height: 26px;
-  }
-
-  .config-card .form-section {
-    padding: 6px 7px;
-  }
-
-  .config-card .form-section + .form-section {
-    margin-top: 4px;
-  }
-
-  .config-card .form-section__head {
-    margin-bottom: 4px;
-  }
-
-  .config-card .format-shortcuts-block {
-    margin-bottom: 4px;
-    padding: 4px;
-  }
-
-  .config-card .format-shortcuts-block__head {
-    display: none;
-  }
-
-  .config-card .format-shortcut {
-    min-height: 27px;
-  }
-
-  .config-card input,
-  .config-card select {
-    min-height: 29px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-  }
-
-  .config-card .field-note:not(.field-error) {
-    display: none;
-  }
-
-  .config-card .config-actions {
-    margin-top: 5px;
-  }
-
-  .config-card .config-actions .button {
-    min-height: 29px;
-  }
-}
-
-
 /* First-use guide language selector */
 .onboarding-language-bar {
   display: flex;
@@ -3096,7 +2732,6 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
   border-radius: 14px;
   background: var(--green-050);
 }
-
 .onboarding-language-label {
   color: var(--green-900);
   font-size: .78rem;
@@ -3104,46 +2739,38 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
   letter-spacing: .06em;
   text-transform: uppercase;
 }
-
 .onboarding-language-switch {
   display: flex;
   align-items: center;
   gap: 6px;
 }
-
 .onboarding-language-choice {
   min-width: 70px;
   min-height: 36px;
   padding: 6px 10px;
   border-radius: 10px;
 }
-
 .onboarding-language-choice.active,
 .onboarding-language-choice[aria-pressed="true"] {
   border-color: var(--green-700);
   background: var(--green-700);
   color: #fff;
 }
-
 body.dark-mode .onboarding-language-bar {
   border-color: rgba(255,255,255,.12);
   background: #071a13;
 }
-
 body.dark-mode .onboarding-language-label {
   color: #dceee3;
 }
-
 @media (max-width: 520px) {
   .onboarding-language-bar {
     margin-right: 44px;
     padding: 7px 8px;
   }
-
   .onboarding-language-label {
     font-size: .7rem;
   }
-
   .onboarding-language-choice {
     min-width: 58px;
     min-height: 34px;
@@ -3152,182 +2779,296 @@ body.dark-mode .onboarding-language-label {
 }
 
 
-/* Short desktop top chrome reduction */
-@media (min-width: 1000px) and (max-height: 900px) {
-  /* Recover vertical space from the top chrome instead of compressing the form further. */
+
+/* CLEAN DESKTOP SYSTEM - unified header and stable split workspace */
+@media (min-width: 1000px) {
+  :root {
+    --desktop-header-height: 96px;
+  }
+
+  html {
+    scroll-padding-top: var(--desktop-header-height);
+  }
+
+  .portfolio-nav {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 140 !important;
+    background: rgba(6,31,23,.97) !important;
+    border-bottom: 1px solid rgba(220,238,227,.18) !important;
+    box-shadow: 0 10px 26px rgba(6,31,23,.13) !important;
+    backdrop-filter: blur(16px);
+  }
+
   .portfolio-nav__inner {
-    min-height: 54px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    min-height: 54px !important;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
   }
 
-  .portfolio-nav__brand-mark {
-    width: 30px;
-    height: 30px;
-    border-radius: 10px;
+  .portfolio-nav .top-controls {
+    position: static !important;
+    margin-left: 10px;
   }
 
-  .portfolio-nav__brand {
-    font-size: .92rem;
+  .portfolio-nav .workflow-status-pill,
+  .portfolio-nav .quick-actions-wrap {
+    display: none !important;
   }
 
-  .portfolio-nav__link {
-    min-height: 34px;
-    padding: 6px 9px;
-    font-size: .74rem;
+  .portfolio-nav__workflow {
+    display: block;
+    min-height: 41px;
+    border-top: 1px solid rgba(255,255,255,.08);
+    background: rgba(255,255,255,.025);
   }
 
-  .portfolio-nav .guide-trigger,
-  .portfolio-nav .customization-trigger {
-    min-height: 34px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+  .portfolio-nav__workflow .workflow-toolbar__inner {
+    width: min(100%, 1440px);
+    min-height: 41px;
+    margin: 0 auto;
+    padding: 4px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
   }
 
-  .portfolio-nav .guide-trigger__icon,
-  .portfolio-nav .customization-trigger .gear {
-    width: 20px;
-    height: 20px;
+  .portfolio-nav__workflow .workflow-toolbar__status {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .portfolio-nav__workflow .workflow-toolbar__status strong {
+    color: var(--green-300);
+    font-size: .75rem;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+  }
+
+  .portfolio-nav__workflow .workflow-toolbar__message {
+    color: rgba(243,250,245,.76);
+    font-size: .76rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .portfolio-nav__workflow .workflow-toolbar__actions {
+    display: flex;
+    gap: 5px;
+    flex: 0 0 auto;
+  }
+
+  .portfolio-nav__workflow .tool-button {
+    min-height: 30px;
+    padding: 4px 8px;
+    border-color: rgba(255,255,255,.13);
+    background: rgba(255,255,255,.07);
+    color: #f3faf5;
+    border-radius: 9px;
+    font-size: .72rem;
+  }
+
+  .portfolio-nav__workflow .tool-button:hover {
+    background: rgba(255,255,255,.12);
+  }
+
+  .portfolio-nav__workflow .tool-button[aria-pressed="true"] {
+    border-color: rgba(159,208,178,.48);
+    background: rgba(159,208,178,.18);
+    color: #fff;
+  }
+
+  body[data-workflow-status="validated"] .portfolio-nav__workflow {
+    box-shadow: inset 4px 0 0 #3f9c6f;
+  }
+  body[data-workflow-status="progress"] .portfolio-nav__workflow {
+    box-shadow: inset 4px 0 0 #d3a02f;
+  }
+  body[data-workflow-status="complete"] .portfolio-nav__workflow {
+    box-shadow: inset 4px 0 0 #3187b4;
+  }
+  body[data-workflow-status="error"] .portfolio-nav__workflow {
+    box-shadow: inset 4px 0 0 #b94d4d;
+  }
+
+  /* The hero stays in normal page flow. Once it has scrolled away,
+     the workspace exactly fills the viewport below the unified header. */
+  .workspace,
+  body.layout-split .workspace {
+    width: min(100%, 1440px) !important;
+    height: calc(100dvh - var(--desktop-header-height)) !important;
+    min-height: 0 !important;
+    margin: 0 auto !important;
+    padding: 12px 18px !important;
+    display: grid !important;
+    grid-template-columns: minmax(340px, var(--config-width)) minmax(0,1fr) !important;
+    grid-template-rows: minmax(0,1fr) !important;
+    gap: 24px !important;
+    align-items: stretch !important;
+    overflow: hidden !important;
+  }
+
+  .config-card,
+  .results-card {
+    min-height: 0 !important;
+    height: auto !important;
+    align-self: stretch !important;
+  }
+
+  .config-card {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    width: auto !important;
+    max-height: none !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    z-index: 1 !important;
+    zoom: 1 !important;
+  }
+
+  .config-card > .card__inner {
+    width: auto !important;
+    height: 100%;
+    transform: none !important;
+  }
+
+  .results-card {
+    grid-column: 2 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    padding-bottom: 28px !important;
+  }
+
+  .results-card::-webkit-scrollbar {
+    width: 9px;
+  }
+  .results-card::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .results-card::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(31,111,80,.22);
+  }
+  .results-card::-webkit-scrollbar-thumb:hover {
+    background: rgba(31,111,80,.38);
+  }
+
+  .current-step-float {
+    position: static !important;
+    top: auto !important;
+    z-index: auto !important;
+    margin: 0 0 12px !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+
+  #parameters,
+  #verification,
+  #protocol,
+  #export,
+  .major-section {
+    scroll-margin-top: 14px;
+  }
+
+  /* Laptop-height compaction keeps the whole left card visible without a scrollbar. */
+  .config-card .panel-heading {
+    display: none !important;
+  }
+
+  .config-card .mode-grid {
+    display: none !important;
+  }
+
+  .config-card .form-section:has(#stock-solution-name) {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 6px;
+  }
+
+  .config-card .form-section:has(#stock-solution-name) > .form-section__head {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+  }
+
+  .config-card .form-section:has(#stock-solution-name) > .optional-fields {
+    min-width: 0;
+    margin-top: 0 !important;
+  }
+
+  .config-card .optional-fields__mobile-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  .config-card .mobile-optional-toggle {
+    display: grid;
+    place-items: center;
+    width: 27px;
+    height: 27px;
+  }
+
+  .config-card .optional-fields.is-mobile-collapsed > :not(.optional-fields__mobile-head) {
+    display: none !important;
+  }
+
+  .config-card .form-section:has(#total-volume) .field-grid {
+    grid-template-columns: repeat(3,minmax(0,1fr));
+  }
+
+  .config-card .config-actions {
+    position: static !important;
+    margin: 7px 0 0 !important;
+    padding: 0 !important;
+    border-top: 0 !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+  }
+}
+
+@media (min-width: 1000px) and (max-height: 900px) {
+  :root {
+    --desktop-header-height: 92px;
+  }
+
+  .portfolio-nav__inner {
+    min-height: 51px !important;
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+  }
+
+  .portfolio-nav__workflow,
+  .portfolio-nav__workflow .workflow-toolbar__inner {
+    min-height: 40px;
   }
 
   .hero {
-    padding-top: 16px;
-    padding-bottom: 17px;
-  }
-
-  .hero__inner {
-    align-items: center;
-    gap: 18px;
-  }
-
-  .hero .eyebrow {
-    margin-bottom: 4px;
-    font-size: .66rem;
+    padding-top: 15px;
+    padding-bottom: 16px;
   }
 
   .hero h1 {
-    font-size: clamp(1.72rem, 2.8vw, 2.55rem);
-    line-height: 1;
+    font-size: clamp(1.75rem,2.7vw,2.55rem);
   }
 
   .hero__subtitle {
     margin-top: 7px;
-    max-width: 760px;
     font-size: .88rem;
-    line-height: 1.38;
   }
 
-  .hero__badge {
-    padding: 7px 10px;
-    font-size: .75rem;
-  }
-
-  .hero__badge-dot {
-    width: 7px;
-    height: 7px;
-  }
-
-  .workflow-toolbar {
-    top: 54px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-  }
-
-  .workflow-toolbar__message {
-    font-size: .78rem;
-  }
-
-  .tool-button {
-    min-height: 31px;
-    padding: 4px 8px;
-    font-size: .76rem;
-  }
-
-  .workspace {
-    padding-top: 14px;
-  }
-
-  .config-card {
-    top: var(--desktop-sticky-top, 62px) !important;
-  }
-}
-
-@media (min-width: 1000px) and (max-height: 720px) {
-  .portfolio-nav__inner {
-    min-height: 50px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-  }
-
-  .portfolio-nav__link {
-    min-height: 31px;
-  }
-
-  .hero {
-    padding-top: 11px;
-    padding-bottom: 12px;
-  }
-
-  .hero .eyebrow {
-    display: none;
-  }
-
-  .hero h1 {
-    font-size: clamp(1.55rem, 2.45vw, 2.15rem);
-  }
-
-  .hero__subtitle {
-    margin-top: 5px;
-    font-size: .82rem;
-    line-height: 1.3;
-  }
-
-  .hero__badge {
-    padding: 5px 8px;
-    font-size: .7rem;
-  }
-
-  .workflow-toolbar {
-    top: 50px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-  }
-
-  .workflow-toolbar__message {
-    display: none;
-  }
-
-  .tool-button {
-    min-height: 28px;
-    padding: 3px 7px;
-    font-size: .72rem;
-  }
-
-  .workspace {
-    padding-top: 10px;
-  }
-
-  .config-card {
-    top: var(--desktop-sticky-top, 58px) !important;
-  }
-}
-
-
-/* Adaptive desktop panel sizing and safe sticky offset */
-@media (min-width: 1000px) {
-  :root {
-    --desktop-sticky-top: 68px;
-  }
-
-  .config-card {
-    top: var(--desktop-sticky-top) !important;
-  }
-}
-
-/* Standard laptop screens: compact enough to fit, still comfortable to read. */
-@media (min-width: 1000px) and (max-height: 900px) {
-  :root {
-    --desktop-sticky-top: 62px;
+  .workspace,
+  body.layout-split .workspace {
+    height: calc(100dvh - var(--desktop-header-height)) !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
   }
 
   .config-card .card__inner {
@@ -3335,26 +3076,24 @@ body.dark-mode .onboarding-language-label {
   }
 
   .config-card .major-section-banner {
-    min-height: 40px;
-    margin-bottom: 6px;
+    min-height: 39px;
+    margin-bottom: 5px;
     padding: 5px 7px;
-    gap: 7px;
   }
 
   .config-card .major-section-banner__number {
-    width: 29px;
-    height: 29px;
-    font-size: .74rem;
+    width: 28px;
+    height: 28px;
+    font-size: .72rem;
   }
 
   .config-card .major-section-banner__title {
     font-size: .96rem;
   }
 
-  .config-card .major-section-banner .info-button {
-    width: 29px;
-    height: 29px;
-    min-width: 29px;
+  .config-card .major-section-banner__eyebrow,
+  .config-card .major-section-banner__meta {
+    display: none !important;
   }
 
   .config-card .form-section {
@@ -3366,6 +3105,7 @@ body.dark-mode .onboarding-language-label {
   }
 
   .config-card .form-section__head {
+    min-height: 22px;
     margin-bottom: 5px;
   }
 
@@ -3380,784 +3120,104 @@ body.dark-mode .onboarding-language-label {
 
   .config-card .format-shortcuts-block__head {
     margin-bottom: 4px;
-    font-size: .62rem;
+    font-size: .61rem;
   }
 
   .config-card .format-shortcut {
-    min-height: 31px;
-    padding: 4px;
-    font-size: .80rem;
-  }
-
-  .config-card .mode-panel {
-    margin-top: 5px;
-    padding-top: 5px;
-  }
-
-  .config-card .field-grid {
-    gap: 6px 8px;
-  }
-
-  .config-card label {
-    font-size: .75rem;
-  }
-
-  .config-card input,
-  .config-card select {
-    min-height: 33px;
-    margin-top: 3px;
-    padding: 5px 8px;
-    font-size: .84rem;
-  }
-
-  .config-card .field-note {
-    margin-top: 3px;
-    font-size: .66rem;
-    line-height: 1.18;
-  }
-
-  .config-card .normalized-preview {
-    margin-top: 5px;
-    padding: 6px 8px;
-    font-size: .74rem;
-  }
-
-  .config-card .optional-fields {
-    padding: 6px 7px;
-  }
-
-  .config-card .optional-fields__mobile-head .optional-fields__title {
-    font-size: .72rem;
-  }
-
-  .config-card .mobile-optional-toggle {
-    width: 27px;
-    height: 27px;
-    font-size: .76rem;
-  }
-
-  .config-card .config-actions {
-    margin-top: 6px;
-  }
-
-  .config-card .config-actions .button {
-    min-height: 31px;
-    padding: 5px 8px;
-    font-size: .72rem;
-  }
-}
-
-/* Only genuinely short displays receive stronger compaction. */
-@media (min-width: 1000px) and (max-height: 720px) {
-  :root {
-    --desktop-sticky-top: 58px;
-  }
-
-  .config-card .card__inner {
-    padding: 8px 10px 9px;
-  }
-
-  .config-card .major-section-banner {
-    min-height: 35px;
-    margin-bottom: 4px;
-  }
-
-  .config-card .major-section-banner__number {
-    width: 26px;
-    height: 26px;
-  }
-
-  .config-card .form-section {
-    padding: 6px 7px;
-  }
-
-  .config-card .form-section + .form-section {
-    margin-top: 4px;
-  }
-
-  .config-card .format-shortcuts-block__head {
-    display: none;
-  }
-
-  .config-card .format-shortcut {
-    min-height: 28px;
-    font-size: .74rem;
-  }
-
-  .config-card input,
-  .config-card select {
     min-height: 30px;
-    padding-top: 3px;
-    padding-bottom: 3px;
+    padding: 4px;
     font-size: .78rem;
   }
 
-  .config-card .field-note:not(.field-error),
+  .config-card .mode-panel {
+    margin-top: 4px;
+    padding-top: 4px;
+  }
+
+  .config-card .mode-panel > .field-note:not(.field-error),
   .config-card .unit-conversion-note {
     display: none !important;
   }
 
-  .config-card .normalized-preview {
-    padding: 4px 6px;
-    font-size: .68rem;
+  .config-card .field-grid {
+    gap: 5px 7px;
   }
 
-  .config-card .config-actions .button {
-    min-height: 29px;
-    font-size: .68rem;
-  }
-}
-
-
-
-/* Final adaptive desktop parameters panel */
-@media (min-width: 1000px) {
-  .config-card {
-    position: sticky !important;
-    top: var(--desktop-sticky-top-runtime, 116px) !important;
-    align-self: start;
-    max-height: none !important;
-    overflow: visible !important;
-    scrollbar-width: none !important;
+  .config-card label {
+    font-size: .74rem;
   }
 
-  .config-card::-webkit-scrollbar {
-    display: none !important;
-  }
-}
-
-/* Laptop-height screens: preserve readable sizing and save height through layout. */
-@media (min-width: 1000px) and (max-height: 900px) {
-  .config-card .card__inner {
-    padding: 11px 12px 12px;
-  }
-
-  .config-card .major-section-banner {
-    min-height: 42px;
-    margin-bottom: 6px;
-    padding: 6px 8px;
-    gap: 8px;
-    border-radius: 14px;
-  }
-
-  .config-card .major-section-banner__number {
-    width: 30px;
-    height: 30px;
-    border-radius: 9px;
-    font-size: .76rem;
-  }
-
-  .config-card .major-section-banner__title {
-    font-size: 1rem;
-  }
-
-  .config-card .major-section-banner .info-button {
-    width: 30px;
-    height: 30px;
-    min-width: 30px;
-  }
-
-  .config-card .form-section {
-    padding: 8px 9px;
-    border-radius: 13px;
-  }
-
-  .config-card .form-section + .form-section {
-    margin-top: 5px;
-  }
-
-  .config-card .form-section__head {
-    min-height: 23px;
-    margin-bottom: 5px;
-  }
-
-  .config-card .form-section__title {
-    font-size: .72rem;
-    line-height: 1.1;
-  }
-
-  .config-card .format-shortcuts-block {
-    margin-bottom: 5px;
-    padding: 6px;
-  }
-
-  .config-card .format-shortcuts-block__head {
-    margin-bottom: 5px;
-    font-size: .64rem;
-  }
-
-  .config-card .format-shortcut {
+  .config-card input,
+  .config-card select {
     min-height: 32px;
-    padding: 4px;
+    margin-top: 3px;
+    padding: 4px 7px;
     font-size: .82rem;
   }
 
-  .config-card .mode-panel {
-    margin-top: 5px;
-    padding-top: 5px;
-  }
-
-  .config-card .field-grid {
-    gap: 6px 8px;
-  }
-
-  .config-card label {
-    font-size: .78rem;
-    line-height: 1.18;
-  }
-
-  .config-card input,
-  .config-card select {
-    min-height: 35px;
-    margin-top: 3px;
-    padding: 5px 8px;
-    font-size: .86rem;
-  }
-
   .config-card .normalized-preview {
-    margin-top: 5px;
-    padding: 6px 8px;
-    font-size: .75rem;
-  }
-
-  /* The algebra help remains available through the ? button; hide its long inline note. */
-  .config-card .mode-panel > .field-note:not(.field-error),
-  .config-card .unit-conversion-note {
-    display: none !important;
-  }
-
-  /* Save vertical space without shrinking text: optional groups share one row. */
-  .config-card .form-section:has(#stock-solution-name) {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 6px;
-  }
-
-  .config-card .form-section:has(#stock-solution-name) > .form-section__head {
-    grid-column: 1 / -1;
-    margin-bottom: 0;
-  }
-
-  .config-card .form-section:has(#stock-solution-name) > .optional-fields {
-    min-width: 0;
-    margin-top: 0 !important;
-    padding: 6px 7px;
-  }
-
-  .config-card .optional-fields__mobile-head .optional-fields__title {
-    font-size: .72rem;
-  }
-
-  .config-card .mobile-optional-toggle {
-    width: 27px;
-    height: 27px;
-    font-size: .76rem;
-  }
-
-  .config-card .form-section:has(#total-volume) .field-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .config-card .config-actions {
-    margin-top: 6px;
-    gap: 6px;
-  }
-
-  .config-card .config-actions .button {
-    min-height: 32px;
-    padding: 5px 8px;
-    font-size: .73rem;
-  }
-}
-
-/* Stronger reduction only for genuinely short desktop viewports. */
-@media (min-width: 1000px) and (max-height: 690px) {
-  .config-card .card__inner {
-    padding: 8px 10px 9px;
-  }
-
-  .config-card .major-section-banner {
-    min-height: 36px;
-    margin-bottom: 4px;
-  }
-
-  .config-card .major-section-banner__number {
-    width: 26px;
-    height: 26px;
-  }
-
-  .config-card .form-section {
-    padding: 6px 7px;
-  }
-
-  .config-card .form-section + .form-section {
     margin-top: 4px;
-  }
-
-  .config-card .format-shortcuts-block__head {
-    display: none;
-  }
-
-  .config-card .format-shortcut {
-    min-height: 28px;
-    font-size: .76rem;
-  }
-
-  .config-card input,
-  .config-card select {
-    min-height: 30px;
-    font-size: .80rem;
-  }
-
-  .config-card .config-actions .button {
-    min-height: 29px;
-  }
-}
-
-
-
-
-
-/* Conditional fixed desktop parameters panel */
-@media (min-width: 1000px) {
-  .workspace {
-    position: relative;
-  }
-
-  .results-card {
-    grid-column: 2 !important;
-  }
-
-  .config-card {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    width: auto !important;
-    height: auto !important;
-    max-height: none !important;
-    margin: 0 !important;
-    overflow: visible !important;
-    z-index: auto;
-  }
-
-  body.desktop-parameters-fixed .config-card {
-    position: fixed !important;
-    top: var(--desktop-sticky-top-runtime, 116px) !important;
-    left: var(--desktop-config-left-runtime, 18px) !important;
-    width: var(--desktop-config-width-runtime, var(--config-width, 460px)) !important;
-    height: var(--desktop-config-height-runtime, calc(100vh - 126px)) !important;
-    max-height: none !important;
-    overflow: hidden !important;
-    z-index: 70;
-  }
-
-  .config-card > .card__inner {
-    transform-origin: top left;
-    transform: none;
-    width: auto;
-  }
-
-  body.desktop-parameters-fixed .config-card > .card__inner {
-    transform: scale(var(--desktop-config-scale-runtime, 1));
-    width: calc(100% / var(--desktop-config-scale-runtime, 1));
-  }
-
-  .config-card::-webkit-scrollbar {
-    display: none !important;
-  }
-}
-
-
-
-/* Stable native desktop sticky layout */
-@media (min-width: 1000px) {
-  .workspace {
-    align-items: start;
-  }
-
-  .results-card {
-    grid-column: 2 !important;
-  }
-
-  .config-card,
-  body.desktop-parameters-fixed .config-card {
-    position: sticky !important;
-    top: 108px !important;
-    left: auto !important;
-    width: auto !important;
-    height: auto !important;
-    max-height: none !important;
-    margin: 0 !important;
-    overflow: visible !important;
-    z-index: 40;
-    zoom: 1 !important;
-  }
-
-  .config-card > .card__inner,
-  body.desktop-parameters-fixed .config-card > .card__inner {
-    transform: none !important;
-    width: auto !important;
-  }
-
-  .config-card::-webkit-scrollbar {
-    display: none !important;
-  }
-}
-
-/* Comfortable laptop layout: save height through structure, not tiny text. */
-@media (min-width: 1000px) and (max-height: 900px) {
-  .config-card,
-  body.desktop-parameters-fixed .config-card {
-    top: 100px !important;
-  }
-
-  .config-card .card__inner {
-    padding: 10px 12px 11px;
-  }
-
-  .config-card .major-section-banner {
-    min-height: 40px;
-    margin-bottom: 5px;
     padding: 5px 7px;
+    font-size: .71rem;
   }
 
-  .config-card .major-section-banner__number {
-    width: 29px;
-    height: 29px;
-  }
-
-  .config-card .major-section-banner__title {
-    font-size: .98rem;
-  }
-
-  .config-card .panel-heading {
-    display: none !important;
-  }
-
-  .config-card .form-section {
-    padding: 8px 9px;
-  }
-
-  .config-card .form-section + .form-section {
-    margin-top: 5px;
-  }
-
-  .config-card .form-section__head {
-    margin-bottom: 5px;
-  }
-
-  .config-card .mode-grid {
-    display: none !important;
-  }
-
-  .config-card .format-shortcuts-block {
-    margin-bottom: 5px;
-    padding: 6px;
-  }
-
-  .config-card .format-shortcut {
-    min-height: 31px;
-  }
-
-  .config-card .mode-panel {
-    margin-top: 5px;
-    padding-top: 5px;
-  }
-
-  .config-card .mode-panel > .field-note:not(.field-error),
-  .config-card .unit-conversion-note {
-    display: none !important;
-  }
-
-  .config-card .field-grid {
-    gap: 6px 8px;
-  }
-
-  .config-card input,
-  .config-card select {
-    min-height: 34px;
-    margin-top: 3px;
-    padding: 5px 8px;
-  }
-
-  .config-card .normalized-preview {
-    margin-top: 5px;
-    padding: 6px 8px;
-  }
-
-  .config-card .form-section:has(#stock-solution-name) {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 6px;
-  }
-
-  .config-card .form-section:has(#stock-solution-name) > .form-section__head {
-    grid-column: 1 / -1;
-    margin-bottom: 0;
-  }
-
-  .config-card .form-section:has(#stock-solution-name) > .optional-fields {
-    min-width: 0;
-    margin-top: 0 !important;
-    padding: 6px 7px;
-  }
-
-  .config-card .optional-fields__mobile-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 6px;
-  }
-
-  .config-card .mobile-optional-toggle {
-    display: grid;
-    place-items: center;
-    width: 27px;
-    height: 27px;
-  }
-
-  .config-card .optional-fields.is-mobile-collapsed > :not(.optional-fields__mobile-head) {
-    display: none !important;
-  }
-
-  .config-card .form-section:has(#total-volume) .field-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .config-card .optional-fields {
+    padding: 5px 6px;
   }
 
   .config-card .config-actions {
-    position: static;
-    margin: 6px 0 0;
-    padding: 0;
-    border-top: 0;
-    background: transparent;
-    backdrop-filter: none;
+    margin-top: 5px !important;
   }
 
   .config-card .config-actions .button {
-    min-height: 31px;
+    min-height: 30px;
+    padding: 4px 7px;
+    font-size: .7rem;
   }
 }
 
 @media (min-width: 1000px) and (max-height: 720px) {
-  .config-card,
-  body.desktop-parameters-fixed .config-card {
-    top: 88px !important;
+  :root {
+    --desktop-header-height: 86px;
   }
 
-  .config-card .card__inner {
-    padding: 8px 10px 9px;
+  .portfolio-nav__workflow .workflow-toolbar__message {
+    display: none;
   }
 
-  .config-card .form-section {
-    padding: 6px 7px;
+  .portfolio-nav__workflow .tool-button span:last-child {
+    display: none;
   }
 
-  .config-card .form-section + .form-section {
-    margin-top: 4px;
+  .portfolio-nav__workflow .tool-button {
+    min-width: 30px;
+    justify-content: center;
+    padding: 3px 6px;
+  }
+
+  .hero .eyebrow {
+    display: none;
+  }
+
+  .hero {
+    padding-top: 10px;
+    padding-bottom: 11px;
   }
 
   .config-card .format-shortcuts-block__head {
     display: none;
   }
 
-  .config-card .format-shortcut {
-    min-height: 28px;
-  }
-
   .config-card input,
   .config-card select {
-    min-height: 30px;
-  }
-
-  .config-card .config-actions .button {
     min-height: 29px;
   }
 }
 
-
-
-/* FINAL OVERRIDE - observer pinned desktop parameters */
-@media (min-width: 1000px) {
-  :root {
-    --desktop-pin-top: 108px;
-    --desktop-pinned-fit: 1;
-  }
-
-  .workspace {
-    position: relative !important;
-    align-items: start !important;
-  }
-
-  .parameters-pin-sentinel {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 1px !important;
-    height: 1px !important;
-    pointer-events: none !important;
-    visibility: hidden !important;
-  }
-
-  .results-card {
-    grid-column: 2 !important;
-  }
-
-  body:not(.parameters-pinned) .config-card {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    width: auto !important;
-    height: auto !important;
-    max-height: none !important;
-    margin: 0 !important;
-    overflow: visible !important;
-    z-index: auto !important;
-    zoom: 1 !important;
-  }
-
-  body.parameters-pinned .config-card {
-    position: fixed !important;
-    top: var(--desktop-pin-top) !important;
-    left: max(18px, calc((100vw - 1440px) / 2 + 18px)) !important;
-    width: min(var(--config-width), 42vw) !important;
-    height: auto !important;
-    max-height: none !important;
-    margin: 0 !important;
-    overflow: visible !important;
-    z-index: 70 !important;
-    zoom: var(--desktop-pinned-fit) !important;
-  }
-
-  body.parameters-pinned .config-card > .card__inner,
-  body:not(.parameters-pinned) .config-card > .card__inner {
-    transform: none !important;
-    width: auto !important;
-  }
-
-  .current-step-float {
-    position: static !important;
-    top: auto !important;
-    z-index: auto !important;
-    margin: 0 0 12px !important;
-    backdrop-filter: none !important;
-    box-shadow: none !important;
-  }
-}
-
-@media (min-width: 1000px) and (max-height: 900px) {
-  :root {
-    --desktop-pin-top: 100px;
-  }
-}
-
-@media (min-width: 1000px) and (max-height: 720px) {
-  :root {
-    --desktop-pin-top: 90px;
-  }
-}
-
-
-/* FINAL DESKTOP SPLIT VIEW - fixed parameters, scrollable procedure */
-@media (min-width: 1000px) {
-  :root {
-    --desktop-workspace-top: 108px;
-  }
-
-  /* The workspace itself stays stable. Only the right column scrolls. */
-  .workspace,
-  body.layout-split .workspace {
-    position: relative !important;
-    width: min(100%, 1440px) !important;
-    height: calc(100vh - var(--desktop-workspace-top)) !important;
-    min-height: 520px !important;
-    margin: 0 auto !important;
-    padding-top: 14px !important;
-    padding-bottom: 14px !important;
-    overflow: hidden !important;
-    align-items: stretch !important;
-    grid-template-columns: minmax(340px, var(--config-width)) minmax(0, 1fr) !important;
-  }
-
-  /* Left side never moves while browsing the protocol. */
-  .config-card,
-  body.desktop-parameters-fixed .config-card,
-  body.parameters-pinned .config-card,
-  body:not(.parameters-pinned) .config-card {
-    position: static !important;
-    top: auto !important;
-    left: auto !important;
-    width: auto !important;
-    height: 100% !important;
-    max-height: none !important;
-    margin: 0 !important;
-    overflow: hidden !important;
-    align-self: stretch !important;
-    z-index: 1 !important;
-    zoom: 1 !important;
-  }
-
-  .config-card > .card__inner,
-  body.desktop-parameters-fixed .config-card > .card__inner,
-  body.parameters-pinned .config-card > .card__inner,
-  body:not(.parameters-pinned) .config-card > .card__inner {
-    width: auto !important;
-    transform: none !important;
-  }
-
-  /* Right side becomes the only vertical scrolling area. */
-  .results-card {
-    grid-column: 2 !important;
-    height: 100% !important;
-    max-height: none !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    overscroll-behavior: contain !important;
-    scrollbar-gutter: stable;
-    scroll-behavior: smooth;
-  }
-
-  .results-card::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  .results-card::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .results-card::-webkit-scrollbar-thumb {
-    border-radius: 999px;
-    background: rgba(31, 111, 80, .22);
-  }
-
-  .results-card::-webkit-scrollbar-thumb:hover {
-    background: rgba(31, 111, 80, .38);
-  }
-
-  /* No floating active-step overlay on desktop. */
-  .current-step-float {
-    position: static !important;
-    top: auto !important;
-    z-index: auto !important;
-    margin: 0 0 12px !important;
-    backdrop-filter: none !important;
-    box-shadow: none !important;
-  }
-
-  .parameters-pin-sentinel {
+/* Mobile keeps the existing single compact section header. */
+@media (max-width: 999px) {
+  .portfolio-nav__workflow {
     display: none !important;
-  }
-}
-
-/* Slightly more compact top chrome on laptop-height screens. */
-@media (min-width: 1000px) and (max-height: 900px) {
-  :root {
-    --desktop-workspace-top: 100px;
-  }
-}
-
-@media (min-width: 1000px) and (max-height: 720px) {
-  :root {
-    --desktop-workspace-top: 92px;
   }
 }
 
@@ -4357,6 +3417,21 @@ body.dark-mode .onboarding-language-label {
         </div>
       </div>
     </div>
+
+    <div class="portfolio-nav__workflow" id="workflow-toolbar" aria-label="Workflow">
+      <div class="workflow-toolbar__inner">
+            <div class="workflow-toolbar__status">
+              <strong data-i18n="workflow">Workflow</strong>
+              <span class="workflow-toolbar__message" id="workflow-message" data-i18n="workflowReady">Configurez la préparation puis vérifiez le protocole.</span>
+            </div>
+            <div class="workflow-toolbar__actions">
+              <button class="tool-button" type="button" id="history-back" data-i18n-aria="undoAria"><span aria-hidden="true">↶</span><span data-i18n="undo">Annuler</span></button>
+              <button class="tool-button" type="button" id="history-forward" data-i18n-aria="redoAria"><span aria-hidden="true">↷</span><span data-i18n="redo">Rétablir</span></button>
+              <button class="tool-button" type="button" id="protocol-lock"><span aria-hidden="true">🔓</span><span data-lock-label data-i18n="lock">Verrouiller</span></button>
+              <button class="tool-button" type="button" id="demo-mode-button"><span aria-hidden="true">▶</span><span data-i18n="demo">Démo</span></button>
+            </div>
+          </div>
+    </div>
   </nav>
 
 
@@ -4371,20 +3446,7 @@ body.dark-mode .onboarding-language-label {
     </div>
   </header>
 
-  <section class="workflow-toolbar" id="workflow-toolbar" aria-label="Workflow">
-    <div class="workflow-toolbar__inner">
-      <div class="workflow-toolbar__status">
-        <strong data-i18n="workflow">Workflow</strong>
-        <span class="workflow-toolbar__message" id="workflow-message" data-i18n="workflowReady">Configurez la préparation puis vérifiez le protocole.</span>
-      </div>
-      <div class="workflow-toolbar__actions">
-        <button class="tool-button" type="button" id="history-back" data-i18n-aria="undoAria"><span aria-hidden="true">↶</span><span data-i18n="undo">Annuler</span></button>
-        <button class="tool-button" type="button" id="history-forward" data-i18n-aria="redoAria"><span aria-hidden="true">↷</span><span data-i18n="redo">Rétablir</span></button>
-        <button class="tool-button" type="button" id="protocol-lock"><span aria-hidden="true">🔓</span><span data-lock-label data-i18n="lock">Verrouiller</span></button>
-        <button class="tool-button" type="button" id="demo-mode-button"><span aria-hidden="true">▶</span><span data-i18n="demo">Démo</span></button>
-      </div>
-    </div>
-  </section>
+
 
   <main class="workspace" id="main">
     <aside class="card config-card major-section" id="parameters" data-observe-section="parameters" aria-labelledby="config-title">
@@ -7189,17 +6251,39 @@ body.dark-mode .onboarding-language-label {
   function updateActiveSectionFromPosition() {
     const sections = Array.from(document.querySelectorAll("[data-observe-section]"));
     if (!sections.length) return;
-    const marker = 92;
+
+    const desktopSplit = window.innerWidth >= 1000;
+    const resultsPane = document.querySelector(".results-card");
     let active = sections[0];
-    const atPageEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 8;
-    if (atPageEnd) {
-      active = sections[sections.length - 1];
+
+    if (desktopSplit && resultsPane) {
+      const paneRect = resultsPane.getBoundingClientRect();
+      const marker = paneRect.top + 24;
+      const atPaneEnd = resultsPane.scrollTop + resultsPane.clientHeight >= resultsPane.scrollHeight - 8;
+
+      if (atPaneEnd) {
+        active = sections[sections.length - 1];
+      } else {
+        sections.forEach((section) => {
+          if (section === document.getElementById("parameters")) return;
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= marker) active = section;
+        });
+        if (resultsPane.scrollTop <= 4) active = sections[0];
+      }
     } else {
-      sections.forEach((section) => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= marker) active = section;
-      });
+      const marker = 92;
+      const atPageEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 8;
+      if (atPageEnd) {
+        active = sections[sections.length - 1];
+      } else {
+        sections.forEach((section) => {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= marker) active = section;
+        });
+      }
     }
+
     setActiveSection(active.dataset.observeSection);
   }
   function refreshSectionNavigation() {
@@ -7219,15 +6303,9 @@ body.dark-mode .onboarding-language-label {
   }
 
   function fitPinnedParameters() {}
-  function setParametersPinned() {
-    document.body.classList.remove("parameters-pinned", "desktop-parameters-fixed");
-  }
-  function refreshParametersPinState() {
-    setParametersPinned(false);
-  }
-  function initParametersPinning() {
-    setParametersPinned(false);
-  }
+  function setParametersPinned() {}
+  function refreshParametersPinState() {}
+  function initParametersPinning() {}
   function syncDesktopParametersFit() {}
   function syncDesktopStickyTop() {}
 
@@ -7424,8 +6502,16 @@ body.dark-mode .onboarding-language-label {
 
   if (elements.sectionMenuToggle) elements.sectionMenuToggle.addEventListener("click", toggleSectionMenu);
   elements.sectionNavLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      setActiveSection(link.dataset.navSection);
+    link.addEventListener("click", (event) => {
+      const sectionKey = link.dataset.navSection;
+      if (window.innerWidth >= 1000 && sectionKey !== "parameters") {
+        const target = document.getElementById(sectionKey);
+        if (target) {
+          event.preventDefault();
+          target.scrollIntoView({ behavior: accessibilityState.reduceMotion ? "auto" : "smooth", block: "start" });
+        }
+      }
+      setActiveSection(sectionKey);
       closeSectionMenu();
     });
   });
@@ -7439,6 +6525,8 @@ body.dark-mode .onboarding-language-label {
     initParametersPinning();
   });
   window.addEventListener("scroll", updateActiveSectionFromPosition, { passive: true });
+  const resultsPaneForScroll = document.querySelector(".results-card");
+  resultsPaneForScroll?.addEventListener("scroll", updateActiveSectionFromPosition, { passive: true });
 
   elements.customizationTrigger.addEventListener("click", () => {
     elements.customizationPanel.hidden ? openCustomization() : closeCustomization();
