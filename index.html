@@ -2745,6 +2745,53 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
   }
 }
 
+
+/* Desktop fixed parameters panel */
+@media (min-width: 1000px) {
+  .workspace {
+    align-items: start;
+  }
+
+  .config-card {
+    position: sticky !important;
+    top: 78px !important;
+    align-self: start;
+    max-height: calc(100vh - 96px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(31, 111, 80, 0.28) transparent;
+  }
+
+  .config-card::-webkit-scrollbar {
+    display: block;
+    width: 7px;
+  }
+
+  .config-card::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .config-card::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(31, 111, 80, 0.24);
+  }
+
+  .config-card::-webkit-scrollbar-thumb:hover {
+    background: rgba(31, 111, 80, 0.40);
+  }
+
+  body.dark-mode .config-card {
+    scrollbar-color: rgba(159, 208, 178, 0.30) transparent;
+  }
+
+  body.dark-mode .config-card::-webkit-scrollbar-thumb {
+    background: rgba(159, 208, 178, 0.26);
+  }
+}
+
 </style>
 </head>
 
