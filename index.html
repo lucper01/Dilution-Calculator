@@ -3083,6 +3083,74 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
   }
 }
 
+
+/* First-use guide language selector */
+.onboarding-language-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 0 48px 18px 0;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--green-050);
+}
+
+.onboarding-language-label {
+  color: var(--green-900);
+  font-size: .78rem;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.onboarding-language-switch {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.onboarding-language-choice {
+  min-width: 70px;
+  min-height: 36px;
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+
+.onboarding-language-choice.active,
+.onboarding-language-choice[aria-pressed="true"] {
+  border-color: var(--green-700);
+  background: var(--green-700);
+  color: #fff;
+}
+
+body.dark-mode .onboarding-language-bar {
+  border-color: rgba(255,255,255,.12);
+  background: #071a13;
+}
+
+body.dark-mode .onboarding-language-label {
+  color: #dceee3;
+}
+
+@media (max-width: 520px) {
+  .onboarding-language-bar {
+    margin-right: 44px;
+    padding: 7px 8px;
+  }
+
+  .onboarding-language-label {
+    font-size: .7rem;
+  }
+
+  .onboarding-language-choice {
+    min-width: 58px;
+    min-height: 34px;
+    padding: 5px 8px;
+  }
+}
+
 </style>
 </head>
 
@@ -3655,6 +3723,19 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
   <div class="onboarding-overlay" id="onboarding-overlay" hidden>
     <section class="onboarding-dialog" role="dialog" aria-modal="true" aria-labelledby="onboarding-title">
       <button class="onboarding-close" id="onboarding-close" type="button" data-i18n-aria="closeGuide" aria-label="Fermer">×</button>
+      <div class="onboarding-language-bar">
+        <span class="onboarding-language-label" data-i18n="language">Langue</span>
+        <div class="onboarding-language-switch" role="group" data-i18n-aria="languageGroup">
+          <button type="button" class="panel-choice onboarding-language-choice" data-language="fr" aria-pressed="true">
+            <span class="flag-icon flag-fr" aria-hidden="true"></span>
+            <span>FR</span>
+          </button>
+          <button type="button" class="panel-choice onboarding-language-choice" data-language="en" aria-pressed="false">
+            <span class="flag-icon flag-gb" aria-hidden="true"></span>
+            <span>EN</span>
+          </button>
+        </div>
+      </div>
       <p class="onboarding-kicker" data-i18n="onboardingKicker">Première utilisation</p>
 
       <article class="onboarding-step" data-onboarding-step="0">
@@ -4433,7 +4514,9 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
     mobileOptionalToggles: Array.from(document.querySelectorAll(".mobile-optional-toggle"))
   };
 
-  let currentLanguage = safeStorageGet(STORAGE.language) || "fr";
+  const storedLanguage = safeStorageGet(STORAGE.language);
+  const browserLanguage = String((navigator.languages && navigator.languages[0]) || navigator.language || "").toLowerCase();
+  let currentLanguage = storedLanguage || (browserLanguage.startsWith("en") ? "en" : "fr");
   let currentTheme = safeStorageGet(STORAGE.theme) || "light";
   let accessibilityState = readAccessibilityState();
   let refreshTimer = null;
