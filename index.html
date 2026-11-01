@@ -2719,6 +2719,32 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
   }
 }
 
+
+/* Desktop scroll ergonomics correction */
+@media (min-width: 761px) {
+  /* One natural page scroll: no nested scrollbar in the parameters column. */
+  .config-card {
+    position: static !important;
+    top: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    scrollbar-width: auto;
+  }
+
+  .config-card::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Keep anchored sections comfortably below the sticky navigation. */
+  #parameters,
+  #verification,
+  #protocol,
+  #export,
+  .major-section {
+    scroll-margin-top: 84px;
+  }
+}
+
 </style>
 </head>
 
@@ -4101,9 +4127,16 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
     decimalStyle: "auto",
     labContrast: false,
     volumeZoom: false,
-    autoScroll: true,
+    autoScroll: false,
     dualUnits: true
   }, readStoredJson(STORAGE.preferences, {}));
+
+  const SCROLL_ERGONOMICS_KEY = "dilution.scrollErgonomics.v1";
+  if (safeStorageGet(SCROLL_ERGONOMICS_KEY) !== "1") {
+    preferenceState.autoScroll = false;
+    writeStoredJson(STORAGE.preferences, preferenceState);
+    safeStorageSet(SCROLL_ERGONOMICS_KEY, "1");
+  }
 
   function safeStorageGet(key) {
     try { return localStorage.getItem(key); } catch (_) { return null; }
@@ -4250,7 +4283,9 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
     if (!field) return;
     requestAnimationFrame(() => {
       field.focus({ preventScroll: true });
-      field.scrollIntoView({ behavior: "smooth", block: "center" });
+      if (window.innerWidth <= 760) {
+        field.scrollIntoView({ behavior: accessibilityState.reduceMotion ? "auto" : "smooth", block: "center" });
+      }
     });
   }
   function renderOnboardingStep() {
@@ -5293,10 +5328,12 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
     refreshSectionNavigation();
     if (restorePendingScroll) {
       restorePendingScroll = false;
-      setTimeout(() => {
-        const card = document.querySelector(`[data-step-number="${activeStep}"]`);
-        if (card) card.scrollIntoView({ behavior: "auto", block: "center" });
-      }, 80);
+      if (window.innerWidth <= 760 || document.body.classList.contains("lab-fullscreen") || protocolViewMode === "single") {
+        setTimeout(() => {
+          const card = document.querySelector(`[data-step-number="${activeStep}"]`);
+          if (card) card.scrollIntoView({ behavior: "auto", block: "center" });
+        }, 80);
+      }
     }
   }
   function renderDirectUse(volume, unit, d) {
