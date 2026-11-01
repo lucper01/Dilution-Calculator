@@ -2584,6 +2584,15 @@ body[data-workflow-status="error"] .major-section-banner { border-color: rgba(18
   .mobile-sheet-action--danger { grid-column: auto; }
 }
 
+
+/* Desktop header rollback: restore the simpler pre-workflow navigation */
+@media (min-width: 761px) {
+  .portfolio-nav .workflow-status-pill,
+  .portfolio-nav .quick-actions-wrap {
+    display: none !important;
+  }
+}
+
 </style>
 </head>
 
