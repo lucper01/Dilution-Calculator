@@ -3975,6 +3975,87 @@ body.dark-mode .onboarding-language-label {
 }
 
 
+
+/* FINAL OVERRIDE - observer pinned desktop parameters */
+@media (min-width: 1000px) {
+  :root {
+    --desktop-pin-top: 108px;
+    --desktop-pinned-fit: 1;
+  }
+
+  .workspace {
+    position: relative !important;
+    align-items: start !important;
+  }
+
+  .parameters-pin-sentinel {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 1px !important;
+    height: 1px !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+  }
+
+  .results-card {
+    grid-column: 2 !important;
+  }
+
+  body:not(.parameters-pinned) .config-card {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    z-index: auto !important;
+    zoom: 1 !important;
+  }
+
+  body.parameters-pinned .config-card {
+    position: fixed !important;
+    top: var(--desktop-pin-top) !important;
+    left: max(18px, calc((100vw - 1440px) / 2 + 18px)) !important;
+    width: min(var(--config-width), 42vw) !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    z-index: 70 !important;
+    zoom: var(--desktop-pinned-fit) !important;
+  }
+
+  body.parameters-pinned .config-card > .card__inner,
+  body:not(.parameters-pinned) .config-card > .card__inner {
+    transform: none !important;
+    width: auto !important;
+  }
+
+  .current-step-float {
+    position: static !important;
+    top: auto !important;
+    z-index: auto !important;
+    margin: 0 0 12px !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+}
+
+@media (min-width: 1000px) and (max-height: 900px) {
+  :root {
+    --desktop-pin-top: 100px;
+  }
+}
+
+@media (min-width: 1000px) and (max-height: 720px) {
+  :root {
+    --desktop-pin-top: 90px;
+  }
+}
+
 </style>
 </head>
 
