@@ -3718,7 +3718,7 @@ body.dark-mode .onboarding-language-label {
 
 
 
-/* True fixed desktop parameters panel */
+/* Conditional fixed desktop parameters panel */
 @media (min-width: 1000px) {
   .workspace {
     position: relative;
@@ -3729,19 +3729,35 @@ body.dark-mode .onboarding-language-label {
   }
 
   .config-card {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    z-index: auto;
+  }
+
+  body.desktop-parameters-fixed .config-card {
     position: fixed !important;
     top: var(--desktop-sticky-top-runtime, 116px) !important;
     left: var(--desktop-config-left-runtime, 18px) !important;
     width: var(--desktop-config-width-runtime, var(--config-width, 460px)) !important;
     height: var(--desktop-config-height-runtime, calc(100vh - 126px)) !important;
     max-height: none !important;
-    margin: 0 !important;
     overflow: hidden !important;
     z-index: 70;
   }
 
   .config-card > .card__inner {
     transform-origin: top left;
+    transform: none;
+    width: auto;
+  }
+
+  body.desktop-parameters-fixed .config-card > .card__inner {
     transform: scale(var(--desktop-config-scale-runtime, 1));
     width: calc(100% / var(--desktop-config-scale-runtime, 1));
   }
@@ -3750,6 +3766,7 @@ body.dark-mode .onboarding-language-label {
     display: none !important;
   }
 }
+
 
 </style>
 </head>
@@ -6809,12 +6826,29 @@ body.dark-mode .onboarding-language-label {
     updateActiveSectionFromPosition();
   }
 
+  function desktopFixedTop() {
+    const root = document.documentElement;
+    const raw = getComputedStyle(root).getPropertyValue("--desktop-sticky-top-runtime");
+    return Number.parseFloat(raw) || 116;
+  }
+
+  function shouldFixDesktopParameters() {
+    if (window.innerWidth < 1000) return false;
+    const workspace = document.querySelector(".workspace");
+    if (!workspace) return false;
+
+    const workspaceTop = workspace.getBoundingClientRect().top + window.scrollY;
+    const trigger = workspaceTop - desktopFixedTop();
+    return window.scrollY >= trigger;
+  }
+
   function syncDesktopParametersFit() {
     const root = document.documentElement;
     const card = document.querySelector(".config-card");
     const workspace = document.querySelector(".workspace");
 
     if (!card || !workspace || window.innerWidth < 1000) {
+      document.body.classList.remove("desktop-parameters-fixed");
       root.style.removeProperty("--desktop-config-left-runtime");
       root.style.removeProperty("--desktop-config-width-runtime");
       root.style.removeProperty("--desktop-config-height-runtime");
@@ -6822,20 +6856,33 @@ body.dark-mode .onboarding-language-label {
       return;
     }
 
+    const fixed = shouldFixDesktopParameters();
+    document.body.classList.toggle("desktop-parameters-fixed", fixed);
+
+    if (!fixed) {
+      root.style.setProperty("--desktop-config-scale-runtime", "1");
+      return;
+    }
+
     const workspaceRect = workspace.getBoundingClientRect();
     const workspaceStyle = window.getComputedStyle(workspace);
     const paddingLeft = Number.parseFloat(workspaceStyle.paddingLeft) || 0;
-    const gridGap = Number.parseFloat(workspaceStyle.columnGap || workspaceStyle.gap) || 24;
+    const paddingRight = Number.parseFloat(workspaceStyle.paddingRight) || 0;
     const requestedWidth = Number.parseFloat(
       getComputedStyle(root).getPropertyValue("--config-width")
     ) || 460;
 
     const left = Math.round(workspaceRect.left + paddingLeft);
-    const availableGridWidth = Math.max(340, workspaceRect.width - paddingLeft - (Number.parseFloat(workspaceStyle.paddingRight) || 0));
-    const panelWidth = Math.min(requestedWidth, Math.max(340, availableGridWidth * 0.42));
+    const availableGridWidth = Math.max(
+      340,
+      workspaceRect.width - paddingLeft - paddingRight
+    );
+    const panelWidth = Math.min(
+      requestedWidth,
+      Math.max(340, availableGridWidth * 0.42)
+    );
 
-    const stickyTopRaw = getComputedStyle(root).getPropertyValue("--desktop-sticky-top-runtime");
-    const top = Number.parseFloat(stickyTopRaw) || 116;
+    const top = desktopFixedTop();
     const bottomGap = 10;
     const availableHeight = Math.max(360, window.innerHeight - top - bottomGap);
 
@@ -6846,7 +6893,7 @@ body.dark-mode .onboarding-language-label {
 
     requestAnimationFrame(() => {
       const inner = card.querySelector(".card__inner");
-      if (!inner) return;
+      if (!inner || !document.body.classList.contains("desktop-parameters-fixed")) return;
 
       const naturalHeight = Math.ceil(inner.scrollHeight);
       if (!naturalHeight || naturalHeight <= availableHeight) {
@@ -7091,7 +7138,10 @@ body.dark-mode .onboarding-language-label {
     }
     syncDesktopStickyTop();
   });
-  window.addEventListener("scroll", updateActiveSectionFromPosition, { passive: true });
+  window.addEventListener("scroll", () => {
+    updateActiveSectionFromPosition();
+    syncDesktopParametersFit();
+  }, { passive: true });
 
   elements.customizationTrigger.addEventListener("click", () => {
     elements.customizationPanel.hidden ? openCustomization() : closeCustomization();
