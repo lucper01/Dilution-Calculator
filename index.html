@@ -3974,6 +3974,16 @@ body.dark-mode .onboarding-language-label {
   }
 }
 
+
+/* Stable sticky bottom-boundary fix */
+@media (min-width: 1000px) {
+  .config-card,
+  body.desktop-parameters-fixed .config-card {
+    zoom: var(--desktop-static-fit, 1) !important;
+    align-self: start !important;
+  }
+}
+
 </style>
 </head>
 
@@ -5447,6 +5457,7 @@ body.dark-mode .onboarding-language-label {
     updateWorkflowStatus();
     updateUnitConversionNote();
     updateNormalizedPreview();
+    syncDesktopParametersFit();
   }
   function setLanguage(language) {
     currentLanguage = language === "en" ? "en" : "fr";
@@ -5585,7 +5596,7 @@ body.dark-mode .onboarding-language-label {
     if (elements.dualUnitToggle) elements.dualUnitToggle.checked = Boolean(preferenceState.dualUnits);
     updateUnitConversionNote();
     if (currentResult && currentInput) renderResult(currentResult, currentInput);
-    requestAnimationFrame(syncDesktopStickyTop);
+    syncDesktopParametersFit();
   }
   function setPreference(key, value) {
     preferenceState[key] = value;
@@ -7033,11 +7044,36 @@ body.dark-mode .onboarding-language-label {
   }
 
   function syncDesktopParametersFit() {
-    document.body.classList.remove("desktop-parameters-fixed");
+    const root = document.documentElement;
+    const card = document.querySelector(".config-card");
+
+    if (!card || window.innerWidth < 1000) {
+      root.style.removeProperty("--desktop-static-fit");
+      return;
+    }
+
+    root.style.setProperty("--desktop-static-fit", "1");
+
+    requestAnimationFrame(() => {
+      const style = window.getComputedStyle(card);
+      const stickyTop = Number.parseFloat(style.top) || 108;
+      const bottomGap = 12;
+      const availableHeight = Math.max(360, window.innerHeight - stickyTop - bottomGap);
+      const naturalHeight = Math.ceil(card.getBoundingClientRect().height);
+
+      if (!naturalHeight || naturalHeight <= availableHeight) {
+        root.style.setProperty("--desktop-static-fit", "1");
+        return;
+      }
+
+      const requiredFit = availableHeight / naturalHeight;
+      const fit = Math.max(0.94, Math.min(1, requiredFit));
+      root.style.setProperty("--desktop-static-fit", fit.toFixed(4));
+    });
   }
 
   function syncDesktopStickyTop() {
-    document.body.classList.remove("desktop-parameters-fixed");
+    syncDesktopParametersFit();
   }
 
   function showToast(message) {
@@ -7206,6 +7242,7 @@ body.dark-mode .onboarding-language-label {
       if (!block) return;
       const collapsed = block.classList.toggle("is-mobile-collapsed");
       button.setAttribute("aria-expanded", String(!collapsed));
+      syncDesktopParametersFit();
     });
   });
 
@@ -7244,6 +7281,7 @@ body.dark-mode .onboarding-language-label {
       closeSectionMenu();
       closeMobileActions();
     }
+    syncDesktopParametersFit();
   });
   window.addEventListener("scroll", updateActiveSectionFromPosition, { passive: true });
 
@@ -7325,6 +7363,7 @@ body.dark-mode .onboarding-language-label {
   applyAccessibility();
   applyPreferences();
   applyTranslations();
+  syncDesktopParametersFit();
 
   const storedHistory = readStoredJson(STORAGE.history, []);
   historyStack = Array.isArray(storedHistory) ? storedHistory.slice(-20) : [];
@@ -7349,6 +7388,7 @@ body.dark-mode .onboarding-language-label {
     setTimeout(() => openOnboarding(0), 250);
   }
 
+  window.addEventListener("load", syncDesktopParametersFit);
   window.addEventListener("beforeunload", saveSession);
 })();
 </script>
