@@ -3714,6 +3714,21 @@ body.dark-mode .onboarding-language-label {
   }
 }
 
+
+/* Runtime desktop panel auto-fit */
+@media (min-width: 1000px) {
+  .config-card {
+    zoom: var(--desktop-config-fit, 1);
+    transition: zoom .12s ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .config-card {
+    transition: none !important;
+  }
+}
+
 </style>
 </head>
 
@@ -6772,10 +6787,39 @@ body.dark-mode .onboarding-language-label {
     updateActiveSectionFromPosition();
   }
 
+  function syncDesktopParametersFit() {
+    const root = document.documentElement;
+    const card = document.querySelector(".config-card");
+    if (!card || window.innerWidth < 1000) {
+      root.style.removeProperty("--desktop-config-fit");
+      return;
+    }
+
+    root.style.setProperty("--desktop-config-fit", "1");
+
+    requestAnimationFrame(() => {
+      const stickyTopRaw = getComputedStyle(root).getPropertyValue("--desktop-sticky-top-runtime");
+      const stickyTop = Number.parseFloat(stickyTopRaw) || 116;
+      const safetyBottom = 10;
+      const availableHeight = Math.max(360, window.innerHeight - stickyTop - safetyBottom);
+      const naturalHeight = Math.ceil(card.getBoundingClientRect().height);
+
+      if (!naturalHeight || naturalHeight <= availableHeight) {
+        root.style.setProperty("--desktop-config-fit", "1");
+        return;
+      }
+
+      const requiredScale = availableHeight / naturalHeight;
+      const scale = Math.max(0.88, Math.min(1, requiredScale));
+      root.style.setProperty("--desktop-config-fit", scale.toFixed(4));
+    });
+  }
+
   function syncDesktopStickyTop() {
     const root = document.documentElement;
     if (window.innerWidth < 1000) {
       root.style.removeProperty("--desktop-sticky-top-runtime");
+      root.style.removeProperty("--desktop-config-fit");
       return;
     }
     const nav = document.querySelector(".portfolio-nav");
@@ -6786,8 +6830,9 @@ body.dark-mode .onboarding-language-label {
       if (style.display === "none" || style.visibility === "hidden") return 0;
       return Math.ceil(element.getBoundingClientRect().height || element.offsetHeight || 0);
     };
-    const top = visibleHeight(nav) + visibleHeight(workflow) + 10;
+    const top = visibleHeight(nav) + visibleHeight(workflow) + 8;
     root.style.setProperty("--desktop-sticky-top-runtime", `${Math.max(72, top)}px`);
+    syncDesktopParametersFit();
   }
 
   function showToast(message) {
@@ -6956,6 +7001,7 @@ body.dark-mode .onboarding-language-label {
       if (!block) return;
       const collapsed = block.classList.toggle("is-mobile-collapsed");
       button.setAttribute("aria-expanded", String(!collapsed));
+      requestAnimationFrame(syncDesktopParametersFit);
     });
   });
 
@@ -7102,6 +7148,7 @@ body.dark-mode .onboarding-language-label {
     setTimeout(() => openOnboarding(0), 250);
   }
 
+  window.addEventListener("load", syncDesktopStickyTop);
   window.addEventListener("beforeunload", saveSession);
 })();
 </script>
